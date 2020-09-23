@@ -1,0 +1,41 @@
+body {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.info {
+  color: lightgray;
+}
+
+.product {
+  float: center;
+  padding-top: 15px;
+}
+
+.image {
+  max-width: 100%;
+  max-height: auto;
+}
+
+.container {
+  column-count: 2;
+}
+
+#mainImage {
+  max-width: 100%;
+  max-height: auto;
+}
+
+#price {
+  color: gray;
+  font-size: 11px;
+}
+
+#style {
+  color: darkgray;
+  display:inline-block;
+}
+
+#styleCategory {
+  color: darkslategray;
+  display: inline-block
+}

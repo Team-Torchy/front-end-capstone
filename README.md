@@ -1,6 +1,6 @@
 # Project Name
 
-> Project description
+> This is a boilerplate that allows dynamic rendering of the app files.
 
 ## Related Projects
 
@@ -17,14 +17,24 @@
 
 ## Usage
 
-> Some usage instructions
+> To use this app, please run `npm run start` from the root directory. This will launch a server on [localhost](localhost:3000).
+
+> To build JSX files, please run `npm run build:dev` from the client folder. Webpack will now be listening for changes.
+
+> To see changes rendering, please update state OR refresh the page upon change.
 
 ## Requirements
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 - Node 6.13.0
-- etc
+- Webpack
+- Babel-CLI
+- Webpack-CLI
+- Express JS
+- React, ReactDOM
+- Nodemon
+- Axios
 
 ## Development
 

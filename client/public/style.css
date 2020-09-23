@@ -20,6 +20,27 @@ body {
   column-count: 2;
 }
 
+.style {
+  max-width: 50px;
+  max-height: auto;
+  border-radius: 75%;
+}
+
+.styleContainer {
+  padding: 10px;
+  padding-block: 5px;
+}
+
+.styleList {
+  float: auto;
+  padding: 5px;
+
+}
+
+#selected {
+  border: 4px solid blue;
+}
+
 #mainImage {
   max-width: 100%;
   max-height: auto;
@@ -33,9 +54,11 @@ body {
 #style {
   color: darkgray;
   display:inline-block;
+  padding-right: 5px;
 }
 
 #styleCategory {
   color: darkslategray;
   display: inline-block
 }
+

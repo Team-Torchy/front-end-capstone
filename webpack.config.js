@@ -18,4 +18,8 @@ module.exports = {
     filename: 'bundle.js',
     path: __dirname + '/client/public'
   }
+<<<<<<< HEAD
 };ehehehe
+=======
+};
+>>>>>>> master

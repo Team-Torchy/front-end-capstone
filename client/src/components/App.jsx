@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
+import QandA from './QandA.jsx';
 
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
-    }
+      userData: [],
+      questionsAndAnswers: []
+    };
     //bind any functions here
   }
 
@@ -14,12 +16,13 @@ class App extends Component {
 
 
   render() {
-    return(
+    return (
       <div>
         <h1>we are rendering react!!</h1>
+        <QandA />
       </div>
-    )
+    );
   }
-};
+}
 
 export default App;

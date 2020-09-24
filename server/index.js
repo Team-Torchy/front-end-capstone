@@ -4,15 +4,18 @@ const path = require('path');
 // const bodyParser = require('body-parser');
 const port = 3000;
 
-app.use(express.static(path.join(__dirname, '../client/public')), () => {
-  console.log('serving files at ', path.join(__dirname, '../client/public'))
-});
+app.use(express.static(path.join(__dirname, '../client/public')));
 // app.use(bodyParser());
 // app.use(express.urlencoded());
+app.get('/reviews/:product_id', (req, res) => {
+  console.log(req.params.product_id);
+  res.send('something');
+});
 
-app.get('/', (req, res) => {
-  res.send('Server running!')
-})
+// app.get('/', (req, res) => {
+//   res.send('Server running!')
+// })
+
 
 app.listen(port, () => {
   console.log(`server listening on port ${port}`);

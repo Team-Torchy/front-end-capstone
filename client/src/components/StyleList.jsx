@@ -5,8 +5,8 @@ var StyleList = ({ styleList, handleSelect }) => {
     <div className='styleList'>
       {styleList.map((style) => {
         return (
-          <a className='styleContainer' key={style.id} onClick={handleSelect}>
-            <img className="style" id={style.id} src={style.url} />
+          <a className='styleContainer' key={style.id}>
+            <img className="style" id={style.id} src={style.url} onClick={handleSelect}/>
           </a>
         )
       })}

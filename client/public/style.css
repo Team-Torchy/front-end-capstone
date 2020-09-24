@@ -6,8 +6,12 @@ body {
   color: lightgray;
 }
 
+.desc {
+  padding-left: 50px;
+}
+
 .product {
-  float: center;
+  float: right;
   padding-top: 15px;
 }
 
@@ -37,6 +41,15 @@ body {
 
 }
 
+.product-desc {
+  float: bottom;
+}
+
+.nav {
+  height: 50px;
+  padding-left: 50px;
+}
+
 #selected {
   border: 4px solid blue;
 }
@@ -60,5 +73,9 @@ body {
 #styleCategory {
   color: darkslategray;
   display: inline-block
+}
+
+#SpecialOverview {
+  border-left: 2px dashed lightgray;
 }
 

@@ -4,39 +4,57 @@ import Grid from '@material-ui/core/Grid';
 import StarIcon from '@material-ui/icons/StarBorder';
 import Select from 'react-select';
 
-const Selectors = ({data}) => {
+class Selectors extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: undefined,
+      options: undefined,
+      quantity: 0
+    };
+  }
 
-  if (!data) { return null; }
+  componentDidMount() {
+    // console.log(this.props);
 
-  // console.log('Data: ', data);
-  var options = Object.values(data.skus).map(sku => {
-    return sku;
-  });
+    // console.log('Data: ', data);
+    if (!this.state.data) { return null; }
+    var options = Object.values(this.props.data.skus).map(sku => {
+      return sku;
+    });
 
-  var valuesSize = options.map(option => {
-    return {'value': option.size, 'label': option.size};
-  });
+    var valuesSize = options.map(option => {
+      return { 'value': option.size, 'label': option.size };
+    });
 
-  var valuesQty = options.map(option => {
-    return {'value': option.quantity, 'label': option.quantity};
-  });
+    this.setState({
+      data: this.props.data,
+      options: options,
+    });
 
-  console.log('Sizes: ', valuesSize);
+    console.log(this.props.data);
 
-  console.log('Options: ', options);
+    console.log('Sizes: ', valuesSize);
 
-  return (
-    <Grid container>
-      <Grid item xs={7}>
-        <Select options={valuesSize} />
-        <Button>Add to Cart +</Button>
+    console.log('Options: ', options);
+  }
+
+  render() {
+    if (!this.state.data) { return 'Out of Stock'; }
+
+    return (
+      <Grid container>
+        <Grid item xs={7}>
+          <Select options={this.state.data.sizes} />
+          <Button>Add to Cart +</Button>
+        </Grid>
+        <Grid item xs={5} >
+          <Select options={this.state.data} />
+          <Button><StarIcon /></Button>
+        </Grid>
       </Grid>
-      <Grid item xs={5} >
-        <Select options={valuesQty} />
-        <Button><StarIcon /></Button>
-      </Grid>
-    </Grid>
-  );
-};
+    );
+  }
+}
 
 export default Selectors;

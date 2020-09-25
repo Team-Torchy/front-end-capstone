@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import StarIcon from '@material-ui/icons/StarBorder';
 import Select from 'react-select';
 
 const Selectors = ({data}) => {
@@ -28,9 +29,11 @@ const Selectors = ({data}) => {
     <Grid container>
       <Grid item xs={7}>
         <Select options={valuesSize} />
+        <Button>Add to Cart +</Button>
       </Grid>
       <Grid item xs={5}>
         <Select options={valuesQty} />
+        <Button><StarIcon /></Button>
       </Grid>
     </Grid>
   );

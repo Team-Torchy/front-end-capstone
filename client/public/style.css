@@ -27,7 +27,8 @@ body {
 .style {
   max-width: 50px;
   max-height: auto;
-  border-radius: 75%;
+  border-radius: 100%;
+  padding: 10px;
 }
 
 .styleContainer {

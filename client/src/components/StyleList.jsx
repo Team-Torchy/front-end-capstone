@@ -1,17 +1,27 @@
 import React from 'react';
 
-var StyleList = ({ styleList, handleSelect }) => {
+var StyleList = ({ styleList, handleSelect, setStyle }) => {
+
+  const options = styleList.map(style => {
+    return {'id': style.style_id, 'name': style.name, 'url': style.photos[0].thumbnail_url, 'selected': (style['default?'] === 1 ? true : false)};
+  });
+
+  // console.log('StyleOptions: ', options);
+  //TODO: reintroduce click logic
+
+
+
   return (
     <div className='styleList'>
-      {styleList.map((style) => {
+      {options.map(option => {
         return (
-          <a className='styleContainer' key={style.id}>
-            <img className="style" id={style.id} src={style.url} onClick={handleSelect}/>
-          </a>
-        )
+          <span key={options.indexOf(option)}>
+            <img id={option.id} className='style' src={option.url} onClick={handleSelect}></img>
+          </span>
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
 export default StyleList;

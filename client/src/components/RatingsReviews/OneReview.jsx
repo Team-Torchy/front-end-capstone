@@ -1,12 +1,10 @@
 import React from 'react';
-import StarMaker from './StarMaker.jsx';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import { Button } from '@material-ui/core';
+import { Typography, Divider, Grid, Button } from '@material-ui/core';
+import StarMaker from './StarMaker.jsx';
+import AccurateDate from './AccurateDate.jsx';
+import UserPhotosAccordion from './UserPhotosAccordion.jsx';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,6 +56,7 @@ const OneReview = (props) => {
                 <Typography variant="body2" gutterBottom>
                   {props.person.body}
                 </Typography>
+                {props.person.photos.length > 0 ? <UserPhotosAccordion photos={props.person.photos}/> : null}
                 <Typography variant="caption">
                   {props.person.recommend ? "I recommend this product" : null}
                 </Typography>
@@ -69,12 +68,12 @@ const OneReview = (props) => {
                 </Typography>
                 <Typography variant="caption" color="textSecondary">
                   {props.person.helpfulness ? "Helpful?" : null}
-                  {props.person.helpfulness ? <Button className={classes.button} size="small" style={{textTransform: 'none'}}>Yes</Button> : null}
+                  {props.person.helpfulness ? <Button className={classes.button} size="small" style={{ textTransform: 'none' }}>Yes</Button> : null}
                   {props.person.helpfulness ? "(" + props.person.helpfulness + ')' : null}
                 </Typography>
               </Grid>
             </Grid>
-            <Typography variant="caption">{props.person.reviewer_name + ", " + props.person.date}</Typography>
+            <Typography variant="caption">{props.person.reviewer_name + ", "} <AccurateDate date={props.person.date} /> </Typography>
           </Grid>
         </Grid>
         <Divider className={classes.divider} />

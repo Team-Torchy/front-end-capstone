@@ -22,14 +22,14 @@ class RatingReviewApp extends Component {
   //Methods here
   getReviews() {
     axios.get(`/reviews/${this.state.id}`)
-    .then((reviews) => {
-      this.setState({
-        dummyData: this.props.dummyData
+      .then((reviews) => {
+        this.setState({
+          dummyData: this.props.dummyData
+        })
       })
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+      .catch((error) => {
+        console.log(error);
+      })
   };
 
   nextTwo() {
@@ -55,7 +55,7 @@ class RatingReviewApp extends Component {
 
   setBool() {
     const { bool } = this.state;
-    if(bool) {
+    if (bool) {
       this.setState({
         bool: false
       })
@@ -73,7 +73,7 @@ class RatingReviewApp extends Component {
         {dummyData ? <ReviewList reviews={dummyData} num={num} /> : null}
         {this.nextConditional()}
         <Button variant="outlined" onClick={() => this.setBool()}>MORE REVIEWS +</Button>
-        {bool ? <AddAReview/> : null}
+        {bool ? <AddAReview /> : null}
       </div>
     )
   }

@@ -11,11 +11,11 @@ const testStyles = [{ 'id': 0, 'name': 'test1', 'url': 'https://pbs.twimg.com/pr
 
 const dummyData = [
   {
-		'id': 1,
-		'name': 'Camo Onesie',
-		'slogan': 'Blend in to your crowd',
-		'description': 'The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.',
-		'category': 'Jackets',
+    'id': 1,
+    'name': 'Camo Onesie',
+    'slogan': 'Blend in to your crowd',
+    'description': 'The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.',
+    'category': 'Jackets',
     'default_price': '140',
     'features': [
       {
@@ -28,24 +28,24 @@ const dummyData = [
       },
       // ...
     ],
-	},
+  },
   {
-		'id': 2,
-		'name': 'Bright Future Sunglasses',
-		'slogan': 'You\'ve got to wear shades',
-		'description': 'Where you\'re going you might not need roads, but you definitely need some shades. Give those baby blues a rest and let the future shine bright on these timeless lenses.',
-		'category': 'Accessories',
-		'default_price': '69'
-	},
+    'id': 2,
+    'name': 'Bright Future Sunglasses',
+    'slogan': 'You\'ve got to wear shades',
+    'description': 'Where you\'re going you might not need roads, but you definitely need some shades. Give those baby blues a rest and let the future shine bright on these timeless lenses.',
+    'category': 'Accessories',
+    'default_price': '69'
+  },
   {
-		'id': 3,
-		'name': 'Morning Joggers',
-		'slogan': 'Make yourself a morning person',
-		'description': 'Whether you\'re a morning person or not. Whether you\'re gym bound or not. Everyone looks good in joggers.',
-		'category': 'Pants',
-		'default_price': '40'
-	},
-	// ...
+    'id': 3,
+    'name': 'Morning Joggers',
+    'slogan': 'Make yourself a morning person',
+    'description': 'Whether you\'re a morning person or not. Whether you\'re gym bound or not. Everyone looks good in joggers.',
+    'category': 'Pants',
+    'default_price': '40'
+  },
+  // ...
 ];
 
 class ProductOverview extends React.Component {
@@ -134,7 +134,7 @@ class ProductOverview extends React.Component {
           <p className="info" id="price">${this.state.productData.default_price}</p>
           <p className='info' id='style'>{'Style >'}  </p>
           <p className="info" id="styleCategory">{this.state.productData.style}</p> <br />
-          <StyleList styleList={this.state.styleList} handleSelect={this.handleStyleSelect.bind(this)} setStyle={this.setStyle.bind(this)}/>
+          <StyleList styleList={this.state.styleList} handleSelect={this.handleStyleSelect.bind(this)} setStyle={this.setStyle.bind(this)} />
           <Selectors data={this.state.styleList[this.state.styleSelectedId]} />
         </Grid>
         <Grid container padding={3}>
@@ -143,7 +143,7 @@ class ProductOverview extends React.Component {
             <p className="desc" id="description">{this.state.productData.description}</p>
           </Grid>
           <Grid item xs={4} id="SpecialOverview">
-            <FeaturesList features={this.state.productData.features}/>
+            <FeaturesList features={this.state.productData.features} />
           </Grid>
 
         </Grid>

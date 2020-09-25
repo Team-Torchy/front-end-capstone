@@ -41,7 +41,7 @@ const dummyData = {
       "review_id": 3,
       "rating": 3.5,
       "summary": "I am liking these glasses",
-      "recommend": 0,
+      "recommend": 1,
       "response": "Glad you're enjoying the product!",
       "body": "They are very dark. But that's good because I'm in very sunny spots",
       "date": "2019-06-23T00:00:00.000Z",

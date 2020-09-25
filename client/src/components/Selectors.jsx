@@ -31,7 +31,7 @@ const Selectors = ({data}) => {
         <Select options={valuesSize} />
         <Button>Add to Cart +</Button>
       </Grid>
-      <Grid item xs={5}>
+      <Grid item xs={5} >
         <Select options={valuesQty} />
         <Button><StarIcon /></Button>
       </Grid>

@@ -7,7 +7,7 @@ class App extends Component {
     super(props);
     this.state = {
 
-    }
+    };
     //bind any functions here
   }
 
@@ -19,8 +19,8 @@ class App extends Component {
       <div>
         <ProductOverview />
       </div>
-    )
+    );
   }
-};
+}
 
 export default App;

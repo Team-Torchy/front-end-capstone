@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
 import axios from 'axios';
-import ReviewList from './ReviewList.jsx'
-
+import ReviewList from './ReviewList.jsx';
+import AddAReview from './AddAReview.jsx';
 
 class RatingReviewApp extends Component {
   constructor(props) {
@@ -10,7 +10,8 @@ class RatingReviewApp extends Component {
     this.state = {
       dummyData: false,
       num: 1,
-      id: 0
+      id: 0,
+      bool: false
     }
     //bind any functions here
     this.nextTwo = this.nextTwo.bind(this);
@@ -38,7 +39,7 @@ class RatingReviewApp extends Component {
   };
 
 
-  //PAGINATION GET REQUEST LIMIT COUNT OFFSET 
+  //PAGINATION GET REQUEST LIMIT COUNT OFFSET
   //SETUP GET REQUEST ONLY NEXT IN LINE
   //INDEX
   nextConditional() {
@@ -52,13 +53,27 @@ class RatingReviewApp extends Component {
     }
   };
 
+  setBool() {
+    const { bool } = this.state;
+    if(bool) {
+      this.setState({
+        bool: false
+      })
+    } else {
+      this.setState({
+        bool: true
+      })
+    }
+  }
+
   render() {
-    const { dummyData, num } = this.state;
+    const { dummyData, num, bool } = this.state;
     return (
       <div>
         {dummyData ? <ReviewList reviews={dummyData} num={num} /> : null}
         {this.nextConditional()}
-        <Button variant="outlined">ADD A REVIEW+</Button>
+        <Button variant="outlined" onClick={() => this.setBool()}>MORE REVIEWS +</Button>
+        {bool ? <AddAReview/> : null}
       </div>
     )
   }

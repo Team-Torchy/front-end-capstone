@@ -1,19 +1,15 @@
 import React, {Component} from 'react';
-import QandA from './QandA.jsx';
-
+import QandA from './qaComponents/QandA.jsx';
+import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userData: [],
-      questionsAndAnswers: []
+
     };
     //bind any functions here
   }
-
-  //Methods here
-
 
   render() {
     return (

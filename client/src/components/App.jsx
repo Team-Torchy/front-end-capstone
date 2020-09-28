@@ -1,10 +1,13 @@
-import React, {Component} from 'react';
+
+import React, { Component } from 'react';
+import axios from 'axios';
+import RatingReviewApp from './RatingsReviews/RatingReviewApp.jsx';
+import StarMaker from './RatingsReviews/StarMaker.jsx';
 
 import ProductOverview from './ProductOverview.jsx';
-
-
 import QandA from './qaComponents/QandA.jsx';
-import axios from 'axios';
+
+
 
 
 class App extends Component {
@@ -12,7 +15,7 @@ class App extends Component {
     super(props);
     this.state = {
 
-    };
+    }
     //bind any functions here
   }
 
@@ -22,6 +25,7 @@ class App extends Component {
 
         <ProductOverview />
         <QandA />
+        <RatingReviewApp dummyData={this.state.dummyData} />
 
       </div>
     );

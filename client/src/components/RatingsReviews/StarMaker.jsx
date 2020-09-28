@@ -8,12 +8,12 @@ import Typography from '@material-ui/core/Typography';
 const StarMaker = (props) => {
   return (
     <Rating
-          name="simple-controlled"
-          value={props.rating}
-          precision={0.25}
-          size="small"
-          readOnly
-        />
+      name="simple-controlled"
+      value={props.rating}
+      precision={0.25}
+      size="small"
+      readOnly
+    />
   );
 };
 

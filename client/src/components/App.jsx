@@ -1,5 +1,13 @@
-import React, {Component} from 'react';
+
+import React, { Component } from 'react';
+import axios from 'axios';
+import RatingReviewApp from './RatingsReviews/RatingReviewApp.jsx';
+import StarMaker from './RatingsReviews/StarMaker.jsx';
+
 import ProductOverview from './ProductOverview.jsx';
+import QandA from './qaComponents/QandA.jsx';
+
+
 
 
 class App extends Component {
@@ -11,13 +19,14 @@ class App extends Component {
     //bind any functions here
   }
 
-  //Methods here
-
-
   render() {
     return (
       <div>
+
         <ProductOverview />
+        <QandA />
+        <RatingReviewApp dummyData={this.state.dummyData} />
+
       </div>
     );
   }

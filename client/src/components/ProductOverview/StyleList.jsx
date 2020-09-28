@@ -15,7 +15,7 @@ var StyleList = ({ styleList, handleSelect, setStyle }) => {
     <div className='styleList'>
       {options.map(option => {
         return (
-          <span key={options.indexOf(option)}>
+          <span className='frame' key={options.indexOf(option)}>
             <img id={option.id} className='style' src={option.url} onClick={handleSelect}></img>
           </span>
         );

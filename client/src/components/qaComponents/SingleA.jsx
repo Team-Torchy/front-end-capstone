@@ -9,7 +9,6 @@ import Paper from '@material-ui/core/Paper';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import AnswerPhoto from './AnswerPhoto.jsx';
 import dummyAnswersData from '../../dummyAnswersData.js';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,12 +35,12 @@ const useStyles = makeStyles((theme) => ({
 
 const SingleA = (props) => {
   const [answersData, setAnswersData] = useState(dummyAnswersData);
-  console.log('SingleA answersData: ', answersData);
+  // console.log('SingleA answersData: ', answersData);
   const classes = useStyles();
 
   return (
     <div>
-      <Grid item xs={12} container direction="column" justify="flex-start">
+      <Grid className={classes.root} item xs={12} container direction="column" justify="flex-start">
         <Grid item xs={8}>
           A: {props.answer.body}
         </Grid>
@@ -54,7 +53,7 @@ const SingleA = (props) => {
           ))}
         </GridList>
 
-        <Grid item xs={10}>
+        <Grid item xs={12}>
           by {props.answer.answerer_name}, {props.answer.date} | Helpful? Yes (
           {props.answer.helpfulness}) | Report
         </Grid>

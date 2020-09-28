@@ -24,7 +24,7 @@ const SingleQ = (props) => {
   const classes = useStyles();
   const [answersData, setAnswersData] = useState(dummyAnswersData);
   // const [questionsData, setQuestionsData] = useState(dummyQuestionsData);
-  console.log('This is answersData: ,', answersData);
+  // console.log('This is answersData: ,', answersData);
   // console.log('This is questionsData: ,', questionsData);
 
   return (

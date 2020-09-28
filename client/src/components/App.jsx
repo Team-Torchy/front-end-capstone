@@ -5,8 +5,6 @@ import RatingReviewApp from './RatingsReviews/RatingReviewApp.jsx';
 import StarMaker from './RatingsReviews/StarMaker.jsx';
 
 import ProductOverview from './ProductOverview.jsx';
-
-
 import QandA from './qaComponents/QandA.jsx';
 
 

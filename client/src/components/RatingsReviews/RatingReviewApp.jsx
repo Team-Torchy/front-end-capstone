@@ -21,15 +21,13 @@ class RatingReviewApp extends Component {
   }
   //Methods here
   getReviews() {
-    axios.get(`/reviews/${this.state.id}`)
-      .then((reviews) => {
-        this.setState({
-          dummyData: this.props.dummyData
-        })
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+    axios.get(`/reviews/1`)
+    .then((results) => {
+      console.log(results.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   };
 
   nextTwo() {
@@ -37,6 +35,8 @@ class RatingReviewApp extends Component {
       num: this.state.num += 2
     })
   };
+
+
 
 
   //PAGINATION GET REQUEST LIMIT COUNT OFFSET

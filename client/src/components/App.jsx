@@ -1,25 +1,35 @@
+
 import React, { Component } from 'react';
 import axios from 'axios';
-import dummyData from '/Users/alecbrock/front-end-capstone/client/dummyData.js';
 import RatingReviewApp from './RatingsReviews/RatingReviewApp.jsx';
 import StarMaker from './RatingsReviews/StarMaker.jsx';
+import dummyData from '../../dummyData.js'
+import ProductOverview from './ProductOverview.jsx';
+import QandA from './qaComponents/QandA.jsx';
+
+
+
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dummyData
+      dummyData: dummyData,
     }
     //bind any functions here
   }
 
-
   render() {
     return (
       <div>
+
+        <ProductOverview />
+        <QandA />
         <RatingReviewApp dummyData={this.state.dummyData} />
+
       </div>
-    )
+    );
   }
-};
+}
 
 export default App;

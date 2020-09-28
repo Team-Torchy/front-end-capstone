@@ -21,8 +21,6 @@ class App extends Component {
       <div>
 
         <ProductOverview />
-=======
-        <h1>we are rendering react!!</h1>
         <QandA />
 
       </div>

@@ -56,6 +56,8 @@ class ProductOverview extends React.Component {
       productData: {},
       styleList: [],
       styleSelectedId: 0,
+      imgURL: '',
+      styleName: '',
     };
     this.handleStyleSelect.bind(this);
   }
@@ -63,6 +65,7 @@ class ProductOverview extends React.Component {
   componentDidMount() {
     this.getProductData();
     this.getStylesForProduct();
+    this.getImagesForProduct();
   }
 
   getProductData() {
@@ -85,19 +88,31 @@ class ProductOverview extends React.Component {
 
         this.setState({
           styleList: res.data.results,
-          styleSelectedId: 1
+          styleSelectedId: 1,
+          imgURL: res.data.results[0].photos[0].url,
+          styleName: res.data.results[0].name
+        }, () => {
+          console.log(this.state);
         });
       });
   }
 
   setStyle(id) {
     this.setState({
-      styleSelectedId: id
+      styleSelectedId: id,
+      imgURL: this.state.styleList[id - 1].photos[0].url,
+      styleName: this.state.styleList[id - 1].name
     });
   }
 
   getImagesForProduct() {
-
+    if (this.state.styleList[this.state.styleSelectedId]) {
+      this.setState({
+        imgURL: this.state.styleList[this.state.styleSelectedId].photos[0].url
+      }, () => {
+        console.log(this.state.imgURL);
+      });
+    }
   }
 
   updateBorder(style) {
@@ -120,11 +135,11 @@ class ProductOverview extends React.Component {
       >
         <Grid container id="NavBar" style={{ 'background': 'darkgray', 'height': '50px' }}>
           <Grid item xs={12}>
-            <span className="nav">navbar</span>
+            <span className="nav"></span>
           </Grid>
         </Grid>
         <Grid item xs={6}>
-          <img className="image" id="mainImage" src={this.state.productImg} /><br />
+          <img className="image" id="mainImage" src={this.state.imgURL} /><br />
         </Grid>
 
         <Grid item xs={5}>
@@ -133,9 +148,9 @@ class ProductOverview extends React.Component {
           <h1>{this.state.productData.name}</h1>
           <p className="info" id="price">${this.state.productData.default_price}</p>
           <p className='info' id='style'>{'Style >'}  </p>
-          <p className="info" id="styleCategory">{this.state.productData.style}</p> <br />
+          <p className="info" id="styleCategory">{this.state.styleName}</p> <br />
           <StyleList styleList={this.state.styleList} handleSelect={this.handleStyleSelect.bind(this)} setStyle={this.setStyle.bind(this)} />
-          <Selectors data={this.state.styleList[this.state.styleSelectedId]} />
+          <Selectors data={this.state.styleName} />
         </Grid>
         <Grid container padding={3}>
           <Grid m={3} item xs={8}>

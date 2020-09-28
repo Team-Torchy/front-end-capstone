@@ -18,6 +18,13 @@ class Selectors extends React.Component {
 
   componentDidMount() {
     this.setSelectors();
+    console.log(this.props);
+  }
+
+  componentDidUpdate() {
+    if (this.props.data !== this.state.data) {
+      this.setSelectors();
+    }
   }
 
   setSelectors() {
@@ -25,18 +32,14 @@ class Selectors extends React.Component {
     this.setState({
       data: this.props.data
     }, () => {
-      var sizes = Object.values(this.state.data.skus).map(sku => {
-        console.log(sku.size);
-        return { value: sku.quantity, label: sku.size };
-      });
+      var sizes = this.getSizes();
       this.setState({
         sizes,
         size: sizes[0].label,
         quantity: sizes[0].value
       }, () => {
-        var quantities = this.getQuantities(this.state.quantity);
         this.setState({
-          quantities
+          quantities: this.getQuantities(this.state.quantity)
         }, () => {
           console.log(this.state);
         });
@@ -50,6 +53,7 @@ class Selectors extends React.Component {
       size: e.label,
       quantity: e.value
     }, () => {
+      // console.log(this.getQuantities(e.value));
       this.setState({
         quantities: this.getQuantities(e.value)
       });
@@ -66,20 +70,32 @@ class Selectors extends React.Component {
     return quantities;
   }
 
+  getSizes() {
+    var sizes = Object.values(this.state.data.skus).map(sku => {
+      console.log(sku.size);
+      return { value: sku.quantity, label: sku.size };
+    });
+    return sizes;
+  }
+
   render() {
     if (!this.state.sizes) { return 'Out of Stock'; }
     if (this.state.sizes) {
       return (
         <Grid container>
-          <Grid item xs={12}>
-            <Select
-              defaultValue={{ label: this.state.size, value: this.state.size }}
-              options={this.state.sizes}
-              onChange={this.handleChange.bind(this)}>
-            </Select>
-            <Select
-              defaultValue={{ label: 'Quantity...', value: 0 }}
-              options={this.state.quantities}></Select>
+          <Grid container>
+            <Grid item xs={7}>
+              <Select
+                defaultValue={{ label: this.state.size, value: this.state.size }}
+                options={this.state.sizes}
+                onChange={this.handleChange.bind(this)}>
+              </Select>
+            </Grid>
+            <Grid item xs={5}>
+              <Select
+                defaultValue={{ label: 'Quantity...', value: 0 }}
+                options={this.state.quantities}></Select>
+            </Grid>
           </Grid>
           <Grid item xs={12} >
             <Button>Add to Cart +</Button>

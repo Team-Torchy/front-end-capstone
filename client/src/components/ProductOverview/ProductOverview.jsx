@@ -58,6 +58,7 @@ class ProductOverview extends React.Component {
       styleSelectedId: 0,
       imgURL: '',
       styleName: '',
+      price: 0
     };
     this.handleStyleSelect.bind(this);
   }
@@ -117,13 +118,15 @@ class ProductOverview extends React.Component {
     }
   }
 
-  updateBorder(style) {
-    style.style = 'border: 4px solid blue';
-  }
-
   handleStyleSelect(e) {
     console.log(e.target.id);
     this.setStyle(e.target.id);
+  }
+
+  updatePrice(price) {
+    this.setState({
+      price
+    }, console.log(price));
   }
 
   render() {
@@ -148,11 +151,11 @@ class ProductOverview extends React.Component {
           <p className="info" id='ratings'>***** read all reviews</p>
           <p className="info" id='category'> {'Category >'} {this.state.productData.category}</p>
           <h1>{this.state.productData.name}</h1>
-          <p className="info" id="price">${this.state.productData.default_price}</p>
+          <p className="info" id="price">${this.state.price}</p>
           <p className='info' id='style'>{'Style >'}  </p>
           <p className="info" id="styleCategory">{this.state.styleName}</p> <br />
           <StyleList styleList={this.state.styleList} handleSelect={this.handleStyleSelect.bind(this)} setStyle={this.setStyle.bind(this)} />
-          {this.state.styleList[this.state.styleSelectedId] ? <Selectors data={this.state.styleList[this.state.styleSelectedId]} style={this.state.styleName} /> : null }
+          {this.state.styleList[this.state.styleSelectedId] ? <Selectors data={this.state.styleList[this.state.styleSelectedId]} style={this.state.styleName} updatePrice={this.updatePrice.bind(this)}/> : null }
         </Grid>
         <Grid container padding={3}>
           <Grid m={3} item xs={8}>

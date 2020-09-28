@@ -12,18 +12,22 @@ class Selectors extends React.Component {
       sizes: undefined,
       size: '',
       quantity: 0,
-      quantities: []
+      quantities: [],
     };
   }
 
   componentDidMount() {
     this.setSelectors();
+    this.props.updatePrice(this.props.data.sale_price > 0 ? this.props.data.sale_price : this.props.data.original_price)
     console.log(this.props);
   }
 
   componentDidUpdate() {
     if (this.props.data !== this.state.data) {
       this.setSelectors();
+    }
+    if (this.props.data !== this.state.data) {
+      this.props.updatePrice(this.props.data.sale_price > 0 ? this.props.data.sale_price : this.props.data.original_price)
     }
   }
 

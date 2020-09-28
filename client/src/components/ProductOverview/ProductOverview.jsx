@@ -102,6 +102,8 @@ class ProductOverview extends React.Component {
       styleSelectedId: id,
       imgURL: this.state.styleList[id - 1].photos[0].url,
       styleName: this.state.styleList[id - 1].name
+    }, () => {
+      console.log(this.state.styleList[this.state.styleSelectedId]);
     });
   }
 
@@ -150,7 +152,7 @@ class ProductOverview extends React.Component {
           <p className='info' id='style'>{'Style >'}  </p>
           <p className="info" id="styleCategory">{this.state.styleName}</p> <br />
           <StyleList styleList={this.state.styleList} handleSelect={this.handleStyleSelect.bind(this)} setStyle={this.setStyle.bind(this)} />
-          <Selectors data={this.state.styleName} />
+          {this.state.styleList[this.state.styleSelectedId] ? <Selectors data={this.state.styleList[this.state.styleSelectedId - 1]} /> : null }
         </Grid>
         <Grid container padding={3}>
           <Grid m={3} item xs={8}>

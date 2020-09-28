@@ -9,51 +9,86 @@ class Selectors extends React.Component {
     super(props);
     this.state = {
       data: undefined,
-      options: undefined,
-      quantity: 0
+      sizes: undefined,
+      size: '',
+      quantity: 0,
+      quantities: []
     };
   }
 
   componentDidMount() {
-    // console.log(this.props);
+    this.setSelectors();
+  }
 
-    // console.log('Data: ', data);
-    if (!this.state.data) { return null; }
-    var options = Object.values(this.props.data.skus).map(sku => {
-      return sku;
-    });
-
-    var valuesSize = options.map(option => {
-      return { 'value': option.size, 'label': option.size };
-    });
-
+  setSelectors() {
+    //import data to state
     this.setState({
-      data: this.props.data,
-      options: options,
+      data: this.props.data
+    }, () => {
+      var sizes = Object.values(this.state.data.skus).map(sku => {
+        console.log(sku.size);
+        return { value: sku.quantity, label: sku.size };
+      });
+      this.setState({
+        sizes,
+        size: sizes[0].label,
+        quantity: sizes[0].value
+      }, () => {
+        var quantities = this.getQuantities(this.state.quantity);
+        this.setState({
+          quantities
+        }, () => {
+          console.log(this.state);
+        });
+      });
     });
+  }
 
-    console.log(this.props.data);
+  handleChange(e) {
+    console.log(e);
+    this.setState({
+      size: e.label,
+      quantity: e.value
+    }, () => {
+      this.setState({
+        quantities: this.getQuantities(e.value)
+      });
+    });
+  }
 
-    console.log('Sizes: ', valuesSize);
+  getQuantities(quant) {
+    var quantities = [];
 
-    console.log('Options: ', options);
+    for (var i = 1; i <= quant; i++) {
+      quantities.push({ value: i, label: i });
+    }
+
+    return quantities;
   }
 
   render() {
-    if (!this.state.data) { return 'Out of Stock'; }
-
-    return (
-      <Grid container>
-        <Grid item xs={7}>
-          <Select options={this.state.data.sizes} />
-          <Button>Add to Cart +</Button>
+    if (!this.state.sizes) { return 'Out of Stock'; }
+    if (this.state.sizes) {
+      return (
+        <Grid container>
+          <Grid item xs={12}>
+            <Select
+              defaultValue={{ label: this.state.size, value: this.state.size }}
+              options={this.state.sizes}
+              onChange={this.handleChange.bind(this)}>
+            </Select>
+            <Select
+              defaultValue={{ label: 'Quantity...', value: 0 }}
+              options={this.state.quantities}></Select>
+          </Grid>
+          <Grid item xs={12} >
+            <Button>Add to Cart +</Button>
+            <Button><StarIcon /></Button>
+          </Grid>
         </Grid>
-        <Grid item xs={5} >
-          <Select options={this.state.data} />
-          <Button><StarIcon /></Button>
-        </Grid>
-      </Grid>
-    );
+      );
+    }
+    return null;
   }
 }
 

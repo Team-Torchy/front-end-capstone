@@ -25,3 +25,4 @@ build/
 dist/
 
 client/public/bundle.js
+package-lock.json

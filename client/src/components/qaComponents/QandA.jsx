@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 const QandA = (props) => {
   const [questionsData, setQuestionsData] = useState(dummyQuestionsData);
-  console.log('This is the questions data: ', questionsData);
+  // console.log('This is the questions data: ', questionsData);
   const classes = useStyles();
 
   return (
@@ -40,6 +40,9 @@ const QandA = (props) => {
         {questionsData.results.map((question, i) => {
           return <SingleQ key={i} question={question} />;
         })}
+
+        <Grid item xs={12}>Load More Answers</Grid>
+
         <Grid item xs={8} container spacing={2}>
           <Button variant="contained" className={classes.button}>MORE ANSWERED QUESTIONS</Button>
           <Button variant="contained" className={classes.button}>ADD A QUESTION +</Button>

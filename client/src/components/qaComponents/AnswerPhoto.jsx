@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -9,8 +9,6 @@ import Paper from '@material-ui/core/Paper';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import AnswerPhoto from './AnswerPhoto.jsx';
-import dummyAnswersData from '../../dummyAnswersData.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,37 +32,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SingleA = (props) => {
-  const [answersData, setAnswersData] = useState(dummyAnswersData);
-  console.log('SingleA answersData: ', answersData);
+const AnswerPhoto = (props) => {
   const classes = useStyles();
 
   return (
-    <div>
-      <Grid item xs={12} container direction="column" justify="flex-start">
-        <Grid item xs={8}>
-          A: {props.answer.body}
-        </Grid>
+    <div className={classes.root}>
+      <GridList className={classes.gridList} cols={2.5}>
+        {props.answer.photos.map((image, i) => (
+          <GridListTile key={i}>
+            <img src={image.url} />
 
-        <GridList className={classes.gridList} cols={2.5}>
-          {props.answer.photos.map((image, i) => (
-            <GridListTile key={i}>
-              <img src={image.url} />
-            </GridListTile>
-          ))}
-        </GridList>
-
-        <Grid item xs={10}>
-          by {props.answer.answerer_name}, {props.answer.date} | Helpful? Yes (
-          {props.answer.helpfulness}) | Report
-        </Grid>
-      </Grid>
+          </GridListTile>
+        ))}
+      </GridList>
     </div>
   );
 };
 
-export default SingleA;
+export default AnswerPhoto;
 
-// {props.answer.photos.map((image, i) => {
-//   return <AnswerPhoto key={i} image={image} />;
-// })}
+{/* <GridListTileBar
+  title={tile.title}
+  classes={{
+    root: classes.titleBar,
+    title: classes.title,
+  }}
+  actionIcon={
+    <IconButton aria-label={`star ${tile.title}`}>
+      <StarBorderIcon className={classes.title} />
+    </IconButton>
+  }
+/>; */}

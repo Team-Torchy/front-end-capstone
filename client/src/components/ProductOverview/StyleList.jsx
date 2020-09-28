@@ -14,11 +14,20 @@ var StyleList = ({ styleList, handleSelect, setStyle }) => {
   return (
     <div className='styleList'>
       {options.map(option => {
-        return (
-          <span className='frame' key={options.indexOf(option)}>
-            <img id={option.id} className='style' src={option.url} onClick={handleSelect}></img>
-          </span>
-        );
+        if (options.indexOf(option) + 1 !== 5) {
+          return (
+            <span className='frame' key={options.indexOf(option)}>
+              <img id={option.id} className='style' src={option.url} onClick={handleSelect}></img>
+            </span>
+          );
+        } else {
+          return (
+            <span className='frame' key={options.indexOf(option)}>
+              <br />
+              <img id={option.id} className='style' src={option.url} onClick={handleSelect}></img>
+            </span>
+          );
+        }
       })}
     </div>
   );

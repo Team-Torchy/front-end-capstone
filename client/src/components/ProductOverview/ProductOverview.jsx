@@ -7,6 +7,7 @@ import FeaturesList from './FeaturesList.jsx';
 import Selectors from './Selectors.jsx';
 import StarMaker from '../RatingsReviews/StarMaker.jsx';
 import ImageGallery from './ImageGallery.jsx';
+import NavBar from './NavBar.jsx';
 
 const apiURL = 'http://18.224.37.110';
 
@@ -133,11 +134,8 @@ class ProductOverview extends React.Component {
         spacing={3}
         id="OverviewContainer"
       >
-        <Grid container id="NavBar" style={{ 'background': 'darkgray', 'height': '50px' }}>
-          <Grid item xs={12}>
-            <span className="nav"></span>
-          </Grid>
-        </Grid>
+        <NavBar />
+
         <Grid item id='gallery' xs={6}>
           <ImageGallery data={this.state.galleryImages} img={this.state.imgURL} changeImg={this.changeImage.bind(this)} />
           <br />

@@ -12,7 +12,7 @@ class ImageGallery extends React.Component {
   render() {
     return (
       <Grid container>
-        <Grid item xs={12} >
+        <Grid id='imageContainer' item xs={12} >
           <img className="image" id="mainImage" src={this.props.img} />
         </Grid>
         <Grid item xs={3} >

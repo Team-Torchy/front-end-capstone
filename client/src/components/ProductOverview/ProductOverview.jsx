@@ -131,7 +131,7 @@ class ProductOverview extends React.Component {
             <span className="nav"></span>
           </Grid>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item id='gallery' xs={6}>
           <ImageGallery data={this.state.galleryImages} img={this.state.imgURL}/>
           <br />
         </Grid>

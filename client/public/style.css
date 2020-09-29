@@ -57,8 +57,9 @@ body {
 }
 
 #mainImage {
-  max-width: auto;
-  height: auto;
+  height: 480px;
+  overflow: hidden;
+  object-fit: cover;
 }
 
 #price {
@@ -93,6 +94,11 @@ body {
   padding-bottom: 15px;
   padding-left: 15px;
 
+}
+
+#imageContainer {
+  height: 50px;
+  width: auto;
 }
 
 .galleryImage {

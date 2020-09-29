@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 const QandA = (props) => {
   const [questionsData, setQuestionsData] = useState(dummyQuestionsData);
-  console.log('This is the questions data: ', questionsData);
+  // console.log('This is the questions data: ', questionsData);
   const classes = useStyles();
 
   return (

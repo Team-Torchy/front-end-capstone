@@ -18,8 +18,8 @@ class Selectors extends React.Component {
 
   componentDidMount() {
     this.setSelectors();
-    this.props.updatePrice(this.props.data.sale_price > 0 ? this.props.data.sale_price : this.props.data.original_price)
-    console.log(this.props);
+    this.props.updatePrice(this.props.data.sale_price > 0 ? this.props.data.sale_price : this.props.data.original_price);
+    // console.log(this.props);
   }
 
   componentDidUpdate() {
@@ -27,7 +27,7 @@ class Selectors extends React.Component {
       this.setSelectors();
     }
     if (this.props.data !== this.state.data) {
-      this.props.updatePrice(this.props.data.sale_price > 0 ? this.props.data.sale_price : this.props.data.original_price)
+      this.props.updatePrice(this.props.data.sale_price > 0 ? this.props.data.sale_price : this.props.data.original_price);
     }
   }
 
@@ -45,14 +45,14 @@ class Selectors extends React.Component {
         this.setState({
           quantities: this.getQuantities(this.state.quantity)
         }, () => {
-          console.log(this.state);
+          // console.log(this.state);
         });
       });
     });
   }
 
   handleChange(e) {
-    console.log(e);
+    // console.log(e);
     this.setState({
       size: e.label,
       quantity: e.value
@@ -76,7 +76,7 @@ class Selectors extends React.Component {
 
   getSizes() {
     var sizes = Object.values(this.state.data.skus).map(sku => {
-      console.log(sku.size);
+      // console.log(sku.size);
       return { value: sku.quantity, label: sku.size };
     });
     return sizes;

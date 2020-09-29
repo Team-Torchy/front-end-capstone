@@ -5,7 +5,7 @@ import StyleList from './StyleList.jsx';
 import axios from 'axios';
 import FeaturesList from './FeaturesList.jsx';
 import Selectors from './Selectors.jsx';
-import StarMaker from '../RatingsReviews/StarMaker.jsx'
+import StarMaker from '../RatingsReviews/StarMaker.jsx';
 
 const apiURL = 'http://18.224.37.110';
 const testStyles = [{ 'id': 0, 'name': 'test1', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }, { 'id': 1, 'name': 'test2', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }, { 'id': 2, 'name': 'test3', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }, { 'id': 3, 'name': 'test4', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }];
@@ -81,7 +81,7 @@ class ProductOverview extends React.Component {
         });
       })
       .then(() => {
-        console.log(this.state.productData);
+        // console.log(this.state.productData);
       });
   }
 
@@ -90,25 +90,25 @@ class ProductOverview extends React.Component {
       .then(res => {
 
         var results = res.data.results.map(result => {
-          return result.rating
-        })
+          return result.rating;
+        });
 
         var total = 0;
         for (var i = 0; i < results.length; i++) {
-          total += results[i]
+          total += results[i];
         }
         total = total / 5;
-        console.log("stars", total)
+        // console.log('stars', total);
         this.setState({
           review: total
-        })
-      })
+        });
+      });
   }
 
   getStylesForProduct() {
     axios.get(`${apiURL}/products/${this.state.productId}/styles`)
       .then(res => {
-        console.log(res.data.results);
+        // console.log(res.data.results);
 
         this.setState({
           styleList: res.data.results,
@@ -116,7 +116,7 @@ class ProductOverview extends React.Component {
           imgURL: res.data.results[0].photos[0].url,
           styleName: res.data.results[0].name
         }, () => {
-          console.log(this.state);
+          // console.log(this.state);
         });
       });
   }
@@ -127,7 +127,7 @@ class ProductOverview extends React.Component {
       imgURL: this.state.styleList[id - 1].photos[0].url,
       styleName: this.state.styleList[id - 1].name
     }, () => {
-      console.log(this.state.styleList[this.state.styleSelectedId]);
+      // console.log(this.state.styleList[this.state.styleSelectedId]);
     });
   }
 
@@ -136,20 +136,20 @@ class ProductOverview extends React.Component {
       this.setState({
         imgURL: this.state.styleList[this.state.styleSelectedId].photos[0].url
       }, () => {
-        console.log(this.state.imgURL);
+        // console.log(this.state.imgURL);
       });
     }
   }
 
   handleStyleSelect(e) {
-    console.log(e.target.id);
+    // console.log(e.target.id);
     this.setStyle(e.target.id);
   }
 
   updatePrice(price) {
     this.setState({
       price
-    }, console.log(price));
+    });
   }
 
   render() {

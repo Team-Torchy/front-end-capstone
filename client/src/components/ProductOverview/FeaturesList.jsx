@@ -1,7 +1,7 @@
 import React from 'react';
 
 const FeaturesList = ({ features }) => {
-  console.log(features);
+  // console.log(features);
   if (!features) { return null; }
   return (
     <ul>

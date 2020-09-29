@@ -8,32 +8,42 @@ class RatingReviewApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dummyData: false,
-      num: 1,
-      id: 0,
-      bool: false
+      reviewData: false,
+      product_id: props.num,
+      page: 1,
+      bool: false,
+      lengthTest: false
     }
     //bind any functions here
     this.nextTwo = this.nextTwo.bind(this);
+    this.nextConditional = this.nextConditional.bind(this);
   }
   componentDidMount() {
     this.getReviews();
   }
   //Methods here
   getReviews() {
-    axios.get(`/reviews/1`)
-    .then((results) => {
-      console.log(results.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`)
+      .then((results) => {
+        console.log(results.data.results);
+        this.setState({
+          reviewData: results.data.results
+        })
+      })
+      .then((x) => {
+        this.nextConditional();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
-  nextTwo() {
+  nextTwo(event) {
+    event.preventDefault();
     this.setState({
-      num: this.state.num += 2
+      page: this.state.page += 1
     })
+    this.getReviews();
   };
 
 
@@ -43,16 +53,25 @@ class RatingReviewApp extends Component {
   //SETUP GET REQUEST ONLY NEXT IN LINE
   //INDEX
   nextConditional() {
-    const { dummyData, num } = this.state;
-    if (dummyData && dummyData.results.length > 2) {
-      if (dummyData.results[num] || dummyData.results[num - 1]) {
-        return <Button variant="outlined" onClick={() => this.nextTwo()}>MORE REVIEWS</Button>
-      } else {
-        return null;
-      }
-    }
-  };
+    const { reviewData, page, lengthTest } = this.state,
+      next = page + 1;
+    axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${next}`)
+      .then((results) => {
+        this.setState({
+          lengthTest: results.data.results.length
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    };
 
+    // if (results.data.results.length > 0) {
+    //   console.log(results.data.results.length, 'inside if');
+    //   return <Button variant="outlined" onClick={() => this.nextTwo()}>MORE REVIEWS</Button>
+    // } else {
+    //   return null;
+    // }
   setBool() {
     const { bool } = this.state;
     if (bool) {
@@ -67,11 +86,11 @@ class RatingReviewApp extends Component {
   }
 
   render() {
-    const { dummyData, num, bool } = this.state;
+    const { reviewData, bool, lengthTest } = this.state;
     return (
       <div>
-        {dummyData ? <ReviewList reviews={dummyData} num={num} /> : null}
-        {this.nextConditional()}
+        {reviewData ? <ReviewList reviews={reviewData} /> : null}
+        {lengthTest ? <Button variant="outlined" onClick={(event) => this.nextTwo(event)}>MORE REVIEWS</Button> : null}
         <Button variant="outlined" onClick={() => this.setBool()}>MORE REVIEWS +</Button>
         {bool ? <AddAReview /> : null}
       </div>

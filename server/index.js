@@ -9,17 +9,35 @@ const port = 3000;
 app.use(express.static(path.join(__dirname, '../client/public')));
 // app.use(bodyParser());
 // app.use(express.urlencoded());
-
+let getReposByUsername = (id, cb) => {
+  // TODO - Use the axios module to request repos for a specific
+  // user from the github API
+  // The options object has been provided to help you out,
+  // but you'll have to fill in the URL
+  let options = {
+    url: 'http://18.224.37.110/reviews/:' + `${id}`,
+    headers: {
+      'User-Agent': 'request',
+    }
+  };
+  request.get(options, (err, response, body) => {
+    if(err) {
+      cb(err, null);
+    } else {
+      cb(null, body);
+    }
+  });
+}
 
 app.get('/reviews/:product_id', (req, res) => {
 
   // console.log('this is the id', req.params.product_id);
-  axios.get(`http://18.224.37.110/reviews/${req.params.product_id}`)
-  .then((result) => {
-    console.log(result.data)
-  })
-  .catch((err) => {
-    console.log(err);
+  getReposByUsername(req.params.product_id, (err, body) => {
+    if(err) {
+      console.log(err)
+    } else {
+      console.log(body);
+    }
   })
   // res.send('something');
 });

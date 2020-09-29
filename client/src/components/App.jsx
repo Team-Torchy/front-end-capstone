@@ -14,7 +14,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dummyData: dummyData,
+
     }
     //bind any functions here
   }
@@ -25,7 +25,7 @@ class App extends Component {
 
         <ProductOverview />
         <QandA />
-        <RatingReviewApp dummyData={this.state.dummyData} />
+        <RatingReviewApp num={1} />
 
       </div>
     );

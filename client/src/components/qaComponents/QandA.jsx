@@ -35,9 +35,8 @@ const QandA = (props) => {
   // console.log('This is the questions data.id: ', questionsData.id);
   const classes = useStyles();
 
+  //GET Request for "List Questions" API
   useEffect(() => {
-    // GET request using axios inside useEffect React hook
-
     axios.get(`http://18.224.37.110/qa/questions/?product_id=${questionsData.id}&count=4&page=1`)
       .then((response) => {
         console.log('This is the axios.get response.data: ', response.data);

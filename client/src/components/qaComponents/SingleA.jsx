@@ -1,15 +1,10 @@
-import React, {useState} from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import dummyAnswersData from '../../dummyAnswersData.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SingleA = (props) => {
-  const [answersData, setAnswersData] = useState(dummyAnswersData);
+  // const [answersData, setAnswersData] = useState();
   // console.log('SingleA answersData: ', answersData);
   const classes = useStyles();
 
@@ -45,6 +40,7 @@ const SingleA = (props) => {
           A: {props.answer.body}
         </Grid>
 
+        {/* map over images in answer */}
         <GridList className={classes.gridList} cols={2.5}>
           {props.answer.photos.map((image, i) => (
             <GridListTile key={i}>
@@ -54,8 +50,7 @@ const SingleA = (props) => {
         </GridList>
 
         <Grid item xs={12}>
-          by {props.answer.answerer_name}, {props.answer.date} | Helpful? Yes (
-          {props.answer.helpfulness}) | Report
+          by {props.answer.answerer_name}, {props.answer.date} | Helpful? Yes ({props.answer.helpfulness}) | Report
         </Grid>
       </Grid>
     </div>

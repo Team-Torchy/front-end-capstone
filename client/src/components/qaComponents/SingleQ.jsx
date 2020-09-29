@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import SingleA from './SingleA.jsx';
-import dummyAnswersData from '../../dummyAnswersData.js';
+
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -22,10 +21,17 @@ const useStyles = makeStyles(theme => ({
 
 const SingleQ = (props) => {
   const classes = useStyles();
-  const [answersData, setAnswersData] = useState(dummyAnswersData);
-  // const [questionsData, setQuestionsData] = useState(dummyQuestionsData);
-  // console.log('This is answersData: ,', answersData);
-  // console.log('This is questionsData: ,', questionsData);
+  const [answersData, setAnswersData] = useState({results: [], question: 1});
+  //GET Request for "Answers List" API for specific question id's answers
+  useEffect(() => {
+    axios.get(`http://18.224.37.110/qa/questions/${props.question.question_id}/answers`)
+      .then((response) => {
+        console.log('This is the axios.get response.data: ', response.data);
+        setAnswersData(response.data);
+      })
+      .catch(error => console.error(error));
+  // empty dependency array means this effect will only run once (like componentDidMount in classes)
+  }, []);
 
   return (
     <div>

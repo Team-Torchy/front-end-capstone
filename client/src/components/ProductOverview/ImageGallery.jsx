@@ -16,7 +16,7 @@ class ImageGallery extends React.Component {
           <img className="image" id="mainImage" src={this.props.img} />
         </Grid>
         <Grid item xs={3} >
-          <GallerySelectors />
+          <GallerySelectors data={this.props.data}/>
         </Grid>
       </Grid>
     );

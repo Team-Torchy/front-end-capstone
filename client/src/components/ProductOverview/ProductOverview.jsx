@@ -9,46 +9,6 @@ import StarMaker from '../RatingsReviews/StarMaker.jsx';
 import ImageGallery from './ImageGallery.jsx';
 
 const apiURL = 'http://18.224.37.110';
-const testStyles = [{ 'id': 0, 'name': 'test1', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }, { 'id': 1, 'name': 'test2', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }, { 'id': 2, 'name': 'test3', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }, { 'id': 3, 'name': 'test4', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }];
-
-const dummyData = [
-  {
-    'id': 1,
-    'name': 'Camo Onesie',
-    'slogan': 'Blend in to your crowd',
-    'description': 'The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.',
-    'category': 'Jackets',
-    'default_price': '140',
-    'features': [
-      {
-        'feature': 'Sole',
-        'value': 'Rubber'
-      },
-      {
-        'feature': 'Material',
-        'value': 'FullControlSkin'
-      },
-      // ...
-    ],
-  },
-  {
-    'id': 2,
-    'name': 'Bright Future Sunglasses',
-    'slogan': 'You\'ve got to wear shades',
-    'description': 'Where you\'re going you might not need roads, but you definitely need some shades. Give those baby blues a rest and let the future shine bright on these timeless lenses.',
-    'category': 'Accessories',
-    'default_price': '69'
-  },
-  {
-    'id': 3,
-    'name': 'Morning Joggers',
-    'slogan': 'Make yourself a morning person',
-    'description': 'Whether you\'re a morning person or not. Whether you\'re gym bound or not. Everyone looks good in joggers.',
-    'category': 'Pants',
-    'default_price': '40'
-  },
-  // ...
-];
 
 class ProductOverview extends React.Component {
   constructor(props) {
@@ -61,7 +21,8 @@ class ProductOverview extends React.Component {
       imgURL: '',
       styleName: '',
       price: 0,
-      review: 0
+      review: 0,
+      galleryImages: []
     };
     this.handleStyleSelect.bind(this);
   }
@@ -117,7 +78,9 @@ class ProductOverview extends React.Component {
           imgURL: res.data.results[0].photos[0].url,
           styleName: res.data.results[0].name
         }, () => {
-          // console.log(this.state);
+          this.setState({
+            galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos
+          })
         });
       });
   }
@@ -128,7 +91,9 @@ class ProductOverview extends React.Component {
       imgURL: this.state.styleList[id - 1].photos[0].url,
       styleName: this.state.styleList[id - 1].name
     }, () => {
-      // console.log(this.state.styleList[this.state.styleSelectedId]);
+      this.setState({
+        galleryImages: this.state.styleList[this.state.styleSelectedId].photos
+      })
     });
   }
 
@@ -136,8 +101,6 @@ class ProductOverview extends React.Component {
     if (this.state.styleList[this.state.styleSelectedId]) {
       this.setState({
         imgURL: this.state.styleList[this.state.styleSelectedId].photos[0].url
-      }, () => {
-        // console.log(this.state.imgURL);
       });
     }
   }
@@ -145,6 +108,7 @@ class ProductOverview extends React.Component {
   handleStyleSelect(e) {
     // console.log(e.target.id);
     this.setStyle(e.target.id);
+
   }
 
   updatePrice(price) {
@@ -168,7 +132,7 @@ class ProductOverview extends React.Component {
           </Grid>
         </Grid>
         <Grid item xs={6}>
-          <ImageGallery img={this.state.imgURL}/>
+          <ImageGallery data={this.state.galleryImages} img={this.state.imgURL}/>
           <br />
         </Grid>
 

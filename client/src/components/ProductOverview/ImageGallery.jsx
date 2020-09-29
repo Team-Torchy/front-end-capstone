@@ -9,6 +9,11 @@ class ImageGallery extends React.Component {
 
     };
   }
+
+  componentDidMount() {
+    // console.log(this.props.changeImg)
+  }
+
   render() {
     return (
       <Grid container>
@@ -16,7 +21,7 @@ class ImageGallery extends React.Component {
           <img className="image" id="mainImage" src={this.props.img} />
         </Grid>
         <Grid item xs={3} >
-          <GallerySelectors data={this.props.data}/>
+          <GallerySelectors data={this.props.data} changeImg={this.props.changeImg} />
         </Grid>
       </Grid>
     );

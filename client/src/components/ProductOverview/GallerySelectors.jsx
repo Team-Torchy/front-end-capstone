@@ -9,9 +9,10 @@ const GallerySelectors = (props) => {
     <Grid container>
       <Grid item id='overlay'>
         {props.data.map((img) => {
+          // console.log(props)
           return (
             <div className='selector' key={props.data.indexOf(img)}>
-              <img className='galleryImage' src={img.thumbnail_url}></img> <br />
+              <img className='galleryImage' data-imgurl={img.url} src={img.thumbnail_url} onClick={props.changeImg}></img> <br />
             </div>
           )
         })}

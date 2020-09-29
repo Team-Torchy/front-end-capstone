@@ -111,6 +111,13 @@ class ProductOverview extends React.Component {
 
   }
 
+  changeImage(e) {
+    // console.log(e.target.getAttribute('data-imgurl'))
+    this.setState({
+      imgURL: e.target.getAttribute('data-imgurl')
+    })
+  }
+
   updatePrice(price) {
     this.setState({
       price
@@ -132,7 +139,7 @@ class ProductOverview extends React.Component {
           </Grid>
         </Grid>
         <Grid item id='gallery' xs={6}>
-          <ImageGallery data={this.state.galleryImages} img={this.state.imgURL}/>
+          <ImageGallery data={this.state.galleryImages} img={this.state.imgURL} changeImg={this.changeImage.bind(this)} />
           <br />
         </Grid>
 

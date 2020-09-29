@@ -5,6 +5,7 @@ import StyleList from './StyleList.jsx';
 import axios from 'axios';
 import FeaturesList from './FeaturesList.jsx';
 import Selectors from './Selectors.jsx';
+import StarMaker from '../RatingsReviews/StarMaker.jsx'
 
 const apiURL = 'http://18.224.37.110';
 const testStyles = [{ 'id': 0, 'name': 'test1', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }, { 'id': 1, 'name': 'test2', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }, { 'id': 2, 'name': 'test3', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }, { 'id': 3, 'name': 'test4', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }];
@@ -58,7 +59,8 @@ class ProductOverview extends React.Component {
       styleSelectedId: 0,
       imgURL: '',
       styleName: '',
-      price: 0
+      price: 0,
+      review: 0
     };
     this.handleStyleSelect.bind(this);
   }
@@ -67,6 +69,7 @@ class ProductOverview extends React.Component {
     this.getProductData();
     this.getStylesForProduct();
     this.getImagesForProduct();
+    this.getReviewAverage();
   }
 
   getProductData() {
@@ -80,6 +83,26 @@ class ProductOverview extends React.Component {
       .then(() => {
         console.log(this.state.productData);
       });
+  }
+
+  getReviewAverage() {
+    axios.get(`${apiURL}/reviews/?product_id=${this.state.productId}`)
+      .then(res => {
+
+        var results = res.data.results.map(result => {
+          return result.rating
+        })
+
+        var total = 0;
+        for (var i = 0; i < results.length; i++) {
+          total += results[i]
+        }
+        total = total / 5;
+        console.log("stars", total)
+        this.setState({
+          review: total
+        })
+      })
   }
 
   getStylesForProduct() {
@@ -148,7 +171,7 @@ class ProductOverview extends React.Component {
         </Grid>
 
         <Grid item xs={5}>
-          <p className="info" id='ratings'>***** read all reviews</p>
+          <p className="info" id='ratings'><StarMaker rating={this.state.review}/></p>
           <p className="info" id='category'> {'Category >'} {this.state.productData.category}</p>
           <h1>{this.state.productData.name}</h1>
           <p className="info" id="price">${this.state.price}</p>

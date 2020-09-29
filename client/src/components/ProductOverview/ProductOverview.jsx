@@ -6,6 +6,7 @@ import axios from 'axios';
 import FeaturesList from './FeaturesList.jsx';
 import Selectors from './Selectors.jsx';
 import StarMaker from '../RatingsReviews/StarMaker.jsx';
+import ImageGallery from './ImageGallery.jsx';
 
 const apiURL = 'http://18.224.37.110';
 const testStyles = [{ 'id': 0, 'name': 'test1', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }, { 'id': 1, 'name': 'test2', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }, { 'id': 2, 'name': 'test3', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }, { 'id': 3, 'name': 'test4', 'url': 'https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e_400x400.jpg' }];
@@ -167,7 +168,8 @@ class ProductOverview extends React.Component {
           </Grid>
         </Grid>
         <Grid item xs={6}>
-          <img className="image" id="mainImage" src={this.state.imgURL} /><br />
+          <ImageGallery img={this.state.imgURL}/>
+          <br />
         </Grid>
 
         <Grid item xs={5}>

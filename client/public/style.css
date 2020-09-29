@@ -32,6 +32,10 @@ body {
   border-radius: 100%;
 }
 
+.style:hover {
+  transform: scale(1.15);
+}
+
 .styleContainer {
   padding: 10px;
   padding-block: 5px;
@@ -50,10 +54,6 @@ body {
 .nav {
   height: 50px;
   padding-left: 50px;
-}
-
-#selected {
-
 }
 
 #mainImage {
@@ -79,5 +79,21 @@ body {
 
 #SpecialOverview {
   border-left: 2px dashed lightgray;
+}
+
+#overlay {
+  position: fixed;
+  top: 70px;
+  z-index: 9;
+}
+
+.selector {
+  width: 50px;
+  height: auto;
+  padding-bottom: 15px;
+}
+
+.selector:hover {
+  transform: scale(1.15)
 }
 

@@ -31,13 +31,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const QandA = (props) => {
-  const [questionsData, setQuestionsData] = useState(dummyQuestionsData);
-  console.log('This is the questions data: ', questionsData);
+  const [questionsData, setQuestionsData] = useState({results: [], id: 1});
+  // console.log('This is the questions data.id: ', questionsData.id);
   const classes = useStyles();
 
   useEffect(() => {
     // GET request using axios inside useEffect React hook
-    axios.get(`http://18.224.37.110/qa/questions/?product_id=1`)
+
+    axios.get(`http://18.224.37.110/qa/questions/?product_id=${questionsData.id}&count=4&page=1`)
       .then((response) => {
         console.log('This is the axios.get response.data: ', response.data);
         setQuestionsData(response.data);

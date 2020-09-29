@@ -138,6 +138,11 @@ body {
   z-index: 100;
 }
 
+#cart {
+  display: block;
+  float: right;
+}
+
 #imageContainer {
   height: 50px;
   width: auto;

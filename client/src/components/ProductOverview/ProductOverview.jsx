@@ -155,7 +155,7 @@ class ProductOverview extends React.Component {
           <p className='info' id='style'>{'Style >'}  </p>
           <p className="info" id="styleCategory">{this.state.styleName}</p> <br />
           <StyleList styleList={this.state.styleList} handleSelect={this.handleStyleSelect.bind(this)} setStyle={this.setStyle.bind(this)} />
-          {this.state.styleList[this.state.styleSelectedId] ? <Selectors data={this.state.styleList[this.state.styleSelectedId - 1]} style={this.state.styleName} updatePrice={this.updatePrice.bind(this)} addToCart={this.addToCart.bind(this)}/> : null }
+          {this.state.styleList[this.state.styleSelectedId] ? <Selectors data={this.state.styleList[this.state.styleSelectedId]} style={this.state.styleName} updatePrice={this.updatePrice.bind(this)} addToCart={this.addToCart.bind(this)}/> : null }
         </Grid>
         <Grid container padding={3}>
           <Grid m={3} item xs={8}>

@@ -16,7 +16,9 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/system": "^4.9.14",
     "axios": "^0.20.0",
+    "clsx": "^1.1.1",
     "express": "^4.17.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },

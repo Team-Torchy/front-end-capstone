@@ -8,6 +8,14 @@ import SingleA from './SingleA.jsx';
 
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    width: '70%',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
+  },
   button: {
     margin: theme.spacing(1),
   },

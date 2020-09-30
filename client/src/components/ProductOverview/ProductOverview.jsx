@@ -16,6 +16,7 @@ class ProductOverview extends React.Component {
     super(props);
     this.state = {
       productId: 1,
+      skuId: 1,
       productData: {},
       styleList: [],
       styleSelectedId: 0,
@@ -23,7 +24,8 @@ class ProductOverview extends React.Component {
       styleName: '',
       price: 0,
       review: 0,
-      galleryImages: []
+      galleryImages: [],
+      cart: []
     };
     this.handleStyleSelect.bind(this);
   }
@@ -35,6 +37,10 @@ class ProductOverview extends React.Component {
     this.getReviewAverage();
   }
 
+  addToCart() {
+    console.log('add to cart', this.state.productId)
+  }
+
   getProductData() {
     axios.get(`${apiURL}/products/${this.state.productId}`)
       .then((res) => {
@@ -44,7 +50,7 @@ class ProductOverview extends React.Component {
         });
       })
       .then(() => {
-        // console.log(this.state.productData);
+        console.log(this.state.productData);
       });
   }
 
@@ -71,7 +77,7 @@ class ProductOverview extends React.Component {
   getStylesForProduct() {
     axios.get(`${apiURL}/products/${this.state.productId}/styles`)
       .then(res => {
-        // console.log(res.data.results);
+        console.log(res.data.results);
 
         this.setState({
           styleList: res.data.results,
@@ -149,7 +155,7 @@ class ProductOverview extends React.Component {
           <p className='info' id='style'>{'Style >'}  </p>
           <p className="info" id="styleCategory">{this.state.styleName}</p> <br />
           <StyleList styleList={this.state.styleList} handleSelect={this.handleStyleSelect.bind(this)} setStyle={this.setStyle.bind(this)} />
-          {this.state.styleList[this.state.styleSelectedId] ? <Selectors data={this.state.styleList[this.state.styleSelectedId]} style={this.state.styleName} updatePrice={this.updatePrice.bind(this)}/> : null }
+          {this.state.styleList[this.state.styleSelectedId] ? <Selectors data={this.state.styleList[this.state.styleSelectedId - 1]} style={this.state.styleName} updatePrice={this.updatePrice.bind(this)} addToCart={this.addToCart.bind(this)}/> : null }
         </Grid>
         <Grid container padding={3}>
           <Grid m={3} item xs={8}>

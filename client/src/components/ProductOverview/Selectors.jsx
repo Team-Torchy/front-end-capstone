@@ -13,6 +13,7 @@ class Selectors extends React.Component {
       size: '',
       quantity: 0,
       quantities: [],
+      currentSku: 1
     };
   }
 
@@ -20,6 +21,8 @@ class Selectors extends React.Component {
     this.setSelectors();
     this.props.updatePrice(this.props.data.sale_price > 0 ? this.props.data.sale_price : this.props.data.original_price);
     // console.log(this.props);
+
+
   }
 
   componentDidUpdate() {
@@ -29,6 +32,10 @@ class Selectors extends React.Component {
     if (this.props.data !== this.state.data) {
       this.props.updatePrice(this.props.data.sale_price > 0 ? this.props.data.sale_price : this.props.data.original_price);
     }
+  }
+
+  addToCart() {
+    this.props.addToCart();
   }
 
   setSelectors() {
@@ -52,7 +59,14 @@ class Selectors extends React.Component {
   }
 
   handleChange(e) {
-    // console.log(e);
+    console.log(e);
+
+    for (var sku in this.state.data.skus) {
+      if ( e === sku ) {
+        this.setSku(sku);
+      }
+    }
+
     this.setState({
       size: e.label,
       quantity: e.value
@@ -74,9 +88,16 @@ class Selectors extends React.Component {
     return quantities;
   }
 
+  setSku(selectedSku) {
+    this.setState({
+      currentSku: selectedSku
+    }, console.log(this.state.currentSku))
+  }
+
   getSizes() {
+    console.log(this.state.data.skus)
     var sizes = Object.values(this.state.data.skus).map(sku => {
-      // console.log(sku.size);
+      console.log(sku);
       return { value: sku.quantity, label: sku.size };
     });
     return sizes;
@@ -90,7 +111,7 @@ class Selectors extends React.Component {
           <Grid container>
             <Grid item xs={7}>
               <Select
-                defaultValue={{ label: this.state.size, value: this.state.size }}
+                defaultValue={{ label: 'Select a size...', value: this.state.size }}
                 options={this.state.sizes}
                 onChange={this.handleChange.bind(this)}>
               </Select>
@@ -102,7 +123,7 @@ class Selectors extends React.Component {
             </Grid>
           </Grid>
           <Grid item xs={12} >
-            <Button>Add to Cart +</Button>
+            <Button onClick={this.addToCart.bind(this)}>Add to Cart +</Button>
             <Button><StarIcon /></Button>
           </Grid>
         </Grid>

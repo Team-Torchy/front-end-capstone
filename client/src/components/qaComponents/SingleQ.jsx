@@ -34,7 +34,7 @@ const SingleQ = (props) => {
   useEffect(() => {
     axios.get(`http://18.224.37.110/qa/questions/${props.question.question_id}/answers`)
       .then((response) => {
-        console.log('This is the axios.get response.data: ', response.data);
+        // console.log('This is the axios.get response.data: ', response.data);
         setAnswersData(response.data);
       })
       .catch(error => console.error(error));
@@ -57,6 +57,10 @@ const SingleQ = (props) => {
         {answersData.results.map((answer, i) => {
           return <SingleA key={i} answer={answer} />;
         })}
+
+
+        <Grid item xs={12}>LOAD MORE ANSWERS</Grid>
+
       </Grid>
     </div>
   );

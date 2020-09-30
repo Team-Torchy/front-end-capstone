@@ -8,7 +8,6 @@ import GridListTile from '@material-ui/core/GridListTile';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
     width: '70%',
     display: 'flex',
     flexWrap: 'wrap',

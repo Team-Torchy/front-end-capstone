@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
@@ -8,20 +8,27 @@ import Input from '@material-ui/core/Input';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
+    top: '10%',
+    left: '10%',
     position: 'absolute',
     width: 500,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    outline: 0
   },
+  button: {
+    margin: theme.spacing(1),
+  }
 }));
 
 const AddQuestion = (props) => {
   const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
-  // const [modalStyle] = useState(getModalStyle); style={modalStyle}(this last part goes on line 31 if needed)
   const [open, setOpen] = useState(false);
+  const [questionModal, setQuestionModal] = useState({question: '', email: '', nickname: ''});
+  //use props instead of hooks for questionsData access
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -31,23 +38,27 @@ const AddQuestion = (props) => {
     setOpen(false);
   };
 
+  const handleChange = e => {
+    setQuestionModal({...questionModal, [e.target.name]: e.target.value});
+  };
+
   const body = (
     <div className={classes.paper}>
       <h2 id="add-question-title">Ask Your Question</h2>
       <h3 id="add-question-subtitle">About the [PRODUCT NAME]</h3>
 
       <h4 id="add-question-description">Your Question *</h4>
-      <TextareaAutosize aria-label="minimum height" rowsMin={6}/>
+      <TextField required fullWidth name="question" variant="outlined" multiline rows={6} onChange={handleChange}/>
 
       <h4 id="add-nickname-description">What is your Nickname? *</h4>
-      <TextField fullWidth variant="outlined" placeholder="Example: Jackson11!"/>
+      <TextField required fullWidth name="nickname" variant="outlined" placeholder="Example: Jackson11!" onChange={handleChange}/>
       <h5 id="nickname-description-warning"><em>For privacy reasons, do not use your full name or email address.</em></h5>
 
       <h4 id="add-email-description">Your Email *</h4>
-      <TextField fullWidth variant="outlined" placeholder="Why did you like the product or not?"/>
+      <TextField required fullWidth name="email" variant="outlined" placeholder="Why did you like the product or not?" helperText="Incorrect entry." onChange={handleChange}/>
       <h5 id="nickname-description-warning"><em>For authentication reasons, you will not be emailed.</em></h5>
 
-      <AddQuestion />
+      <Button variant="outlined" type="submit" className={classes.button}>Submit</Button>
     </div>
   );
 

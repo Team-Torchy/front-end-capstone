@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     background:
       'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
   },
+  button: {
+    margin: theme.spacing(1),
+  }
 }));
 
 const QandA = (props) => {
@@ -59,6 +62,8 @@ const QandA = (props) => {
   // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
+  console.log('This is the NEW questionsData state', questionsData);
+
   return (
     <div>
       <Grid container spacing={2} direction="column" >
@@ -74,8 +79,6 @@ const QandA = (props) => {
         {questionsData.results.map((question, i) => {
           return <SingleQ key={i} question={question} />;
         })}
-
-        <Grid item xs={12}>Load More Answers</Grid>
 
         <Grid item xs={8} container spacing={2}>
           <Button variant="contained" className={classes.button}>MORE ANSWERED QUESTIONS</Button>

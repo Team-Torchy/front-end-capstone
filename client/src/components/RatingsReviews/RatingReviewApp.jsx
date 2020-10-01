@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 import axios from 'axios';
 import ReviewList from './ReviewList.jsx';
 import AddAReview from './AddAReview.jsx';
-
+import dummyData from '/Users/alecbrock/front-end-capstone/client/dummyData.js';
 class RatingReviewApp extends Component {
   constructor(props) {
     super(props);
@@ -25,10 +25,18 @@ class RatingReviewApp extends Component {
   getReviews() {
     axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`)
       .then((results) => {
-        console.log(results.data.results);
+        if(!this.state.reviewData) {
+          console.log(results.data.results);
         this.setState({
           reviewData: results.data.results
         })
+      } else {
+        let holder = [...this.state.reviewData, ...results.data.results];
+        console.log(holder);
+        this.setState({
+          reviewData: holder
+        })
+      }
       })
       .then((x) => {
         this.nextConditional();
@@ -89,7 +97,7 @@ class RatingReviewApp extends Component {
     const { reviewData, bool, lengthTest } = this.state;
     return (
       <div>
-        {reviewData ? <ReviewList reviews={reviewData} /> : null}
+        {reviewData ? <ReviewList reviews={reviewData.results} /> : null}
         {lengthTest ? <Button variant="outlined" onClick={(event) => this.nextTwo(event)}>MORE REVIEWS</Button> : null}
         <Button variant="outlined" onClick={() => this.setBool()}>MORE REVIEWS +</Button>
         {bool ? <AddAReview /> : null}

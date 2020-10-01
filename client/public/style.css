@@ -25,9 +25,15 @@ body {
 }
 
 .style {
-  max-width: 50px;
-  max-height: auto;
-  border-radius: 75%;
+  object-fit: cover;
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+  border-radius: 100%;
+}
+
+.style:hover {
+  transform: scale(1.15);
 }
 
 .styleContainer {
@@ -50,13 +56,35 @@ body {
   padding-left: 50px;
 }
 
-#selected {
-  border: 4px solid blue;
+#fullscreenContainer {
+  position: fixed;
+  margin: auto;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(51, 51, 51, 0.7);
+  z-index: 9;
+}
+
+.fullscreenImage {
+  display: block;
+  height: 700px;
+  width: 700px;
+  object-fit: cover;
+  margin: auto;
+  justify-self: center;
 }
 
 #mainImage {
-  max-width: 100%;
-  max-height: auto;
+  height: 480px;
+  overflow: hidden;
+  object-fit: cover;
+  justify-content: center;
+}
+
+#cart {
+  align-items: right;
 }
 
 #price {
@@ -77,5 +105,57 @@ body {
 
 #SpecialOverview {
   border-left: 2px dashed lightgray;
+}
+
+#overlay {
+  position: absolute;
+  top: 70px;
+  z-index: 9;
+}
+
+.selector {
+  width: 50px;
+  height: auto;
+  padding-bottom: 15px;
+  padding-left: 15px;
+
+}
+
+.fsButton {
+  position: absolute;
+  display: block;
+  top: 70px;
+  left: 380px;
+  float: right;
+  z-index: 100;
+}
+
+.fsButtonfs {
+  position: absolute;
+  display: block;
+  top: 15px;
+  right: 35px;
+  z-index: 100;
+}
+
+#cart {
+  display: block;
+  float: right;
+}
+
+#imageContainer {
+  height: 50px;
+  width: auto;
+}
+
+.galleryImage {
+  object-fit: cover;
+  height: 50px;
+  width: 50px;
+  border: 3px solid gray;
+}
+
+.selector:hover {
+  transform: scale(1.15)
 }
 

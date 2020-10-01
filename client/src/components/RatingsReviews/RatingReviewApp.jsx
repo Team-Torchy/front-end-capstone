@@ -12,7 +12,7 @@ class RatingReviewApp extends Component {
       num: 1,
       id: 0,
       bool: false
-    }
+    };
     //bind any functions here
     this.nextTwo = this.nextTwo.bind(this);
   }
@@ -22,21 +22,21 @@ class RatingReviewApp extends Component {
   //Methods here
   getReviews() {
     axios.get(`/reviews/${this.state.id}`)
-    .then((reviews) => {
-      this.setState({
-        dummyData: this.props.dummyData
+      .then((reviews) => {
+        this.setState({
+          dummyData: this.props.dummyData
+        });
       })
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-  };
+      .catch((error) => {
+        // console.log(error);
+      });
+  }
 
   nextTwo() {
     this.setState({
       num: this.state.num += 2
-    })
-  };
+    });
+  }
 
 
   //PAGINATION GET REQUEST LIMIT COUNT OFFSET
@@ -46,23 +46,23 @@ class RatingReviewApp extends Component {
     const { dummyData, num } = this.state;
     if (dummyData && dummyData.results.length > 2) {
       if (dummyData.results[num] || dummyData.results[num - 1]) {
-        return <Button variant="outlined" onClick={() => this.nextTwo()}>MORE REVIEWS</Button>
+        return <Button variant="outlined" onClick={() => this.nextTwo()}>MORE REVIEWS</Button>;
       } else {
         return null;
       }
     }
-  };
+  }
 
   setBool() {
     const { bool } = this.state;
-    if(bool) {
+    if (bool) {
       this.setState({
         bool: false
-      })
+      });
     } else {
       this.setState({
         bool: true
-      })
+      });
     }
   }
 
@@ -73,10 +73,10 @@ class RatingReviewApp extends Component {
         {dummyData ? <ReviewList reviews={dummyData} num={num} /> : null}
         {this.nextConditional()}
         <Button variant="outlined" onClick={() => this.setBool()}>MORE REVIEWS +</Button>
-        {bool ? <AddAReview/> : null}
+        {bool ? <AddAReview /> : null}
       </div>
-    )
+    );
   }
-};
+}
 
 export default RatingReviewApp;

@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const QandA = (props) => {
+  // console.log('This is the questions data: ', questionsData);
   const [isOpen, setIsOpen] = useState(false);
   const [questionsData, setQuestionsData] = useState({results: [], id: 1});
   // console.log('This is the questions data.id: ', questionsData.id);

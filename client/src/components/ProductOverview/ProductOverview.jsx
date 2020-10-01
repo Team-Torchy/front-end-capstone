@@ -96,7 +96,7 @@ class ProductOverview extends React.Component {
     this.setState({
       styleSelectedId: id - 1,
       imgURL: this.state.styleList[id - 1].photos[0].url,
-      styleName: this.state.styleList[id - 1].name
+      styleName: this.state.styleList[id - 1].name,
     }, () => {
       this.setState({
         galleryImages: this.state.styleList[this.state.styleSelectedId].photos
@@ -114,7 +114,7 @@ class ProductOverview extends React.Component {
 
   handleStyleSelect(e) {
     // console.log(e.target.id);
-    this.setStyle(e.target.id);
+    this.setStyle(e.target.id, e.target.getAttribute('data-skuid'));
 
   }
 

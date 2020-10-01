@@ -1,5 +1,6 @@
 body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  align-items: flex-start;
 }
 
 .info {
@@ -148,6 +149,11 @@ body {
   width: auto;
 }
 
+#spacer {
+  height: 20px;
+
+}
+
 .galleryImage {
   object-fit: cover;
   height: 50px;
@@ -159,3 +165,6 @@ body {
   transform: scale(1.15)
 }
 
+.QandA {
+  padding-left: 50px;
+}

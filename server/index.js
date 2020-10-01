@@ -17,6 +17,11 @@ app.get('/reviews/:product_id', (req, res) => {
 // })
 
 
+app.get('/', (req, res) => {
+  res.send('Server running!');
+});
+
+
 app.listen(port, () => {
   console.log(`server listening on port ${port}`);
 });

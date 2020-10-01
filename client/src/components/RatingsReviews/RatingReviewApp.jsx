@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 import axios from 'axios';
 import ReviewList from './ReviewList.jsx';
 import AddAReview from './AddAReview.jsx';
-import dummyData from '/Users/alecbrock/front-end-capstone/client/dummyData.js';
+// import dummyData from '/Users/alecbrock/front-end-capstone/client/dummyData.js';
 
 class RatingReviewApp extends Component {
   constructor(props) {

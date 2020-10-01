@@ -4,7 +4,7 @@ import axios from 'axios';
 import RatingReviewApp from './RatingsReviews/RatingReviewApp.jsx';
 import StarMaker from './RatingsReviews/StarMaker.jsx';
 import dummyData from '../../dummyData.js'
-import ProductOverview from './ProductOverview.jsx';
+import ProductOverview from './ProductOverview/ProductOverview.jsx';
 import QandA from './qaComponents/QandA.jsx';
 
 
@@ -15,7 +15,7 @@ class App extends Component {
     super(props);
     this.state = {
 
-    }
+    };
     //bind any functions here
   }
 

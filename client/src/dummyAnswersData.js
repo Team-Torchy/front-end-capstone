@@ -19,11 +19,11 @@ const dummyAnswersData = {
       "helpfulness": 5,
       "photos": [{
         "id": 1,
-        "url": "urlplaceholder/answer_5_photo_number_1.jpg"
+        "url": "https://images-na.ssl-images-amazon.com/images/I/81nbjG+iX+L._CR0,5,1084,1084_UX175.jpg"
       },
       {
         "id": 2,
-        "url": "urlplaceholder/answer_5_photo_number_2.jpg"
+        "url": "https://images-na.ssl-images-amazon.com/images/I/81-pHWKPKzL._CR204,0,1224,1224_UX175.jpg"
       },
         // ...
       ]

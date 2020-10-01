@@ -5,7 +5,8 @@ import Button from '@material-ui/core/Button';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import TextField from '@material-ui/core/TextField';
 import Input from '@material-ui/core/Input';
-import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -27,12 +28,58 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   }
 }));
+//FORMIK VALIDATE FUNCTION (CURRENTLY USING YUP)
+// const validate = values => {
+//   const errors = {};
+//   if (!values.question) {
+//     errors.question = 'required';
+//   } else if (values.question.length > 1000) {
+//     errors.question = 'Must be 1000 characters or less';
+//   }
+
+//   if (!values.nickname) {
+//     errors.nickname = 'required';
+//   } else if (values.nickname.length > 60) {
+//     errors.nickname = 'Must be 60 characters or less';
+//   }
+
+//   if (!values.email) {
+//     errors.email = 'required';
+//   } else if (values.email.length > 60) {
+//     errors.email = 'Must be 60 characters or less';
+//   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+//     errors.email = 'Invalid email address';
+//   }
+
+//   return errors;
+// };
 
 const AddQuestion = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [questionModal, setQuestionModal] = useState({question: '', email: '', nickname: ''});
-  //use props instead of hooks for questionsData access
+  // const [questionModal, setQuestionModal] = useState({question: '', email: '', nickname: ''});
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      nickname: '',
+      question: ''
+    },
+    validationSchema: Yup.object({
+      question: Yup.string()
+        .max(1000, 'Must be 1000 characters or less')
+        .required('required'),
+      nickname: Yup.string()
+        .max(60, 'Must be 60 characters or less')
+        .required('required'),
+      email: Yup.string()
+        .max(60, 'Must be 60 characters or less')
+        .email('Invalid email address')
+        .required('required'),
+    }),
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
 
   const handleOpen = () => {
@@ -43,9 +90,9 @@ const AddQuestion = (props) => {
     setOpen(false);
   };
 
-  const handleChange = e => {
-    setQuestionModal({...questionModal, [e.target.name]: e.target.value});
-  };
+  // const handleChange = e => {
+  //   setQuestionModal({...questionModal, [e.target.name]: e.target.value});
+  // };
 
   const body = (
     <div className={classes.paper}>
@@ -56,26 +103,41 @@ const AddQuestion = (props) => {
       <TextField
         required
         fullWidth
+        id="question"
         name="question"
         variant="outlined"
         multiline
         rows={6}
-        onChange={handleChange}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.question}
       />
+      {formik.touched.question && formik.errors.question ? <div>{formik.errors.question}</div> : null}
 
       <h4 id="add-nickname-description">What is your Nickname? *</h4>
-      <TextField required fullWidth name="nickname" variant="outlined" placeholder="Example: Jackson11!" onChange={handleChange}/>
+      <TextField
+        required
+        fullWidth
+        id="nickname"
+        name="nickname"
+        variant="outlined"
+        placeholder="Example: Jackson11!"
+        {...formik.getFieldProps('nickname')}
+      />
+      {formik.touched.nickname && formik.errors.nickname ? <div>{formik.errors.nickname}</div> : null}
       <h5 id="nickname-description-warning"><em>For privacy reasons, do not use your full name or email address.</em></h5>
 
       <h4 id="add-email-description">Your Email *</h4>
       <TextField
         required
         fullWidth
+        id="email"
         name="email"
         variant="outlined"
-        placeholder="Why did you like the product or not?" helperText="Incorrect entry."
-        onChange={handleChange}
+        placeholder="Why did you like the product or not?"
+        {...formik.getFieldProps('email')}
       />
+      {formik.touched.email && formik.errors.email ? <div>{formik.errors.email}</div> : null}
       <h5 id="nickname-description-warning"><em>For authentication reasons, you will not be emailed.</em></h5>
 
       <Button variant="outlined" type="submit" className={classes.button}>Submit</Button>
@@ -94,6 +156,7 @@ const AddQuestion = (props) => {
       </Button>
 
       <Modal
+        onSubmit={formik.handleSubmit}
         open={open}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"

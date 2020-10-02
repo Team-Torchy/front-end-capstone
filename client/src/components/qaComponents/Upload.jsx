@@ -1,50 +1,40 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { DropzoneDialog } from 'material-ui-dropzone';
 import Button from '@material-ui/core/Button';
 
-export default class Upload extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-      files: [],
-    };
-  }
+const Upload = (props) => {
+  const [open, setOpen] = useState(false);
+  const [files, setFiles] = useState([]);
 
-  handleClose() {
-    this.setState({
-      open: false,
-    });
-  }
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-  handleSave(files) {
-    //Saving files to state for further use and closing Modal.
-    this.setState({
-      files: files,
-      open: false,
-    });
-  }
+  const handleSave = (files) => {
+    setFiles(files);
+    setOpen(false);
+  };
 
-  handleOpen() {
-    this.setState({
-      open: true,
-    });
-  }
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  render() {
-    return (
-      <div>
-        <Button variant="outlined" onClick={this.handleOpen.bind(this)}>Add Image</Button>
-        <DropzoneDialog
-          open={this.state.open}
-          onSave={this.handleSave.bind(this)}
-          filesLimit={5}
-          acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
-          showPreviews={true}
-          maxFileSize={5000000}
-          onClose={this.handleClose.bind(this)}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Button variant="outlined" onClick={handleOpen}>Add Image</Button>
+      <DropzoneDialog
+        open={open}
+        onSave={handleSave}
+        filesLimit={5}
+        acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
+        showPreviews={true}
+        maxFileSize={5000000}
+        onClose={handleClose}
+      />
+    </div>
+  );
+
+};
+
+export default Upload;
+

@@ -37,8 +37,34 @@ class ProductOverview extends React.Component {
     this.getReviewAverage();
   }
 
-  addToCart() {
-    console.log('add to cart', this.state.productId)
+  addToCart(sku, quant) {
+    console.log(`add ${quant} of ${sku} to cart`)
+    var currentCart = this.state.cart;
+    for (var i = 1; i <= quant; i++) {
+      currentCart.push(sku)
+      axios.post({
+        method: 'post',
+        url: `${apiURL}/cart`,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        data: {
+          sku
+        }
+      })
+        .then(res => {
+          console.log(sku, ' added to cart')
+          console.log(res);
+        })
+        .catch(err => console.error(err));
+    }
+    this.setState({
+      cart: currentCart
+    }, () => {
+      console.log('CART --> ', this.state.cart)
+    })
+
+
   }
 
   getProductData() {

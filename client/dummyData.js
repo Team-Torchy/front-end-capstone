@@ -14,13 +14,28 @@ const dummyData = {
       "date": "2019-04-14T00:00:00.000Z",
       "reviewer_name": "shortandsweeet",
       "helpfulness": 5,
-      "photos": [{
-          "id": 1,
-          "url": "urlplaceholder/review_5_photo_number_1.jpg"
-        },
+      "photos": [
+
         {
           "id": 2,
-          "url": "urlplaceholder/review_5_photo_number_2.jpg"
+          "url": "https://9to5google.com/wp-content/uploads/sites/4/2019/03/google-images-material-theme.jpg?quality=82&strip=all&w=1600"
+        },
+
+        {
+          "id": 3,
+          "url": "https://lh3.googleusercontent.com/G5oF0mhpOcQzFTrU6TDUL0JoAjzRt38weiZKua7L61WVT1z3dPcE9gUu-W2EwtM9cZU"
+        },
+        {
+          "id": 4,
+          "url": "https://m.economictimes.com/thumb/msid-65072103,width-1200,height-900,resizemode-4,imgsize-95744/google3_reuters.jpg"
+        },
+        {
+          "id": 5,
+          "url": "https://s3.amazonaws.com/images.seroundtable.com/google-rainbow-texture-1491566442.jpg"
+        },
+        {
+          "id": 6,
+          "url": "https://searchengineland.com/figz/wp-content/seloads/2013/06/google-rainbow-colors-featured.jpg"
         },
         // ...
       ]

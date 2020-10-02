@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import dummyQuestionsData from '../../dummyQuestionsData.js';
 import SingleQ from './SingleQ.jsx';
 import AddQuestion from './AddQuestion.jsx';
+import AddAnswer from './AddAnswer.jsx';
 
 
 const useStyles = makeStyles((theme) => ({

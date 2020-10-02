@@ -45,6 +45,7 @@ class Selectors extends React.Component {
       data: this.props.data
     }, () => {
       var sizes = this.getSizes();
+
       this.setState({
         sizes,
         size: sizes[0].label,
@@ -95,12 +96,17 @@ class Selectors extends React.Component {
   }
 
   getSizes() {
+
     // console.log(this.state.data.skus)
     var sizes = Object.entries(this.state.data.skus).map(sku => {
       console.log(sku[0]);
       return { value: sku[0], label: sku[1].size };
     });
     return sizes;
+
+  }
+
+  getSku() {
 
   }
 

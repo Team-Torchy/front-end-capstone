@@ -42,19 +42,16 @@ class ProductOverview extends React.Component {
     var currentCart = this.state.cart;
     for (var i = 1; i <= quant; i++) {
       currentCart.push(sku)
-      axios.post({
-        method: 'post',
-        url: `${apiURL}/cart`,
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8'
-        },
-        data: {
-          sku
-        }
-      })
-        .then(res => {
+      axios.post(`${apiURL}/cart`, { sku_id: sku })
+        .then((res) => {
           console.log(sku, ' added to cart')
           console.log(res);
+
+          axios.get(`${apiURL}/cart`)
+            .then(res => {
+              console.log(res)
+            })
+
         })
         .catch(err => console.error(err));
     }

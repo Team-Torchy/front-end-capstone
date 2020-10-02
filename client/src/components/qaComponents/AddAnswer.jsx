@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import UploadImages from './UploadImage.jsx';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -108,6 +109,8 @@ const AddAnswer = (props) => {
       {formik.touched.email && formik.errors.email ? <div>{formik.errors.email}</div> : null}
       <h5 id="nickname-description-warning"><em>For authentication reasons, you will not be emailed.</em></h5>
 
+      <UploadImages />
+
       <Button disabled={!(formik.isValid && formik.dirty)} variant="outlined" type="submit" className={classes.button}>Submit</Button>
     </div>
   );
@@ -116,7 +119,6 @@ const AddAnswer = (props) => {
   return (
     <div>
       <Button
-        variant="contained"
         onClick={handleOpen}
         className={classes.button}
       >
@@ -127,8 +129,8 @@ const AddAnswer = (props) => {
         onSubmit={formik.handleSubmit}
         open={open}
         onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
+        aria-labelledby="add-answer-modal"
+        aria-describedby="add-answer-modal"
       >
         {body}
       </Modal>

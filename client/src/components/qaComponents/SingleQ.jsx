@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import SingleA from './SingleA.jsx';
+import AddAnswer from './AddAnswer.jsx';
 
 
 const useStyles = makeStyles(theme => ({
@@ -45,11 +46,11 @@ const SingleQ = (props) => {
     <div>
       <Grid container spacing={2} direction="column">
         <Grid item xs={12} container justify="space-between">
-          <Grid item xs={8}>
+          <Grid item xs={7}>
             Q: {props.question.question_body}
           </Grid>
-          <Grid item xs={4}>
-            Helpful? Yes ({props.question.question_helpfulness}) | Add Answer
+          <Grid item xs={5}>
+            Helpful? Yes ({props.question.question_helpfulness}) | <AddAnswer />
           </Grid>
         </Grid>
 

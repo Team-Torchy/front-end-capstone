@@ -37,8 +37,31 @@ class ProductOverview extends React.Component {
     this.getReviewAverage();
   }
 
-  addToCart() {
-    console.log('add to cart', this.state.productId)
+  addToCart(sku, quant) {
+    console.log(`add ${quant} of ${sku} to cart`)
+    var currentCart = this.state.cart;
+    for (var i = 1; i <= quant; i++) {
+      currentCart.push(sku)
+      axios.post(`${apiURL}/cart`, { sku_id: Number(sku) })
+        .then((res) => {
+          console.log(sku, ' added to cart')
+          console.log(res);
+
+          axios.get(`${apiURL}/cart`)
+            .then(res => {
+              console.log(res)
+            })
+
+        })
+        .catch(err => console.error(err));
+    }
+    this.setState({
+      cart: currentCart
+    }, () => {
+      console.log('CART --> ', this.state.cart)
+    })
+
+
   }
 
   getProductData() {
@@ -94,20 +117,20 @@ class ProductOverview extends React.Component {
 
   setStyle(id) {
     this.setState({
-      styleSelectedId: id - 1,
+      styleSelectedId: id,
       imgURL: this.state.styleList[id - 1].photos[0].url,
       styleName: this.state.styleList[id - 1].name,
     }, () => {
       this.setState({
-        galleryImages: this.state.styleList[this.state.styleSelectedId].photos
+        galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos
       })
     });
   }
 
   getImagesForProduct() {
-    if (this.state.styleList[this.state.styleSelectedId]) {
+    if (this.state.styleList[this.state.styleSelectedId - 1]) {
       this.setState({
-        imgURL: this.state.styleList[this.state.styleSelectedId].photos[0].url
+        imgURL: this.state.styleList[this.state.styleSelectedId - 1].photos[0].url
       });
     }
   }
@@ -155,7 +178,7 @@ class ProductOverview extends React.Component {
           <p className='info' id='style'>{'Style >'}  </p>
           <p className="info" id="styleCategory">{this.state.styleName}</p> <br />
           <StyleList styleList={this.state.styleList} handleSelect={this.handleStyleSelect.bind(this)} setStyle={this.setStyle.bind(this)} />
-          {this.state.styleList[this.state.styleSelectedId] ? <Selectors data={this.state.styleList[this.state.styleSelectedId]} style={this.state.styleName} updatePrice={this.updatePrice.bind(this)} addToCart={this.addToCart.bind(this)}/> : null }
+          {this.state.styleList[this.state.styleSelectedId - 1] ? <Selectors data={this.state.styleList[this.state.styleSelectedId - 1]} style={this.state.styleName} updatePrice={this.updatePrice.bind(this)} addToCart={this.addToCart.bind(this)}/> : null }
         </Grid>
         <Grid container padding={3}>
           <Grid m={3} item xs={8}>

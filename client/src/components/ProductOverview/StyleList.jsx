@@ -14,10 +14,10 @@ var StyleList = ({ styleList, handleSelect, setStyle }) => {
   return (
     <div className='styleList'>
       {options.map(option => {
-        if (options.indexOf(option) !== 4) {
+        if (options.indexOf(option)%4 !== 0) {
           return (
             <span className='frame' key={options.indexOf(option)}>
-              <img id={option.id} className='style' src={option.url} onClick={handleSelect}></img>
+              <img id={option.id} className='style' data-skuid={'laskjdf'} src={option.url} onClick={handleSelect}></img>
             </span>
           );
         } else {

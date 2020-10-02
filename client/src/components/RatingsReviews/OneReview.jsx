@@ -1,12 +1,10 @@
-import React from 'react';
-import StarMaker from './StarMaker.jsx';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import { Button } from '@material-ui/core';
+import { Typography, Divider, Grid, Button } from '@material-ui/core';
+import StarMaker from './StarMaker.jsx';
+import AccurateDate from './AccurateDate.jsx';
+import UserPhotosModal from './UserPhotosModal.jsx';
+import ShowReviewBody from './ShowReviewBody.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +40,11 @@ const useStyles = makeStyles((theme) => ({
 
 const OneReview = (props) => {
   const classes = useStyles();
+  const [show, setShow] = useState(false);
+  const handleChange = () => {
+    setShow((prev) => !prev);
+  };
+
   return (
     <div>
       <div className={classes.root}>
@@ -56,25 +59,27 @@ const OneReview = (props) => {
                   {props.person.summary}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  {props.person.body}
+                  {props.person.body.length > 250 ? <ShowReviewBody show={show ? 'Show less' : 'Show more'} body={props.person.body}/> : null}
+                  {props.person.body.length > 250 ? <Button onClick={() => handleChange()}>{show ? 'Show less' : 'Show more'}</Button> : props.person.body}
                 </Typography>
+                {props.person.photos.length > 0 ? <UserPhotosModal photos={props.person.photos}/> : null}
                 <Typography variant="caption">
                   {props.person.recommend ? "I recommend this product" : null}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  {props.person.response !== "" ? 'Response:' : null}
+                  {props.person.response !== "" && props.person.response !== null ? 'Response:' : null}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  {props.person.response !== "" ? props.person.response : null}
+                  {props.person.response !== "" && props.person.response !== null ? props.person.response : null}
                 </Typography>
                 <Typography variant="caption" color="textSecondary">
                   {props.person.helpfulness ? "Helpful?" : null}
-                  {props.person.helpfulness ? <Button className={classes.button} size="small" style={{textTransform: 'none'}}>Yes</Button> : null}
+                  {props.person.helpfulness ? <Button className={classes.button} size="small" style={{ textTransform: 'none' }}>Yes</Button> : null}
                   {props.person.helpfulness ? "(" + props.person.helpfulness + ')' : null}
                 </Typography>
               </Grid>
             </Grid>
-            <Typography variant="caption">{props.person.reviewer_name + ", " + props.person.date}</Typography>
+            <Typography variant="caption">{props.person.reviewer_name + ", "} <AccurateDate date={props.person.date} /> </Typography>
           </Grid>
         </Grid>
         <Divider className={classes.divider} />

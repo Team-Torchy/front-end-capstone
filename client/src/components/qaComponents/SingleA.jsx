@@ -38,20 +38,26 @@ const SingleA = (props) => {
     <div>
       <Grid className={classes.root} item xs={12} container direction="column" justify="flex-start">
         <Grid item xs={8}>
-          A: {props.answer.body}
+          <div className='QandA'>
+            A: {props.answer.body}
+          </div>
         </Grid>
 
         {/* map over images in answer */}
         <GridList className={classes.gridList} cols={2.5}>
           {props.answer.photos.map((image, i) => (
             <GridListTile key={i}>
-              <img src={image.url} />
+
+                <img className='QandA' src={image.url} />
+
             </GridListTile>
           ))}
         </GridList>
 
         <Grid item xs={12}>
-          by {props.answer.answerer_name}, {props.answer.date} | Helpful? Yes ({props.answer.helpfulness}) | Report
+          <div className='QandA'>
+            by {props.answer.answerer_name}, {props.answer.date} | Helpful? Yes ({props.answer.helpfulness}) | Report
+          </div>
         </Grid>
       </Grid>
     </div>

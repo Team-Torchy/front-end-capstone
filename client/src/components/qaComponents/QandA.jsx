@@ -77,12 +77,13 @@ const QandA = (props) => {
           />
         </Grid>
         {/* Map over the array of question objects */}
+        <div id='spacer' />
         {questionsData.results.map((question, i) => {
           return <SingleQ key={i} question={question} />;
         })}
 
-        <Grid item xs={8} container spacing={2}>
-          <Button variant="contained" className={classes.button}>MORE ANSWERED QUESTIONS</Button>
+        <Grid item xs={8} container spacing={2} >
+          <Button variant="contained" className='QandA' className={classes.button}>MORE ANSWERED QUESTIONS</Button>
           <AddQuestion />
         </Grid>
       </Grid>

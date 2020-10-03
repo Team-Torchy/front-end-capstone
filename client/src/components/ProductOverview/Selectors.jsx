@@ -63,7 +63,6 @@ class Selectors extends React.Component {
 
   handleChange(e) {
     console.log(e);
-
     this.setState({
       size: e.label,
       currentSku: e.value,
@@ -96,13 +95,16 @@ class Selectors extends React.Component {
   }
 
   getSizes() {
-
     // console.log(this.state.data.skus)
     var sizes = Object.entries(this.state.data.skus).map(sku => {
       console.log(sku[0]);
       return { value: sku[0], label: sku[1].size };
     });
     return sizes;
+
+  }
+
+  getSku() {
 
   }
 

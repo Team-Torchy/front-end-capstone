@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -6,6 +6,7 @@ import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import SingleA from './SingleA.jsx';
 import AddAnswer from './AddAnswer.jsx';
+import { Typography } from '@material-ui/core';
 
 
 const useStyles = makeStyles(theme => ({
@@ -30,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 
 const SingleQ = (props) => {
   const classes = useStyles();
-  const [answersData, setAnswersData] = useState({results: [], question: 1});
+  const [answersData, setAnswersData] = useState({ results: [], question: 1 });
   //GET Request for "Answers List" API for specific question id's answers
   useEffect(() => {
     axios.get(`http://18.224.37.110/qa/questions/${props.question.question_id}/answers`)
@@ -39,43 +40,43 @@ const SingleQ = (props) => {
         setAnswersData(response.data);
       })
       .catch(error => console.error(error));
-  // empty dependency array means this effect will only run once (like componentDidMount in classes)
+    // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
   return (
     <div>
       <Grid container spacing={1} direction="column">
-        <Grid item xs={12} container dirction="column">
-          <Grid item xs={9} >
+        <Grid item xs={12} container justify="space-between">
+          <Grid item xs={7} >
             <div className='QandA'>
               Q: {props.question.question_body}
             </div>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={5}>
             <div className='QandA'>
-              Helpful? Yes ({props.question.question_helpfulness}) | Add Answer
+              <Typography  style={{position: "relative", left: "250px"}}variant="caption"> {"Helpful? Yes " + "(" + props.question.question_helpfulness + ") " + "| " + "Add Answer"} </Typography>
             </div>
           </Grid>
+          </Grid>
 
-        {/* </Grid> */}
+          {/* </Grid> */}
 
-        {/* Map over the array of answer objects */}
-        {answersData.results.map((answer, i) => {
-          return <SingleA key={i} answer={answer} />;
-        })}
+          {/* Map over the array of answer objects */}
+          {answersData.results.map((answer, i) => {
+            return <SingleA key={i} answer={answer} />;
+          })}
 
 
-        <Grid item xs={12} container direction="column">
-          <Grid item xs={9}>
-          <div className="QandA">
+          <Grid item xs={12} container direction="column">
+            <Grid item xs={9}>
+              <div className="QandA">
 
-          LOAD MORE ANSWERS
+                LOAD MORE ANSWERS
           </div>
-          </Grid>
+            </Grid>
 
           </Grid>
-        </Grid>
       </Grid>
     </div>
   );

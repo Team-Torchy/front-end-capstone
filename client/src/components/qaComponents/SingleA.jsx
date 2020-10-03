@@ -36,8 +36,8 @@ const SingleA = (props) => {
 
   return (
     <div>
-      <Grid className={classes.root} item xs={12} container direction="column" justify="flex-start">
-        <Grid item xs={8}>
+      <Grid className={classes.root} item xs={12} container direction="column">
+        <Grid item xs={9}>
           <div className='QandA'>
             A: {props.answer.body}
           </div>
@@ -54,7 +54,7 @@ const SingleA = (props) => {
           ))}
         </GridList>
 
-        <Grid item xs={12}>
+        <Grid item xs={3}>
           <div className='QandA'>
             by {props.answer.answerer_name}, {props.answer.date} | Helpful? Yes ({props.answer.helpfulness}) | Report
           </div>

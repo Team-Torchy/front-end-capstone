@@ -44,19 +44,21 @@ const SingleQ = (props) => {
 
   return (
     <div>
-      <Grid container spacing={2} direction="column">
-        <Grid item xs={12} container justify="space-between">
-          <Grid item xs={8} >
+      <Grid container spacing={1} direction="column">
+        <Grid item xs={12} container dirction="column">
+          <Grid item xs={9} >
             <div className='QandA'>
               Q: {props.question.question_body}
             </div>
           </Grid>
-          <Grid item xs={4}>
+
+          <Grid item xs={3}>
             <div className='QandA'>
               Helpful? Yes ({props.question.question_helpfulness}) | Add Answer
             </div>
           </Grid>
-        </Grid>
+
+        {/* </Grid> */}
 
         {/* Map over the array of answer objects */}
         {answersData.results.map((answer, i) => {
@@ -64,8 +66,16 @@ const SingleQ = (props) => {
         })}
 
 
-        <Grid item xs={12}>LOAD MORE ANSWERS</Grid>
+        <Grid item xs={12} container direction="column">
+          <Grid item xs={9}>
+          <div className="QandA">
 
+          LOAD MORE ANSWERS
+          </div>
+          </Grid>
+
+          </Grid>
+        </Grid>
       </Grid>
     </div>
   );

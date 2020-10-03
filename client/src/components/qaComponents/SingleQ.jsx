@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import SingleA from './SingleA.jsx';
+import AddAnswer from './AddAnswer.jsx';
 
 
 const useStyles = makeStyles(theme => ({

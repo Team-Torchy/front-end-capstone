@@ -5,6 +5,7 @@ import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +34,11 @@ const SingleA = (props) => {
   // const [answersData, setAnswersData] = useState();
   // console.log('SingleA answersData: ', answersData);
   const classes = useStyles();
+  const [reportDisabled, setReportDisabled] = useState(false);
+
+  const handleReportClick = () => {
+    setReportDisabled(true);
+  };
 
   return (
     <div>
@@ -48,7 +54,7 @@ const SingleA = (props) => {
           {props.answer.photos.map((image, i) => (
             <GridListTile key={i}>
 
-                <img className='QandA' src={image.url} />
+              <img className='QandA' src={image.url} />
 
             </GridListTile>
           ))}
@@ -56,7 +62,7 @@ const SingleA = (props) => {
 
         <Grid item xs={12}>
           <div className='QandA'>
-            by {props.answer.answerer_name}, {props.answer.date} | Helpful? Yes ({props.answer.helpfulness}) | Report
+            by {props.answer.answerer_name}, {props.answer.date} | Helpful? Yes ({props.answer.helpfulness}) | <Button size="small" variant="text" disabled={reportDisabled} onClick={handleReportClick}>Report</Button>
           </div>
         </Grid>
       </Grid>

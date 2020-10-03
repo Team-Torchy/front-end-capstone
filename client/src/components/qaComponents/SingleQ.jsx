@@ -48,7 +48,7 @@ const SingleQ = (props) => {
   }, []);
 
   const onLoadMore = () => {
-    setAnswersLimit(answersLimit + 2);
+    setAnswersLimit(answersLimit + 100);
   };
 
   const handleYesClick = () => {

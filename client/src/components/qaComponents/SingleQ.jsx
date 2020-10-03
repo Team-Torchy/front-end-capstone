@@ -6,6 +6,7 @@ import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import SingleA from './SingleA.jsx';
 import AddAnswer from './AddAnswer.jsx';
+import Button from '@material-ui/core/Button';
 
 
 const useStyles = makeStyles(theme => ({
@@ -30,8 +31,10 @@ const useStyles = makeStyles(theme => ({
 
 const SingleQ = (props) => {
   const classes = useStyles();
+  const [yesDisabled, setYesDisabled] = useState(false);
   const [answersLimit, setAnswersLimit] = useState(2);
   const [answersData, setAnswersData] = useState({results: [], question: 1});
+
 
   //GET Request for "Answers List" API for specific question id's answers
   useEffect(() => {
@@ -48,6 +51,10 @@ const SingleQ = (props) => {
     setAnswersLimit(answersLimit + 2);
   };
 
+  const handleYesClick = () => {
+    setYesDisabled(true);
+  };
+
   return (
     <Grid container spacing={2} direction="column">
       <Grid item xs={12} container justify="space-between">
@@ -57,7 +64,7 @@ const SingleQ = (props) => {
         </Grid>
 
         <Grid item xs={6}>
-          Helpful? Yes ({props.question.question_helpfulness}) | <AddAnswer />
+          Helpful? <Button size="small" variant="text" disabled={yesDisabled} onClick={handleYesClick}>Yes</Button> ({props.question.question_helpfulness}) | <AddAnswer />
         </Grid>
 
       </Grid>

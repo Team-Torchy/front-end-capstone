@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const QandA = (props) => {
   // console.log('This is the questions data: ', questionsData);
   const [isOpen, setIsOpen] = useState(false);
+  const [questionsLimit, setQuestionsLimit] = useState(1);
   const [questionsData, setQuestionsData] = useState({results: [], id: 1});
   // console.log('This is the questions data.id: ', questionsData.id);
   const classes = useStyles();
@@ -49,6 +50,10 @@ const QandA = (props) => {
 
   const handleQuestionModalClose = () => {
     setIsOpen(false);
+  };
+
+  const onLoadMore = () => {
+    setQuestionsLimit(questionsLimit + 2);
   };
 
   //GET Request for "List Questions" API
@@ -77,12 +82,12 @@ const QandA = (props) => {
           />
         </Grid>
         {/* Map over the array of question objects */}
-        {questionsData.results.map((question, i) => {
+        {questionsData.results.slice(0, questionsLimit).map((question, i) => {
           return <SingleQ key={i} question={question} />;
         })}
 
         <Grid item xs={8} container spacing={2}>
-          <Button variant="contained" className={classes.button}>MORE ANSWERED QUESTIONS</Button>
+          <Button variant="contained" onClick={onLoadMore} className={classes.button}>MORE ANSWERED QUESTIONS</Button>
           <AddQuestion />
         </Grid>
       </Grid>

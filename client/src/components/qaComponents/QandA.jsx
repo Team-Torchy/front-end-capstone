@@ -82,12 +82,22 @@ const QandA = (props) => {
           />
         </Grid>
         {/* Map over the array of question objects */}
+<<<<<<< HEAD
         {questionsData.results.slice(0, questionsLimit).map((question, i) => {
           return <SingleQ key={i} question={question} />;
         })}
 
         <Grid item xs={8} container spacing={2}>
           <Button variant="contained" onClick={onLoadMore} className={classes.button}>MORE ANSWERED QUESTIONS</Button>
+=======
+        <div id='spacer' />
+        {questionsData.results.map((question, i) => {
+          return <SingleQ key={i} question={question} />;
+        })}
+
+        <Grid item xs={8} container spacing={2} >
+          <Button variant="contained" className='QandA' className={classes.button}>MORE ANSWERED QUESTIONS</Button>
+>>>>>>> dbcac84e4ad832303f446ca0f2af81ff5ad4a4d5
           <AddQuestion />
         </Grid>
       </Grid>

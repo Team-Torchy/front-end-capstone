@@ -28,22 +28,10 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "react-select": "^3.1.0",
-    "request": "^2.88.2",
-=======
     "react-material-ui-form-validator": "^2.1.1",
     "react-select": "^3.1.0",
-
->>>>>>> dbcac84e4ad832303f446ca0f2af81ff5ad4a4d5
-=======
-    "react-select": "^3.1.0",
->>>>>>> 3a20af7b2b253a94aff8f73d9c2dae3d2fe34458
+    "request": "^2.88.2",
     "yup": "^0.29.3"
-
-    "request": "^2.88.2"
-
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",

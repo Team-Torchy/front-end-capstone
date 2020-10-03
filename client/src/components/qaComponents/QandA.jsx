@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const QandA = (props) => {
   // console.log('This is the questions data: ', questionsData);
   const [isOpen, setIsOpen] = useState(false);
-  const [questionsLimit, setQuestionsLimit] = useState(1);
+  const [questionsLimit, setQuestionsLimit] = useState(4);
   const [questionsData, setQuestionsData] = useState({results: [], id: 1});
   // console.log('This is the questions data.id: ', questionsData.id);
   const classes = useStyles();
@@ -82,22 +82,12 @@ const QandA = (props) => {
           />
         </Grid>
         {/* Map over the array of question objects */}
-<<<<<<< HEAD
         {questionsData.results.slice(0, questionsLimit).map((question, i) => {
           return <SingleQ key={i} question={question} />;
         })}
 
         <Grid item xs={8} container spacing={2}>
           <Button variant="contained" onClick={onLoadMore} className={classes.button}>MORE ANSWERED QUESTIONS</Button>
-=======
-        <div id='spacer' />
-        {questionsData.results.map((question, i) => {
-          return <SingleQ key={i} question={question} />;
-        })}
-
-        <Grid item xs={8} container spacing={2} >
-          <Button variant="contained" className='QandA' className={classes.button}>MORE ANSWERED QUESTIONS</Button>
->>>>>>> dbcac84e4ad832303f446ca0f2af81ff5ad4a4d5
           <AddQuestion />
         </Grid>
       </Grid>
@@ -108,7 +98,3 @@ const QandA = (props) => {
 
 export default QandA;
 
-{/* AddQuestion modal
-        <AddQuestion isOpen={isOpen} handleClose={handleQuestionModalClose} title='Add a New Question'>
-          <h1>Would you like to Add a Question?</h1>
-        </AddQuestion> */}

@@ -47,13 +47,16 @@ const SingleQ = (props) => {
       <Grid container spacing={1} direction="column">
         <Grid item xs={12} container justify="space-between">
           <Grid item xs={7} >
+            {/* 8^^ */}
             <div className='QandA'>
               Q: {props.question.question_body}
             </div>
           </Grid>
           <Grid item xs={5}>
+            {/* 4^^ */}
             <div className='QandA'>
             <Typography  style={{position: "relative", left: "250px"}}variant="caption"> {"Helpful? Yes " + "(" + props.question.question_helpfulness + ") " + "| " + "Add Answer"} </Typography>
+            {/* Helpful? Yes ({props.question.question_helpfulness}) | Add Answer */}
             </div>
           </Grid>
         </Grid>

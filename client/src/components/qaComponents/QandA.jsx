@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import dummyQuestionsData from '../../dummyQuestionsData.js';
 import SingleQ from './SingleQ.jsx';
 import AddQuestion from './AddQuestion.jsx';
+import QuestionSearch from './QuestionSearch.jsx';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,11 +76,7 @@ const QandA = (props) => {
       <Grid container spacing={2} direction="column" >
         <Grid item xs={12} container spacing={3} my={2}>
           <Grid item xs={4}>QUESTIONS {'&'} ANSWERS</Grid>
-          <TextField
-            variant="outlined"
-            placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
-            fullWidth
-          />
+          <QuestionSearch />
         </Grid>
         {/* Map over the array of question objects */}
         {questionsData.results.slice(0, questionsLimit).map((question, i) => {
@@ -97,4 +94,10 @@ const QandA = (props) => {
 
 
 export default QandA;
+
+{/* <TextField
+            variant="outlined"
+            placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
+            fullWidth
+          /> */}
 

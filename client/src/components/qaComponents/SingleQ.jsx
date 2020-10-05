@@ -6,7 +6,6 @@ import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import SingleA from './SingleA.jsx';
 import AddAnswer from './AddAnswer.jsx';
-import { Typography } from '@material-ui/core';
 
 
 const useStyles = makeStyles(theme => ({
@@ -45,42 +44,33 @@ const SingleQ = (props) => {
 
   return (
     <div>
-      <Grid container spacing={1} direction="column">
+      <Grid container spacing={2} direction="column">
         <Grid item xs={12} container justify="space-between">
-          <Grid item xs={7} >
+          <Grid item xs={8} >
             <div className='QandA'>
               Q: {props.question.question_body}
             </div>
           </Grid>
-
-          <Grid item xs={5}>
+          <Grid item xs={4}>
             <div className='QandA'>
-              <Typography  style={{position: "relative", left: "250px"}}variant="caption"> {"Helpful? Yes " + "(" + props.question.question_helpfulness + ") " + "| " + "Add Answer"} </Typography>
+              Helpful? Yes ({props.question.question_helpfulness}) | Add Answer
             </div>
           </Grid>
-          </Grid>
+        </Grid>
 
-          {/* </Grid> */}
-
-          {/* Map over the array of answer objects */}
-          {answersData.results.map((answer, i) => {
-            return <SingleA key={i} answer={answer} />;
-          })}
+        {/* Map over the array of answer objects */}
+        {answersData.results.map((answer, i) => {
+          return <SingleA key={i} answer={answer} />;
+        })}
 
 
-          <Grid item xs={12} container direction="column">
-            <Grid item xs={9}>
-              <div className="QandA">
+        <Grid item xs={12}>LOAD MORE ANSWERS</Grid>
 
-                LOAD MORE ANSWERS
-          </div>
-            </Grid>
-
-          </Grid>
       </Grid>
     </div>
   );
 };
+
 
 export default SingleQ;
 

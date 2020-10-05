@@ -55,7 +55,7 @@ const QandA = (props) => {
   useEffect(() => {
     axios.get(`http://18.224.37.110/qa/questions/?product_id=${questionsData.id}&count=20&page=1`)
       .then((response) => {
-        console.log('This is the axios.get response.data: ', response.data);
+        // console.log('This is the axios.get response.data: ', response.data);
         setQuestionsData(response.data);
       })
       .catch(error => console.error(error));
@@ -63,7 +63,7 @@ const QandA = (props) => {
   // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
-  console.log('This is the NEW questionsData state', questionsData);
+  // console.log('This is the NEW questionsData state', questionsData);
 
   return (
     <div>
@@ -77,12 +77,13 @@ const QandA = (props) => {
           />
         </Grid>
         {/* Map over the array of question objects */}
+        <div id='spacer' />
         {questionsData.results.map((question, i) => {
           return <SingleQ key={i} question={question} />;
         })}
 
-        <Grid item xs={8} container spacing={2}>
-          <Button variant="contained" className={classes.button}>MORE ANSWERED QUESTIONS</Button>
+        <Grid item xs={8} container spacing={2} >
+          <Button variant="contained" className='QandA' className={classes.button}>MORE ANSWERED QUESTIONS</Button>
           <AddQuestion />
         </Grid>
       </Grid>

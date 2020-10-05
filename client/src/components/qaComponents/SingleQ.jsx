@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import { Grid, Typography } from '@material-ui/core';
 import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import SingleA from './SingleA.jsx';
-// import AddAnswer from './AddAnswer.jsx';
-
+import AddAnswer from './AddAnswer.jsx';
 
 
 const useStyles = makeStyles(theme => ({
@@ -31,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 
 const SingleQ = (props) => {
   const classes = useStyles();
-  const [answersData, setAnswersData] = useState({results: [], question: 1});
+  const [answersData, setAnswersData] = useState({ results: [], question: 1 });
   //GET Request for "Answers List" API for specific question id's answers
   useEffect(() => {
     axios.get(`http://18.224.37.110/qa/questions/${props.question.question_id}/answers`)
@@ -40,7 +39,7 @@ const SingleQ = (props) => {
         setAnswersData(response.data);
       })
       .catch(error => console.error(error));
-  // empty dependency array means this effect will only run once (like componentDidMount in classes)
+    // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
   return (
@@ -71,5 +70,6 @@ const SingleQ = (props) => {
     </div>
   );
 };
+
 
 export default SingleQ;

@@ -18,7 +18,7 @@ const dummyData = {
 
         {
           "id": 2,
-          "url": "https://9to5google.com/wp-content/uploads/sites/4/2019/03/google-images-material-theme.jpg?quality=82&strip=all&w=1600"
+          "url": "https://res.cloudinary.com/gray-malin/image/upload/c_scale/gray-malin/blog-uploads/Xs%20Max_11%20Pro%20Max%20Pink%20Sand%20Stroll.jpg-rUeStLI"
         },
 
         {

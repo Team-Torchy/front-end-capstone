@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Typography } from '@material-ui/core';
 import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import SingleA from './SingleA.jsx';
+// import AddAnswer from './AddAnswer.jsx';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -43,13 +45,17 @@ const SingleQ = (props) => {
 
   return (
     <div>
-      <Grid container spacing={2} direction="column">
+      <Grid container spacing={1} direction="column">
         <Grid item xs={12} container justify="space-between">
-          <Grid item xs={8}>
-            Q: {props.question.question_body}
+          <Grid item xs={7} >
+            <div className='QandA'>
+              Q: {props.question.question_body}
+            </div>
           </Grid>
-          <Grid item xs={4}>
-            Helpful? Yes ({props.question.question_helpfulness}) | Add Answer
+          <Grid item xs={5}>
+            <div className='QandA'>
+            <Typography  style={{position: "relative", left: "250px"}}variant="caption"> {"Helpful? Yes " + "(" + props.question.question_helpfulness + ") " + "| " + "Add Answer"} </Typography>
+            </div>
           </Grid>
         </Grid>
 
@@ -67,4 +73,3 @@ const SingleQ = (props) => {
 };
 
 export default SingleQ;
-

@@ -1,48 +1,16 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { Collapse, Accordion, AccordionSummary, AccordionDetails, Typography, GridList, GridListTile, GridListTileBar, Modal, Fade, Backdrop, Grid, Paper, Box } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
+import { Typography, Modal, Fade, Backdrop, Grid, Paper, CssBaseline, Container, Button } from '@material-ui/core';
 import StarMaker from './StarMaker.jsx';
-// import sizeOf from 'image-size';
-// import tileData from './tileData';
 import Image from 'react-image-resizer';
 import AccurateDate from './AccurateDate.jsx';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    // width: '30%',
-    padding: theme.spacing(2, 0),
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(7),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
-  root2: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
-  gridList: {
-    flexWrap: 'nowrap',
-    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-    transform: 'translateZ(0)',
-  },
   paper: {
     height: '600px',
     width: '950px',
     backgroundColor: theme.palette.background.paper,
-
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -52,38 +20,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  fit: {
-
-  },
-
 }));
-
-// fit: {
-//   maxWidth: '650px',
-//   minWidth: '500px',
-// },
-// fit2: {
-//   minHeight: '435px',
-//   maxHeight: '435px',
-// },
-// const stylesObj = makeStyles((theme) => ({
-//   fit: {
-//     backgroundColor:'red',
-//   },
-// }));
 
 const UserPhotosModal = (props) => {
 
-  function getMeta(url, callback) {
-    var img = new Image();
-    img.src = url;
-    img.onload = function () { callback(this.width, this.height); }
-  }
-
-
-
   const classes = useStyles();
-  // const stylesObj = stylesObj();
   const [open, setOpen] = useState(false);
   const [spotLight, setSpotLight] = useState(props.photos[0].url);
 
@@ -94,10 +35,6 @@ const UserPhotosModal = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-
-
-
 
   return (
     <div>
@@ -149,12 +86,12 @@ const UserPhotosModal = (props) => {
               </Grid>
               <Grid item xs={3} style={{ height: '560px' }}>
                 <StarMaker rating={props.rating} />
-                <Typography style={{wordBreak: 'break-all'}} gutterBottom variant="subtitle1">
+                <Typography style={{ wordBreak: 'break-all' }} gutterBottom variant="subtitle1">
                   {props.summary}
                 </Typography>
                 {/* <Break /> */}
-                <Typography  variant="caption">{props.name + ", "} <AccurateDate date={props.date} /> </Typography>
-                <Typography style={{wordBreak: 'break-all'}} variant="body2" gutterBottom>
+                <Typography variant="caption">{props.name + ", "} <AccurateDate date={props.date} /> </Typography>
+                <Typography style={{ wordBreak: 'break-all' }} variant="body2" gutterBottom>
                   {props.body}
                 </Typography>
               </Grid>

@@ -14,11 +14,11 @@ const MetaData = (props) => {
     return Math.round(((ratings[1] + ratings[2] * 2 + ratings[3] * 3 + ratings[4] * 4 + ratings[5] * 5) / (ratings[1] + ratings[2] + ratings[3] + ratings[4] + ratings[5])) * 10) / 10;
   }
   const data = [
-    {star: '5 stars', rating: props.meta.ratings[5]},
-    {star: '4 stars', rating: props.meta.ratings[4]},
-    {star: '3 stars', rating: props.meta.ratings[3]},
-    {star: '2 stars', rating: props.meta.ratings[2]},
-    {star: '1 stars', rating: props.meta.ratings[1]},
+    { star: '5 stars', rating: props.meta.ratings[5] },
+    { star: '4 stars', rating: props.meta.ratings[4] },
+    { star: '3 stars', rating: props.meta.ratings[3] },
+    { star: '2 stars', rating: props.meta.ratings[2] },
+    { star: '1 stars', rating: props.meta.ratings[1] },
   ];
 
   return (
@@ -45,23 +45,23 @@ const MetaData = (props) => {
         <Grid item xs={12}>
 
 
-        <Chart
-          data={data}
-          rotated
-          height={180}
-        >
-          <ArgumentAxis />
-          {/* <ValueAxis max={5} /> */}
+          <Chart
+            data={data}
+            rotated
+            height={180}
+          >
+            <ArgumentAxis />
+            {/* <ValueAxis max={5} /> */}
 
-          <BarSeries
-            valueField="rating"
-            argumentField="star"
-            barWidth= {.2}
-            color= 'grey'
-          />
+            <BarSeries
+              valueField="rating"
+              argumentField="star"
+              barWidth={.2}
+              color='grey'
+            />
 
 
-        </Chart>
+          </Chart>
 
         </Grid>
 

@@ -10,26 +10,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
-    padding: theme.spacing(2),
-    margin: 'auto',
-
-  },
-  image: {
-    width: 128,
-    height: 128,
-  },
-  img: {
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-  },
   divider: {
     margin: theme.spacing(2, 0),
   },
   button: {
-    // backgroundColor: "#00D2BC",
     maxWidth: '28px',
     maxHeight: '28px',
     minWidth: '28px',
@@ -58,7 +42,7 @@ const OneReview = (props) => {
             </Grid>
 
             <Grid item xs={6}>
-              <Typography variant="caption" style={{float:'right'}}>{props.person.reviewer_name + ", "} <AccurateDate date={props.person.date} /> </Typography>
+              <Typography variant="caption" style={{ float: 'right' }}>{props.person.reviewer_name + ", "} <AccurateDate date={props.person.date} /> </Typography>
             </Grid>
 
           </Grid>

@@ -94,12 +94,7 @@ class RatingReviewApp extends Component {
       })
   };
 
-  // if (results.data.results.length > 0) {
-  //   console.log(results.data.results.length, 'inside if');
-  //   return <Button variant="outlined" onClick={() => this.nextTwo()}>MORE REVIEWS</Button>
-  // } else {
-  //   return null;
-  // }
+
   setBool() {
     const { bool } = this.state;
     if (bool) {
@@ -118,11 +113,9 @@ class RatingReviewApp extends Component {
     return (
       <div>
         <Grid container spacing={2}>
-          {/* <Grid item xs={12} sm container> */}
-          {/* <Grid item xs spacing={2}> */}
           <Grid item xs={2}>
           </Grid>
-          <Grid item xs={3} style={{maxWidth: '300px'}}>
+          <Grid item xs={3} style={{ maxWidth: '300px' }}>
             {this.state.metaData ? <MetaData meta={this.state.metaData} /> : null}
           </Grid>
 

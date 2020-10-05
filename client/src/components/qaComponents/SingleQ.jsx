@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Typography } from '@material-ui/core';
 import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import SingleA from './SingleA.jsx';
@@ -41,7 +41,7 @@ const SingleQ = (props) => {
         setAnswersData(response.data);
       })
       .catch(error => console.error(error));
-  // empty dependency array means this effect will only run once (like componentDidMount in classes)
+    // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
   const onLoadMore = () => {
@@ -54,6 +54,7 @@ const SingleQ = (props) => {
 
         <Grid item xs={6}>
           Q: {props.question.question_body}
+
         </Grid>
 
         <Grid item xs={6}>

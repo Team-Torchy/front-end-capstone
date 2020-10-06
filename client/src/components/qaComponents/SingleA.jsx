@@ -35,34 +35,59 @@ const SingleA = (props) => {
   // console.log('SingleA answersData: ', answersData);
   const classes = useStyles();
   const [reportDisabled, setReportDisabled] = useState(false);
+  const [yesDisabled, setYesDisabled] = useState(false);
 
   const handleReportClick = () => {
     setReportDisabled(true);
   };
 
+  const handleYesClick = () => {
+    setYesDisabled(true);
+  };
+
   return (
     <div>
-      <Grid className={classes.root} item xs={12} container direction="column" justify="flex-start">
+      <Grid
+        className={classes.root}
+        item
+        xs={12}
+        container
+        direction="column"
+        justify="flex-start"
+      >
         <Grid item xs={8}>
-          <div className='QandA'>
-            A: {props.answer.body}
-          </div>
+          <div className="QandA">A: {props.answer.body}</div>
         </Grid>
 
         {/* map over images in answer */}
         <GridList className={classes.gridList} cols={2.5}>
           {props.answer.photos.map((image, i) => (
             <GridListTile key={i}>
-
-              <img className='QandA' src={image.url} />
-
+              <img className="QandA" src={image.url} />
             </GridListTile>
           ))}
         </GridList>
 
         <Grid item xs={12}>
-          <div className='QandA'>
-            by {props.answer.answerer_name}, {props.answer.date} | Helpful? Yes ({props.answer.helpfulness}) | <Button size="small" variant="text" disabled={reportDisabled} onClick={handleReportClick}>Report</Button>
+          <div className="QandA">
+            by {props.answer.answerer_name}, {props.answer.date} | Helpful?
+            <Button
+              size="small"
+              variant="text"
+              disabled={yesDisabled}
+              onClick={handleYesClick}
+            >
+              Yes
+            </Button>
+            ({props.answer.helpfulness}) |
+            <Button
+              size="small"
+              variant="text"
+              disabled={reportDisabled}
+              onClick={handleReportClick}
+            >
+              Report
+            </Button>
           </div>
         </Grid>
       </Grid>

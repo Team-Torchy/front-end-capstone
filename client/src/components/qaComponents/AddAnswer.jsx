@@ -119,6 +119,7 @@ const AddAnswer = (props) => {
   return (
     <div>
       <Button
+        size="small"
         variant="text"
         onClick={handleOpen}
         className={classes.button}

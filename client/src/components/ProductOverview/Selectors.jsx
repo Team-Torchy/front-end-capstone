@@ -45,6 +45,8 @@ class Selectors extends React.Component {
     }, () => {
       var sizes = this.getSizes();
 
+
+
       this.setState({
         sizes,
         size: sizes[0].label,

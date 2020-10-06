@@ -116,14 +116,10 @@ class ProductOverview extends React.Component {
   }
 
   getProductData() {
-    axios.get(`${apiURL}/cart`)
-      .then((res) => {
-
-      });
 
     axios.get(`${apiURL}/products/${this.state.productId}`)
       .then((res) => {
-        // console.log(res);
+        console.log(res.data);
         this.setState({
           productData: res.data
         });
@@ -165,7 +161,8 @@ class ProductOverview extends React.Component {
           styleName: res.data.results[0].name
         }, () => {
           this.setState({
-            galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos
+            galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos,
+
           });
         });
       });
@@ -178,7 +175,8 @@ class ProductOverview extends React.Component {
       styleName: this.state.styleList[id - 1].name,
     }, () => {
       this.setState({
-        galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos
+        galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos,
+        skus: this.state.styleList[this.state.styleSelectedId - 1]
       });
     });
   }

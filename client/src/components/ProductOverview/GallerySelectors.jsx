@@ -14,7 +14,7 @@ const GallerySelectors = (props) => {
             <div className='selector' key={props.data.indexOf(img)}>
               <img className='galleryImage' data-imgurl={img.url} src={img.thumbnail_url} onClick={props.changeImg}></img> <br />
             </div>
-          )
+          );
         })}
       </Grid>
     </Grid>

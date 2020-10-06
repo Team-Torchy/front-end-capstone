@@ -36,6 +36,7 @@ const SingleA = (props) => {
   const classes = useStyles();
   const [reportDisabled, setReportDisabled] = useState(false);
   const [yesDisabled, setYesDisabled] = useState(false);
+  // console.log('SingleA props: ', props);
 
   const handleReportClick = () => {
     setReportDisabled(true);

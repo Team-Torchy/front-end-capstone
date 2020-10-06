@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import dummyQuestionsData from '../../dummyQuestionsData.js';
 import SingleQ from './SingleQ.jsx';
 import AddQuestion from './AddQuestion.jsx';
 import QuestionSearch from './QuestionSearch.jsx';
@@ -38,10 +37,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const QandA = (props) => {
-  // console.log('This is the questions data: ', questionsData);
+
   const [isOpen, setIsOpen] = useState(false);
   const [questionsLimit, setQuestionsLimit] = useState(4);
   const [questionsData, setQuestionsData] = useState({results: [], id: 1});
+  // console.log('This is the questions data: ', questionsData);
   // console.log('This is the questions data.id: ', questionsData.id);
   const classes = useStyles();
 

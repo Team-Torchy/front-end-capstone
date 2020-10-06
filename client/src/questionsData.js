@@ -57,7 +57,7 @@ const questions = {
       answers: {
         10: {
           id: 10,
-          body: "I've thrown it in the wash and it seems fine",
+          body: "Ive thrown it in the wash and it seems fine",
           date: "2017-01-04T00:00:00.000Z",
           answerer_name: "skilover",
           helpfulness: 1,
@@ -84,7 +84,7 @@ const questions = {
         },
         43: {
           id: 43,
-          body: "I wouldn't machine wash it",
+          body: "I wouldnt machine wash it",
           date: "2017-11-04T00:00:00.000Z",
           answerer_name: "skilover",
           helpfulness: 5,

@@ -73,7 +73,7 @@ class ProductOverview extends React.Component {
         });
       })
       .then(() => {
-        console.log(this.state.productData);
+        // console.log(this.state.productData);
       });
   }
 
@@ -100,7 +100,7 @@ class ProductOverview extends React.Component {
   getStylesForProduct() {
     axios.get(`${apiURL}/products/${this.state.productId}/styles`)
       .then(res => {
-        console.log(res.data.results);
+        // console.log(res.data.results);
 
         this.setState({
           styleList: res.data.results,

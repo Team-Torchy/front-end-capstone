@@ -29,10 +29,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SingleQ = (props) => {
+
   const classes = useStyles();
   const [answersData, setAnswersData] = useState({ results: [], question: 1 });
   const [yesDisabled, setYesDisabled] = useState(false);
   const [answersLimit, setAnswersLimit] = useState(2);
+  // console.log('SingleQ props: ', props);
 
   //GET Request for 'Answers List' API for specific question id's answers
   useEffect(() => {

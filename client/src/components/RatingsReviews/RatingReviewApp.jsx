@@ -33,7 +33,7 @@ class RatingReviewApp extends Component {
   getReviews() {
     axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`)
       .then((results) => {
-        console.log(results.data.results);
+        // console.log(results.data.results);
         if (!this.state.reviewData) {
           this.setState({
             reviewData: results.data.results
@@ -59,7 +59,7 @@ class RatingReviewApp extends Component {
         this.setState({
           metaData: data.data
         })
-        console.log(this.state.metaData);
+        // console.log(this.state.metaData);
       })
       .catch((err) => {
         console.log(err);

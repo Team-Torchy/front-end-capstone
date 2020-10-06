@@ -42,7 +42,8 @@ class ProductOverview extends React.Component {
       galleryImages: [],
       cart: [],
       session: undefined,
-      skus: []
+      skus: [],
+      skuList: []
     };
 
     this.handleStyleSelect.bind(this);
@@ -153,12 +154,17 @@ class ProductOverview extends React.Component {
     axios.get(`${apiURL}/products/${this.state.productId}/styles`)
       .then(res => {
         console.log(res.data.results);
+        var skus = res.data.results.map(res => {
+          return Object.keys(res.skus);
+        });
+        skus = skus.flat();
 
         this.setState({
           styleList: res.data.results,
           styleSelectedId: 1,
           imgURL: res.data.results[0].photos[0].url,
-          styleName: res.data.results[0].name
+          styleName: res.data.results[0].name,
+          skuList: skus
         }, () => {
           this.setState({
             galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos,
@@ -223,7 +229,7 @@ class ProductOverview extends React.Component {
         spacing={3}
         id="OverviewContainer"
       >
-        <NavBar cart={this.state.cart} skus={this.state.skus} />
+        <NavBar cart={this.state.cart} skus={this.state.skus} skuList={this.state.skuList}/>
 
         <Grid item id='gallery' xs={6}>
           <ImageGallery data={this.state.galleryImages} img={this.state.imgURL} changeImg={this.changeImage.bind(this)} />

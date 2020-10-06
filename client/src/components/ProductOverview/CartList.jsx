@@ -1,9 +1,9 @@
 import React from 'react';
 
-var CartList = ({ cart, skus }) => {
+var CartList = ({ cart, skus, skuList}) => {
   console.log(cart, skus);
   return cart.map((item, i) => {
-    for (var sku in skus.skus) {
+    for (var sku in skuList) {
       // console.log(item, Number(sku));
       if (item === Number(sku)) {
         // console.log(skus.skus[sku]);

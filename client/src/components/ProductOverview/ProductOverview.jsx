@@ -63,7 +63,7 @@ class ProductOverview extends React.Component {
     axios.get('/session')
       .then(res => {
         // console.log(res);
-        session = res.data
+        session = res.data;
         // console.log(session);
         this.setState({
           session
@@ -213,7 +213,7 @@ class ProductOverview extends React.Component {
   getSkus(skus) {
     this.setState({
       skus
-    })
+    });
   }
 
   render() {

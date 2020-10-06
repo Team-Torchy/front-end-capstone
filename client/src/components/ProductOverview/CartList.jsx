@@ -5,7 +5,7 @@ var CartList = ({ cart, skus }) => {
 
   return cart.map((item, i) => {
     return (
-      <div>{item}</div>
+      <div key={i}>{item}</div>
     );
 
   });

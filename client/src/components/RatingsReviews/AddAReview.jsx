@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Accordion, AccordionDetails, AccordionSummary, AccordionActions, Typography, Button, Divider, Checkbox, TextField } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 //ADD REACT HOOKS SO ThAT YOU CAN MAKE STATE IN HERE AND DEClARE A BOOLEAN ONCLICK THAT WILL CHANGE BOOLEAN AND IF TRUE WILL RENDER ACCORDION UNDER THE BUTTON
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,15 +12,6 @@ const useStyles = makeStyles((theme) => ({
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
-  icon: {
-    verticalAlign: 'bottom',
-    height: 20,
-    width: 20,
   },
   details: {
     alignItems: 'center',
@@ -33,13 +25,6 @@ const useStyles = makeStyles((theme) => ({
   },
   bodyHelper: {
     padding: theme.spacing(1, 5),
-  },
-  link: {
-    color: theme.palette.primary.main,
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
   },
 }));
 

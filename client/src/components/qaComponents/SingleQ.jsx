@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Typography } from '@material-ui/core';
 import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import SingleA from './SingleA.jsx';
@@ -30,7 +30,9 @@ const useStyles = makeStyles(theme => ({
 
 const SingleQ = (props) => {
   const classes = useStyles();
+  const [answersLimit, setAnswersLimit] = useState(2);
   const [answersData, setAnswersData] = useState({results: [], question: 1});
+
   //GET Request for "Answers List" API for specific question id's answers
   useEffect(() => {
     axios.get(`http://18.224.37.110/qa/questions/${props.question.question_id}/answers`)
@@ -39,37 +41,38 @@ const SingleQ = (props) => {
         setAnswersData(response.data);
       })
       .catch(error => console.error(error));
-  // empty dependency array means this effect will only run once (like componentDidMount in classes)
+    // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
+  const onLoadMore = () => {
+    setAnswersLimit(answersLimit + 2);
+  };
+
   return (
-    <div>
-      <Grid container spacing={2} direction="column">
-        <Grid item xs={12} container justify="space-between">
-          <Grid item xs={8} >
-            <div className='QandA'>
-              Q: {props.question.question_body}
-            </div>
-          </Grid>
-          <Grid item xs={4}>
-            <div className='QandA'>
-              Helpful? Yes ({props.question.question_helpfulness}) | Add Answer
-            </div>
-          </Grid>
+    <Grid container spacing={2} direction="column">
+      <Grid item xs={12} container justify="space-between">
+
+        <Grid item xs={6}>
+          Q: {props.question.question_body}
+
         </Grid>
 
-        {/* Map over the array of answer objects */}
-        {answersData.results.map((answer, i) => {
-          return <SingleA key={i} answer={answer} />;
-        })}
-
-
-        <Grid item xs={12}>LOAD MORE ANSWERS</Grid>
+        <Grid item xs={6}>
+          Helpful? Yes ({props.question.question_helpfulness}) | <AddAnswer />
+        </Grid>
 
       </Grid>
-    </div>
+
+      {/* Map over the array of answer objects */}
+      {answersData.results.slice(0, answersLimit).map((answer, i) => {
+        return <SingleA key={i} answer={answer} />;
+      })}
+
+
+      <Grid item onClick={onLoadMore} xs={12}>LOAD MORE ANSWERS</Grid>
+
+    </Grid>
   );
 };
 
 export default SingleQ;
-

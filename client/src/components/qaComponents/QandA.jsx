@@ -11,15 +11,15 @@ import AddQuestion from './AddQuestion.jsx';
 import AltQuestionSearch from './AltQuestionSearch.jsx';
 
 //Search Bar Dummy Data
-const people = [
-  'Siri',
-  'Alexa',
-  'Google',
-  'Facebook',
-  'Twitter',
-  'Linkedin',
-  'Sinkedin',
-];
+// const people = [
+//   'Siri',
+//   'Alexa',
+//   'Google',
+//   'Facebook',
+//   'Twitter',
+//   'Linkedin',
+//   'Sinkedin',
+// ];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,8 +88,8 @@ const QandA = (props) => {
 
   //Search Bar Filtering
   useEffect(() => {
-    const results = people.filter((person) =>
-      person.toLowerCase().includes(searchTerm)
+    const results = questionsData.results.filter((question) =>
+      question.question_body.toLowerCase().includes(searchTerm)
     );
     setSearchResults(results);
   }, [searchTerm]);
@@ -100,11 +100,11 @@ const QandA = (props) => {
     questionView =
     <div>
       {questionsData.results.slice(0, questionsLimit).map((question, i) => {
-        return <SingleQ key={i} question={question} />;
+        return <SingleQ key={i} question={question} questionsData="questionsData"/>;
       })}
     </div>;
   } else {
-    questionView = <AltQuestionSearch questionsData={questionsData}/>;
+    questionView = <AltQuestionSearch searchResults={searchResults}/>;
   }
 
   return (

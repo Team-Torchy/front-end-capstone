@@ -6,7 +6,7 @@ const AltQuestionSearch = (props) => {
     <div className='AltQuestionSearch'>
 
       <ul>
-        {props.questionsData.results.map((question) => (
+        {props.searchResults.map((question) => (
           <li> {question.question_body}</li>
         ))}
       </ul>

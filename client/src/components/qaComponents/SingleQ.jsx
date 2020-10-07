@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SingleQ = (props) => {
-
   const classes = useStyles();
   const [answersData, setAnswersData] = useState({ results: [], question: 1 });
   const [yesDisabled, setYesDisabled] = useState(false);

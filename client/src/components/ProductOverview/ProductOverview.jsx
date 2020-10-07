@@ -84,31 +84,20 @@ class ProductOverview extends React.Component {
       currentCart.push(Number(sku));
       currentCartList.push(item);
       // console.log(`user_session=${this.state.session};`);
-      // axios.get(`${apiURL}/cart`, {
-      //   Headers: {
-      //     'Cookie': `user_session=${this.state.session};`
-      //   }})
-      //   .then(res => {
-      //     console.log(res);
-      //     axios.post(`${apiURL}/cart`, {
-      //       body: { 'sku_id': Number(sku) },
-      //       Headers: {
-      //         'Cookie': `'user_session=${this.state.session};'`
-      //       }
-      //     })
-      //       .then((res) => {
-      //         console.log(sku, ' added to cart');
-      //         console.log(res.headers['set-cookie']);
-      //         axios.get(`${apiURL}/cart`, {
-      //           Headers: {
-      //             'Cookie': `user_session=${this.state.session};`
-      //           }})
-      //           .then(res => {
-      //             console.log(res);
-      //           });
-      //       })
-      //       .catch(err => console.error(err));
-      //   });
+      axios.get(`${apiURL}/cart`)
+        .then(res => {
+          console.log(res);
+          axios.post(`${apiURL}/cart`, { 'sku_id': sku })
+            .then((res) => {
+              console.log(sku, ' added to cart');
+              console.log(res);
+              axios.get(`${apiURL}/cart`)
+                .then(res => {
+                  console.log(res);
+                });
+            })
+            .catch(err => console.error(err));
+        });
     }
     this.setState({
       cart: currentCart,
@@ -120,8 +109,16 @@ class ProductOverview extends React.Component {
 
   }
 
-  removeFromCart(e) {
-    console.log('remove', e);
+  removeFromCart(item) {
+    console.log('remove', item);
+    const cartList = this.state.cartList;
+    const index = cartList.indexOf(item);
+    if (index > -1) {
+      cartList.splice(index, 1);
+    }
+    this.setState({
+      cartList
+    });
   }
 
   getProductData() {

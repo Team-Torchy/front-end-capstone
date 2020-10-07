@@ -159,6 +159,9 @@ body {
 
 #cartItems {
   padding-left: 10px;
+  border-bottom: 3px solid gray;
+  padding-bottom: 10px;
+  padding-top: 5px;
 }
 
 .selector {

@@ -11,13 +11,13 @@ var CartList = ({ cart, remove }) => {
         total = total + price;
         return (
           <div key={i} >
-            <Grid container>
+            <Grid container id="cartItems">
               <Grid item xs={3}>
                 <img className="cartImage" src={item.photos[0].thumbnail_url} />
               </Grid>
               <Grid item xs={9}>
                 <h2>{item.name}</h2>
-                <p onClick={remove}>{price} | Remove from Cart</p>
+                <p onClick={() => remove(item)}>{price} | Remove from Cart</p>
               </Grid>
             </Grid>
           </div>

@@ -7,7 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import SingleQ from './SingleQ.jsx';
 import AddQuestion from './AddQuestion.jsx';
-import QuestionSearch from './QuestionSearch.jsx';
+// import QuestionSearch from './QuestionSearch.jsx';
+import AltQuestionSearch from './AltQuestionSearch.jsx';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -41,7 +42,7 @@ const QandA = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [questionsLimit, setQuestionsLimit] = useState(4);
   const [questionsData, setQuestionsData] = useState({results: [], id: 1});
-  // console.log('This is the questions data: ', questionsData);
+  console.log('This is the questions data: ', questionsData);
   // console.log('This is the questions data.id: ', questionsData.id);
   const classes = useStyles();
 
@@ -65,8 +66,6 @@ const QandA = (props) => {
         setQuestionsData(response.data);
       })
       .catch(error => console.error(error));
-
-  // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
   // console.log('This is the NEW questionsData state', questionsData);
@@ -76,7 +75,8 @@ const QandA = (props) => {
       <Grid container spacing={2} direction="column" >
         <Grid item xs={12} container spacing={3} my={2}>
           <Grid item xs={4}>QUESTIONS {'&'} ANSWERS</Grid>
-          <QuestionSearch />
+          <AltQuestionSearch />
+          {/* <QuestionSearch questionsData={questionsData}/> */}
         </Grid>
         {/* Map over the array of question objects */}
         {questionsData.results.slice(0, questionsLimit).map((question, i) => {

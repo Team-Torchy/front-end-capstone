@@ -5,7 +5,7 @@ import AddAReview from './AddAReview.jsx';
 import { Typography, Divider, Grid, Button, Box } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import dummyData from '/Users/alecbrock/front-end-capstone/client/dummyData.js';
+import dummyData from '../../../dummyData.js';
 import Image from 'react-image-resizer';
 import MetaData from './MetaData.jsx';
 
@@ -18,82 +18,130 @@ class RatingReviewApp extends Component {
       product_id: props.num,
       page: 1,
       bool: false,
-      lengthTest: false
+      lengthTest: false,
+      ratingData: false,
     }
     //bind any functions here
-    this.nextTwo = this.nextTwo.bind(this);
-    this.nextConditional = this.nextConditional.bind(this);
+    // this.nextTwo = this.nextTwo.bind(this);
+    // this.nextConditional = this.nextConditional.bind(this);
+    this.putHelpful = this.putHelpful.bind(this);
+    this.putReport = this.putReport.bind(this);
   }
   componentDidMount() {
     this.getReviews();
-    this.getMetaData();
   }
 
   //Methods here
+  // getReviews() {
+  //   axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`)
+  //     .then((results) => {
+  //       this.getMetaData((data) => {
+  //         this.nextConditional((data2, page) => {
+  //           if (results && data && data2) {
+  //             this.setState({
+  //               reviewData: results.data.results,
+  //               metaData: data,
+  //               lengthTest: data2,
+  //               page: page
+  //             })
+  //           }
+  //         })
+  //       })
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  // };
+  // getMetaData(cb) {
+  //   axios.get(`http://18.224.37.110/reviews/meta/?product_id=${this.state.product_id}`)
+  //     .then((data) => {
+  //       cb(data.data);
+  //     })
+  //     .catch((err) => {
+  //     })
+  // };
+
+  // nextConditional(cb) {
+  //   const { page } = this.state,
+  //     next = page + 1;
+  //   axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${next}`)
+  //     .then((results) => {
+  //       cb(results.data.results.length, next);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  // };
+
   getReviews() {
-    axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`)
-      .then((results) => {
-        console.log(results.data.results);
-        if (!this.state.reviewData) {
-          this.setState({
-            reviewData: results.data.results
-          })
-        } else {
-          let holder = [...this.state.reviewData, ...results.data.results];
-          this.setState({
-            reviewData: holder
-          })
-        }
+    let nextReview = this.state.page + 1;
+    const reviews = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`);
+    const meta = axios.get(`http://18.224.37.110/reviews/meta/?product_id=${this.state.product_id}`);
+    const next = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${nextReview}`);
+    axios.all([reviews, meta, next]).then(axios.spread((...responses) => {
+      this.setState({
+        reviewData: responses[0].data.results,
+        metaData: responses[1].data,
+        lengthTest: responses[2].data.results.length,
+        page: nextReview
       })
-      .then((x) => {
-        this.nextConditional();
-      })
+      console.log(this.state.reviewData);
+    }))
       .catch((err) => {
         console.log(err);
       })
   };
 
-  getMetaData() {
-    axios.get(`http://18.224.37.110/reviews/meta/?product_id=${this.state.product_id}`)
+  getPaginatedReviews() {
+    let nextReview = this.state.page + 1;
+    const reviews = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`);
+    const next = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${nextReview}`);
+    axios.all([reviews, next]).then(axios.spread((...responses) => {
+      this.setState({
+        reviewData: [...this.state.reviewData, ...responses[0].data.results],
+        lengthTest: responses[1].data.results.length,
+        page: nextReview
+      })
+      console.log(this.state.reviewData);
+    }))
+      .catch((err) => {
+        console.log(err);
+      })
+  };
+
+  putHelpful(id) {
+    axios.put(`http://18.224.37.110/reviews/${id}/helpful`)
+    .then((result) => {
+      axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=${this.state.reviewData.length}`)
       .then((data) => {
         this.setState({
-          metaData: data.data
+          reviewData: data.data.results
         })
-        console.log(this.state.metaData);
       })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  nextTwo(event) {
-    event.preventDefault();
-    this.setState({
-      page: this.state.page += 1
     })
-    this.getReviews();
+    .catch((err) => {
+      console.log(err);
+    })
   };
 
-
-
-
-  //PAGINATION GET REQUEST LIMIT COUNT OFFSET
-  //SETUP GET REQUEST ONLY NEXT IN LINE
-  //INDEX
-  nextConditional() {
-    const { reviewData, page, lengthTest } = this.state,
-      next = page + 1;
-    axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${next}`)
-      .then((results) => {
+  putReport(id) {
+    axios.put(`http://18.224.37.110/reviews/${id}/report`)
+    .then(() => {
+      axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=${this.state.reviewData.length - 1}`)
+      .then((data) => {
         this.setState({
-          lengthTest: results.data.results.length
+          reviewData: data.data.results
         })
       })
-      .catch((err) => {
-        console.log(err);
-      })
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   };
 
+  sortByRating(num) {
+    axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}`)
+  }
 
   setBool() {
     const { bool } = this.state;
@@ -106,7 +154,7 @@ class RatingReviewApp extends Component {
         bool: true
       })
     }
-  }
+  };
 
   render() {
     const { reviewData, bool, lengthTest } = this.state;
@@ -120,8 +168,8 @@ class RatingReviewApp extends Component {
           </Grid>
 
           <Grid item xs={5} >
-            {reviewData.length > 0 ? <ReviewList reviews={reviewData} /> : null}
-            {lengthTest ? <Button variant="outlined" onClick={(event) => this.nextTwo(event)}>MORE REVIEWS</Button> : null}
+            {reviewData.length > 0 ? <ReviewList reviews={reviewData} putHelpful={this.putHelpful} putReport={this.putReport}/> : null}
+            {lengthTest ? <Button variant="outlined" onClick={() => this.getPaginatedReviews()}>MORE REVIEWS</Button> : null}
             <Button variant="outlined" onClick={() => this.setBool()}>MORE REVIEWS +</Button>
             {bool ? <AddAReview /> : null}
           </Grid>

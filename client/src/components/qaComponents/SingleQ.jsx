@@ -52,11 +52,11 @@ const SingleQ = (props) => {
               Q: {props.question.question_body}
             </div>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={5} container alignItems="flex-start" justify="flex-end">
             {/* 4^^ */}
             <div className='QandA'>
-            <Typography  style={{position: "relative", left: "250px"}}variant="caption"> {"Helpful? Yes " + "(" + props.question.question_helpfulness + ") " + "| " + "Add Answer"} </Typography>
             {/* Helpful? Yes ({props.question.question_helpfulness}) | Add Answer */}
+            <Typography  style={{position: "relative", right: "50px"}} variant="caption"> {"Helpful? Yes " + "(" + props.question.question_helpfulness + ") " + "| " + "Add Answer"} </Typography>
             </div>
           </Grid>
         </Grid>

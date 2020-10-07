@@ -10,7 +10,7 @@ const StarMaker = (props) => {
     <Rating
       name="simple-controlled"
       value={props.rating}
-      precision={0.25}
+      precision={0.2}
       size="small"
       readOnly
     />

@@ -1,13 +1,13 @@
 import React from 'react';
-import { ShoppingCart } from '@material-ui/icons/'
-import { Grid, Button } from '@material-ui/core/'
+import { ShoppingCart } from '@material-ui/icons/';
+import { Grid, Button } from '@material-ui/core/';
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
 
-    }
+    };
   }
   render() {
     return (

@@ -35,7 +35,7 @@ class Selectors extends React.Component {
   }
 
   addToCart() {
-    this.props.addToCart(this.state.currentSku, this.state.howMany)
+    this.props.addToCart(this.state.currentSku, this.state.howMany);
   }
 
   setSelectors() {

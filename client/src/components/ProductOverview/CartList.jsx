@@ -1,6 +1,7 @@
 import React from 'react';
+import { Grid } from '@material-ui/core';
 
-var CartList = ({ cart }) => {
+var CartList = ({ cart, remove }) => {
   console.log(cart);
   var total = 0;
   return (
@@ -10,7 +11,15 @@ var CartList = ({ cart }) => {
         total = total + price;
         return (
           <div key={i} >
-            <img className="galleryImage" src={item.photos[0].thumbnail_url} /><h2>{item.name}</h2><p>{price}</p>
+            <Grid container>
+              <Grid item xs={3}>
+                <img className="cartImage" src={item.photos[0].thumbnail_url} />
+              </Grid>
+              <Grid item xs={9}>
+                <h2>{item.name}</h2>
+                <p onClick={remove}>{price} | Remove from Cart</p>
+              </Grid>
+            </Grid>
           </div>
         );
       })}

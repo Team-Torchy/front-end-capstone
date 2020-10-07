@@ -29,7 +29,7 @@ class NavBar extends React.Component {
           }
           onClick={this.handleShow.bind(this)}
           >
-            <Cart cart={this.props.cart} />
+            <Cart cart={this.props.cart} remove={this.props.remove}/>
           </div>
         </Grid>
       </Grid>

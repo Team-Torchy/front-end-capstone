@@ -120,6 +120,10 @@ class ProductOverview extends React.Component {
 
   }
 
+  removeFromCart(e) {
+    console.log('remove', e);
+  }
+
   getProductData() {
 
     axios.get(`${apiURL}/products/${this.state.productId}`)
@@ -233,7 +237,7 @@ class ProductOverview extends React.Component {
         spacing={3}
         id="OverviewContainer"
       >
-        <NavBar cart={this.state.cartList} />
+        <NavBar cart={this.state.cartList} remove={this.removeFromCart.bind(this)}/>
 
         <Grid item id='gallery' xs={6}>
           <ImageGallery data={this.state.galleryImages} img={this.state.imgURL} changeImg={this.changeImage.bind(this)} />

@@ -5,11 +5,11 @@ import CartList from './CartList.jsx';
 
 var Cart = ({ cart }) => {
   return (
-    <Grid container>
+    <Grid container >
       <Grid item xs={3}>
 
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={6} id='cartItems'>
 
         <div id='cartBox'>
           Your Cart:

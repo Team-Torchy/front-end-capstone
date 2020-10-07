@@ -128,6 +128,7 @@ body {
   height: 100%;
   background: rgba(51, 51, 51, 0.7);
   z-index: 20;
+  border-radius: 50% solid white;
 }
 
 #cartBox {
@@ -136,6 +137,10 @@ body {
   height: 600px;
   margin-top: 70px;
   overflow: scroll;
+}
+
+#cartItems {
+  padding-left: 10px;
 }
 
 .selector {

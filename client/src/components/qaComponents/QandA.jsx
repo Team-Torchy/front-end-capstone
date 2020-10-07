@@ -94,6 +94,19 @@ const QandA = (props) => {
     setSearchResults(results);
   }, [searchTerm]);
 
+  //conditional render of questions based off search filter
+  let questionView;
+  if (searchTerm.length < 3) {
+    questionView =
+    <div>
+      {questionsData.results.slice(0, questionsLimit).map((question, i) => {
+        return <SingleQ key={i} question={question} />;
+      })}
+    </div>;
+  } else {
+    questionView = <AltQuestionSearch questionsData={questionsData}/>;
+  }
+
   return (
     <div>
       <Grid container spacing={2} direction="column">
@@ -109,12 +122,15 @@ const QandA = (props) => {
             value={searchTerm}
             onChange={handleChange}
           />
-          <AltQuestionSearch searchResults={searchResults}/>
+          {/* <AltQuestionSearch searchResults={searchResults}/> */}
         </Grid>
+        {questionView}
         {/* Map over the array of question objects */}
-        {questionsData.results.slice(0, questionsLimit).map((question, i) => {
-          return <SingleQ key={i} question={question} />;
-        })}
+        {/* <div>
+          {questionsData.results.slice(0, questionsLimit).map((question, i) => {
+            return <SingleQ key={i} question={question} />;
+          })}
+        </div> */}
 
         <Grid item xs={8} container spacing={2}>
           <Button

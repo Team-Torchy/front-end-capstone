@@ -8,18 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import SingleQ from './SingleQ.jsx';
 import AddQuestion from './AddQuestion.jsx';
 // import QuestionSearch from './QuestionSearch.jsx';
-import AltQuestionSearch from './AltQuestionSearch.jsx';
-
-//Search Bar Dummy Data
-// const people = [
-//   'Siri',
-//   'Alexa',
-//   'Google',
-//   'Facebook',
-//   'Twitter',
-//   'Linkedin',
-//   'Sinkedin',
-// ];
+// import AltQuestionSearch from './AltQuestionSearch.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 const QandA = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  // const [searchResults, setSearchResults] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [questionsLimit, setQuestionsLimit] = useState(4);
   const [questionsData, setQuestionsData] = useState({results: [], id: 1});
@@ -82,30 +71,28 @@ const QandA = (props) => {
         setQuestionsData(response.data);
       })
       .catch(error => console.error(error));
-
-  // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
   //Search Bar Filtering
-  useEffect(() => {
-    const results = questionsData.results.filter((question) =>
-      question.question_body.toLowerCase().includes(searchTerm)
-    );
-    setSearchResults(results);
-  }, [searchTerm]);
+  // useEffect(() => {
+  //   const results = questionsData.results.filter((question) =>
+  //     question.question_body.toLowerCase().includes(searchTerm)
+  //   );
+  //   setSearchResults(results);
+  // }, [searchTerm]);
 
   //conditional render of questions based off search filter
-  let questionView;
-  if (searchTerm.length < 3) {
-    questionView =
-    <div>
-      {questionsData.results.slice(0, questionsLimit).map((question, i) => {
-        return <SingleQ key={i} question={question} questionsData="questionsData"/>;
-      })}
-    </div>;
-  } else {
-    questionView = <AltQuestionSearch searchResults={searchResults}/>;
-  }
+  // let questionView;
+  // if (searchTerm.length < 3) {
+  //   questionView =
+  //   <div>
+  //     {questionsData.results.slice(0, questionsLimit).map((question, i) => {
+  //       return <SingleQ key={i} question={question} questionsData="questionsData"/>;
+  //     })}
+  //   </div>;
+  // } else {
+  //   questionView = <AltQuestionSearch searchResults={searchResults}/>;
+  // }
 
   return (
     <div>
@@ -124,13 +111,21 @@ const QandA = (props) => {
           />
           {/* <AltQuestionSearch searchResults={searchResults}/> */}
         </Grid>
-        {questionView}
+        {/* {questionView} */}
+
         {/* Map over the array of question objects */}
-        {/* <div>
+        <div>
           {questionsData.results.slice(0, questionsLimit).map((question, i) => {
-            return <SingleQ key={i} question={question} />;
+            return (
+              <SingleQ
+                key={i}
+                question={question}
+                questionsData={questionsData}
+                searchTerm={searchTerm}
+              />
+            );
           })}
-        </div> */}
+        </div>
 
         <Grid item xs={8} container spacing={2}>
           <Button

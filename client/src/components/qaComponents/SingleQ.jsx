@@ -33,9 +33,10 @@ const SingleQ = (props) => {
   const [answersData, setAnswersData] = useState({ results: [], question: 1 });
   const [yesDisabled, setYesDisabled] = useState(false);
   const [answersLimit, setAnswersLimit] = useState(2);
+  const [searchResults, setSearchResults] = useState([]);
   // console.log('SingleQ props: ', props);
 
-  //GET Request for 'Answers List' API for specific question id's answers
+  //GET Request for 'Answers List' API
   useEffect(() => {
     axios
       .get(
@@ -46,8 +47,17 @@ const SingleQ = (props) => {
         setAnswersData(response.data);
       })
       .catch((error) => console.error(error));
-    // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
+
+  //Conditional Search Bar Filtering
+  useEffect(() => {
+    if (props.searchTerm.length < 3) {
+      const results = props.questionsData.results.filter((question) =>
+        question.question_body.toLowerCase().includes(props.searchTerm.toLowerCase())
+      );
+      setSearchResults(results);
+    }
+  }, [props.searchTerm]);
 
   const onLoadMore = () => {
     setAnswersLimit(answersLimit + 100);

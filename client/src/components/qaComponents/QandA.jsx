@@ -10,6 +10,16 @@ import AddQuestion from './AddQuestion.jsx';
 // import QuestionSearch from './QuestionSearch.jsx';
 import AltQuestionSearch from './AltQuestionSearch.jsx';
 
+//Search Bar Dummy Data
+const people = [
+  'Siri',
+  'Alexa',
+  'Google',
+  'Facebook',
+  'Twitter',
+  'Linkedin',
+  'Sinkedin',
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,7 +48,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const QandA = (props) => {
-
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [questionsLimit, setQuestionsLimit] = useState(4);
   const [questionsData, setQuestionsData] = useState({results: [], id: 1});
@@ -58,6 +69,11 @@ const QandA = (props) => {
     setQuestionsLimit(questionsLimit + 2);
   };
 
+  //for search bar input change
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   //GET Request for "List Questions" API
   useEffect(() => {
     axios.get(`http://18.224.37.110/qa/questions/?product_id=${questionsData.id}&count=20&page=1`)
@@ -70,14 +86,30 @@ const QandA = (props) => {
   // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
-  // console.log('This is the NEW questionsData state', questionsData);
+  //Search Bar Filtering
+  useEffect(() => {
+    const results = people.filter((person) =>
+      person.toLowerCase().includes(searchTerm)
+    );
+    setSearchResults(results);
+  }, [searchTerm]);
 
   return (
     <div>
-      <Grid container spacing={2} direction="column" >
+      <Grid container spacing={2} direction="column">
         <Grid item xs={12} container spacing={3} my={2}>
-          <Grid item xs={4}>QUESTIONS {'&'} ANSWERS</Grid>
-          <AltQuestionSearch />
+          <Grid item xs={4}>
+            QUESTIONS {'&'} ANSWERS
+          </Grid>
+          <TextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
+            value={searchTerm}
+            onChange={handleChange}
+          />
+          <AltQuestionSearch searchResults={searchResults}/>
         </Grid>
         {/* Map over the array of question objects */}
         {questionsData.results.slice(0, questionsLimit).map((question, i) => {
@@ -85,7 +117,13 @@ const QandA = (props) => {
         })}
 
         <Grid item xs={8} container spacing={2}>
-          <Button variant="contained" onClick={onLoadMore} className={classes.button}>MORE ANSWERED QUESTIONS</Button>
+          <Button
+            variant="contained"
+            onClick={onLoadMore}
+            className={classes.button}
+          >
+            MORE ANSWERED QUESTIONS
+          </Button>
           <AddQuestion />
         </Grid>
       </Grid>

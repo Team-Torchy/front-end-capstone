@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import questionsData from '../../questionsData.js';
-import SearchBar from "material-ui-search-bar";
+import SearchBar from 'material-ui-search-bar';
 // import IconButton from "@material-ui/core/IconButton";
 // import InputAdornment from "@material-ui/core/InputAdornment";
 // import SearchIcon from "@material-ui/icons/Search";

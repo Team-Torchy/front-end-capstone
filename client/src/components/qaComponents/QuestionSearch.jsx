@@ -11,13 +11,11 @@ import SearchBar from "material-ui-search-bar";
 //
 
 const questions = questionsData.results.map((question) => question);
-// console.log('questions: ', questions);
 
 const QuestionSearch = (props) => {
-  console.log('QuestionSearch Props', props);
-  const [questionsData, setQuestionsData] = useState(props.questions);
+  const [questionsData, setQuestionsData] = useState(questions);
   const [searchTerm, setSearchTerm] = useState('');
-  console.log('questionsData: ', questionsData);
+  // console.log('questionsData: ', questionsData);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -25,11 +23,9 @@ const QuestionSearch = (props) => {
     console.log('searchTerm: ', searchTerm);
   };
 
-  const filteredQuestions = () => {
-    console.log(questionsData.filter(question => question.question_body.toLowerCase().includes(searchTerm.toLowerCase())));
-  };
+  // const dynamicSearch = () => {
 
-  // console.log(filteredQuestions);
+  // };
 
   return (
     <Autocomplete
@@ -37,7 +33,7 @@ const QuestionSearch = (props) => {
       options={questions}
       getOptionLabel={(option) => option.question_body}
       fullWidth
-      renderInput={(params) => <TextField {...params} onChange={handleSearchChange} label="HAVE A QUESTION? SEARCH FOR ANSWERS..." variant="outlined" />}
+      renderInput={(params) => <TextField {...params} onChange={handleSearchChange} onClick={handleSearchChange} label="HAVE A QUESTION? SEARCH FOR ANSWERS..." variant="outlined" />}
 
 
     />

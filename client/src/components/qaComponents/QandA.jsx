@@ -42,7 +42,7 @@ const QandA = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [questionsLimit, setQuestionsLimit] = useState(4);
   const [questionsData, setQuestionsData] = useState({results: [], id: 1});
-  console.log('This is the questions data: ', questionsData);
+  // console.log('This is the questions data: ', questionsData);
   // console.log('This is the questions data.id: ', questionsData.id);
   const classes = useStyles();
 
@@ -66,6 +66,8 @@ const QandA = (props) => {
         setQuestionsData(response.data);
       })
       .catch(error => console.error(error));
+
+  // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
   // console.log('This is the NEW questionsData state', questionsData);
@@ -76,7 +78,6 @@ const QandA = (props) => {
         <Grid item xs={12} container spacing={3} my={2}>
           <Grid item xs={4}>QUESTIONS {'&'} ANSWERS</Grid>
           <AltQuestionSearch />
-          {/* <QuestionSearch questionsData={questionsData}/> */}
         </Grid>
         {/* Map over the array of question objects */}
         {questionsData.results.slice(0, questionsLimit).map((question, i) => {

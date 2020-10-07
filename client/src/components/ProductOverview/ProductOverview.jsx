@@ -41,6 +41,7 @@ class ProductOverview extends React.Component {
       review: 0,
       galleryImages: [],
       cart: [],
+      cartList: [],
       session: undefined,
       skus: [],
       skuList: []
@@ -61,25 +62,27 @@ class ProductOverview extends React.Component {
     //   .catch(err => {
     //     console.log(err);
     //   });
-    axios.get('/session')
-      .then(res => {
-        // console.log(res);
-        session = res.data;
-        // console.log(session);
-        this.setState({
-          session
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    // axios.get('/session')
+    //   .then(res => {
+    //     // console.log(res);
+    //     session = res.data;
+    //     // console.log(session);
+    //     this.setState({
+    //       session
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 
-  addToCart(sku, quant) {
+  addToCart(sku, quant, item) {
     console.log(`add ${quant} of ${sku} to cart`);
     var currentCart = this.state.cart;
+    var currentCartList = this.state.cartList;
     for (var i = 1; i <= quant; i++) {
       currentCart.push(Number(sku));
+      currentCartList.push(item);
       // console.log(`user_session=${this.state.session};`);
       // axios.get(`${apiURL}/cart`, {
       //   Headers: {
@@ -108,7 +111,8 @@ class ProductOverview extends React.Component {
       //   });
     }
     this.setState({
-      cart: currentCart
+      cart: currentCart,
+      cartList: currentCartList
     }, () => {
       console.log('CART --> ', this.state.cart);
     });
@@ -229,7 +233,7 @@ class ProductOverview extends React.Component {
         spacing={3}
         id="OverviewContainer"
       >
-        <NavBar cart={this.state.cart} skus={this.state.skus} skuList={this.state.skuList}/>
+        <NavBar cart={this.state.cartList} />
 
         <Grid item id='gallery' xs={6}>
           <ImageGallery data={this.state.galleryImages} img={this.state.imgURL} changeImg={this.changeImage.bind(this)} />

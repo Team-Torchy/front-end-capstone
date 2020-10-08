@@ -109,7 +109,8 @@ class ProductOverview extends React.Component {
 
   }
 
-  removeFromCart(item) {
+  removeFromCart(item, e) {
+    e.preventDefault();
     console.log('remove', item);
     const cartList = this.state.cartList;
     const index = cartList.indexOf(item);

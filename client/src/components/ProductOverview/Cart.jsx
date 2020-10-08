@@ -11,9 +11,9 @@ var Cart = ({ cart, remove }) => {
       </Grid>
       <Grid item xs={6} id='cartItems'>
 
-        <div id='cartBox'>
+        <div id='cartBox' className='cartList'>
           Your Cart:
-          {cart !== [] ? <CartList cart={cart} remove={remove}/> : null}
+          {cart !== [] ? <CartList cart={cart} remove={remove}/> : <p>Cart Empty!</p>}
         </div>
       </Grid>
       <Grid item xs={3}>

@@ -13,6 +13,7 @@ class NavBar extends React.Component {
   }
 
   handleShow(e) {
+    e.preventDefault();
     var showCart = !this.state.showCart;
     this.setState({
       showCart
@@ -27,8 +28,7 @@ class NavBar extends React.Component {
           <div id='cartContainer' style={
             this.state.showCart ? {'display': 'block'} : {'display': 'none'}
           }
-          onClick={this.handleShow.bind(this)}
-          >
+          ><p id='close' onClick={this.handleShow.bind(this)}>X</p>
             <Cart cart={this.props.cart} remove={this.props.remove}/>
           </div>
         </Grid>

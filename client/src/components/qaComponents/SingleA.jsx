@@ -31,12 +31,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SingleA = (props) => {
-  // const [answersData, setAnswersData] = useState();
-  // console.log('SingleA answersData: ', answersData);
   const classes = useStyles();
   const [reportDisabled, setReportDisabled] = useState(false);
   const [yesDisabled, setYesDisabled] = useState(false);
-  // console.log('SingleA props: ', props);
 
   const handleReportClick = () => {
     setReportDisabled(true);
@@ -97,7 +94,3 @@ const SingleA = (props) => {
 };
 
 export default SingleA;
-
-// {props.answer.photos.map((image, i) => {
-//   return <AnswerPhoto key={i} image={image} />;
-// })}

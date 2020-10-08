@@ -40,11 +40,9 @@ const AltQuestionSearch = (props) => {
         `http://18.224.37.110/qa/questions/${props.question.question_id}/answers`
       )
       .then((response) => {
-        // console.log('This is the axios.get response.data: ', response.data);
         setAnswersData(response.data);
       })
       .catch((error) => console.error(error));
-    // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
   const onLoadMore = () => {
@@ -80,7 +78,6 @@ const AltQuestionSearch = (props) => {
                   </Button>
                   ({props.question.question_helpfulness}) | <AddAnswer />
                 </Typography>
-                {/* Helpful? Yes ({props.question.question_helpfulness}) | Add Answer */}
               </div>
             </Grid>
           </Grid>
@@ -106,24 +103,3 @@ const AltQuestionSearch = (props) => {
 };
 
 export default AltQuestionSearch;
-
-
-// const [searchTerm, setSearchTerm] = useState('');
-// const [searchResults, setSearchResults] = useState([]);
-// const handleChange = (e) => {
-//   setSearchTerm(e.target.value);
-// };
-
-// useEffect(() => {
-//   const results = people.filter((person) =>
-//     person.toLowerCase().includes(searchTerm)
-//   );
-//   setSearchResults(results);
-// }, [searchTerm]);
-
-{/* <input
-        type='text'
-        placeholder='Search'
-        value={searchTerm}
-        onChange={handleChange}
-      /> */}

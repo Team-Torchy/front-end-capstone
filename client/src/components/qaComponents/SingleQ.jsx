@@ -33,8 +33,6 @@ const SingleQ = (props) => {
   const [answersData, setAnswersData] = useState({ results: [], question: 1 });
   const [yesDisabled, setYesDisabled] = useState(false);
   const [answersLimit, setAnswersLimit] = useState(2);
-  // const [searchResults, setSearchResults] = useState([]);
-  // console.log('SingleQ props: ', props);
 
   //GET Request for 'Answers List' API
   useEffect(() => {
@@ -43,21 +41,10 @@ const SingleQ = (props) => {
         `http://18.224.37.110/qa/questions/${props.question.question_id}/answers`
       )
       .then((response) => {
-        // console.log('This is the axios.get response.data: ', response.data);
         setAnswersData(response.data);
       })
       .catch((error) => console.error(error));
   }, []);
-
-  //Conditional Search Bar Filtering
-  // useEffect(() => {
-  //   if (props.searchTerm.length < 3) {
-  //     const results = props.questionsData.results.filter((question) =>
-  //       question.question_body.toLowerCase().includes(props.searchTerm.toLowerCase())
-  //     );
-  //     setSearchResults(results);
-  //   }
-  // }, [props.searchTerm]);
 
   const onLoadMore = () => {
     setAnswersLimit(answersLimit + 100);
@@ -65,6 +52,7 @@ const SingleQ = (props) => {
 
   const handleYesClick = () => {
     setYesDisabled(true);
+    setHelpfulCount(helpfulCount => helpfulCount + 1);
   };
 
   return (
@@ -92,7 +80,6 @@ const SingleQ = (props) => {
                   </Button>
                   ({props.question.question_helpfulness}) | <AddAnswer />
                 </Typography>
-                {/* Helpful? Yes ({props.question.question_helpfulness}) | Add Answer */}
               </div>
             </Grid>
           </Grid>

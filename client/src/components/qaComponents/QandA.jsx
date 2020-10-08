@@ -7,7 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import SingleQ from './SingleQ.jsx';
 import AddQuestion from './AddQuestion.jsx';
-// import QuestionSearch from './QuestionSearch.jsx';
 import AltQuestionSearch from './AltQuestionSearch.jsx';
 
 const useStyles = makeStyles((theme) => ({
@@ -42,8 +41,7 @@ const QandA = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [questionsLimit, setQuestionsLimit] = useState(4);
   const [questionsData, setQuestionsData] = useState({results: [], id: 1});
-  // console.log('This is the questions data: ', questionsData);
-  // console.log('This is the questions data.id: ', questionsData.id);
+
   const classes = useStyles();
 
   const handleQuestionModalOpen = () => {
@@ -67,7 +65,6 @@ const QandA = (props) => {
   useEffect(() => {
     axios.get(`http://18.224.37.110/qa/questions/?product_id=${questionsData.id}&count=20&page=1`)
       .then((response) => {
-        // console.log('This is the axios.get response.data: ', response.data);
         setQuestionsData(response.data);
       })
       .catch(error => console.error(error));
@@ -86,20 +83,17 @@ const QandA = (props) => {
     questionView =
     <div>
       {questionsData.results.slice(0, questionsLimit).map((question, i) => {
-        return <SingleQ key={i} question={question} questionsData={questionsData}/>;
+        return <SingleQ key={i} question={question} questionsData={questionsData} />;
       })}
     </div>;
   } else {
     questionView =
     <div>
       {searchResults.slice(0, questionsLimit).map((question, i) => {
-        return <SingleQ key={i} question={question} questionsData={questionsData}/>;
+        return <SingleQ key={i} question={question} questionsData={questionsData} />;
       })}
     </div>;
   }
-
-  //For Reference above
-  // <AltQuestionSearch searchResults={searchResults} questionsData={questionsData}/>
 
   return (
     <div>
@@ -116,23 +110,10 @@ const QandA = (props) => {
             value={searchTerm}
             onChange={handleChange}
           />
-          {/* <AltQuestionSearch searchResults={searchResults}/> */}
         </Grid>
-        {/* {questionView} */}
 
-        {/* Map over the array of question objects */}
-        <div>
-          {questionsData.results.slice(0, questionsLimit).map((question, i) => {
-            return (
-              <SingleQ
-                key={i}
-                question={question}
-                questionsData={questionsData}
-                searchTerm={searchTerm}
-              />
-            );
-          })}
-        </div>
+        {/* Conditional Render of Questions List */}
+        {questionView}
 
         <Grid item xs={8} container spacing={2}>
           <Button
@@ -151,10 +132,3 @@ const QandA = (props) => {
 
 
 export default QandA;
-
-{/* <TextField
-            variant="outlined"
-            placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
-            fullWidth
-          /> */}
-

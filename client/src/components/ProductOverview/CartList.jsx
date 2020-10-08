@@ -17,7 +17,7 @@ var CartList = ({ cart, remove }) => {
               </Grid>
               <Grid item xs={9}>
                 <h2>{item.name}</h2>
-                <p onClick={(e) => remove(item, e)}>{price} | Remove from Cart</p>
+                <p onClick={(e) => remove(item, e)}> ${price} | Remove from Cart</p>
               </Grid>
             </Grid>
           </div>

@@ -9,7 +9,7 @@ var Cart = ({ cart, remove }) => {
       <Grid item xs={3}>
 
       </Grid>
-      <Grid item xs={6} id='cartItems'>
+      <Grid item xs={6} >
 
         <div id='cartBox' className='cartList'>
           Your Cart:

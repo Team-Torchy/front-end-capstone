@@ -5,6 +5,7 @@ import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,33 +31,61 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SingleA = (props) => {
-  // const [answersData, setAnswersData] = useState();
-  // console.log('SingleA answersData: ', answersData);
   const classes = useStyles();
+  const [reportDisabled, setReportDisabled] = useState(false);
+  const [yesDisabled, setYesDisabled] = useState(false);
+
+  const handleReportClick = () => {
+    setReportDisabled(true);
+  };
+
+  const handleYesClick = () => {
+    setYesDisabled(true);
+  };
 
   return (
     <div>
-      <Grid className={classes.root} item xs={12} container direction="column" justify="flex-start">
+      <Grid
+        className={classes.root}
+        item
+        xs={12}
+        container
+        direction="column"
+        justify="flex-start"
+      >
         <Grid item xs={8}>
-          <div className='QandA'>
-            A: {props.answer.body}
-          </div>
+          <div className="QandA">A: {props.answer.body}</div>
         </Grid>
 
         {/* map over images in answer */}
         <GridList className={classes.gridList} cols={2.5}>
           {props.answer.photos.map((image, i) => (
             <GridListTile key={i}>
-
-                <img className='QandA' src={image.url} />
-
+              <img className="QandA" src={image.url} />
             </GridListTile>
           ))}
         </GridList>
 
         <Grid item xs={12}>
-          <div className='QandA'>
-            by {props.answer.answerer_name}, {props.answer.date} | Helpful? Yes ({props.answer.helpfulness}) | Report
+          <div className="QandA">
+            by {props.answer.answerer_name}, {props.answer.date} | Helpful?
+            <Button
+              size="small"
+              variant="text"
+              disabled={yesDisabled}
+              onClick={handleYesClick}
+            >
+              Yes
+            </Button>
+            ({props.answer.helpfulness}) |
+            <Button
+              size="small"
+              variant="text"
+              disabled={reportDisabled}
+              onClick={handleReportClick}
+            >
+              Report
+            </Button>
           </div>
         </Grid>
       </Grid>
@@ -65,7 +94,3 @@ const SingleA = (props) => {
 };
 
 export default SingleA;
-
-// {props.answer.photos.map((image, i) => {
-//   return <AnswerPhoto key={i} image={image} />;
-// })}

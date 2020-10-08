@@ -5,7 +5,9 @@ import AddAReview from './AddAReview.jsx';
 import { Typography, Divider, Grid, Button, Box } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
+
 import dummyData from '../../../dummyData.js';
+
 import Image from 'react-image-resizer';
 import MetaData from './MetaData.jsx';
 
@@ -77,6 +79,24 @@ class RatingReviewApp extends Component {
   // };
 
   getReviews() {
+
+    axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`)
+      .then((results) => {
+        // console.log(results.data.results);
+        if (!this.state.reviewData) {
+          this.setState({
+            reviewData: results.data.results
+          })
+        } else {
+          let holder = [...this.state.reviewData, ...results.data.results];
+          this.setState({
+            reviewData: holder
+          })
+        }
+      })
+      .then((x) => {
+        this.nextConditional();
+
     let nextReview = this.state.page + 1;
     const reviews = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`);
     const meta = axios.get(`http://18.224.37.110/reviews/meta/?product_id=${this.state.product_id}`);
@@ -87,6 +107,7 @@ class RatingReviewApp extends Component {
         metaData: responses[1].data,
         lengthTest: responses[2].data.results.length,
         page: nextReview
+
       })
       console.log(this.state.reviewData);
     }))
@@ -94,6 +115,15 @@ class RatingReviewApp extends Component {
         console.log(err);
       })
   };
+
+
+  getMetaData() {
+    axios.get(`http://18.224.37.110/reviews/meta/?product_id=${this.state.product_id}`)
+      .then((data) => {
+        this.setState({
+          metaData: data.data
+        })
+        // console.log(this.state.metaData);
 
   getPaginatedReviews() {
     let nextReview = this.state.page + 1;
@@ -104,6 +134,7 @@ class RatingReviewApp extends Component {
         reviewData: [...this.state.reviewData, ...responses[0].data.results],
         lengthTest: responses[1].data.results.length,
         page: nextReview
+
       })
       console.log(this.state.reviewData);
     }))

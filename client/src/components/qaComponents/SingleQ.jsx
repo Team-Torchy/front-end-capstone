@@ -30,7 +30,9 @@ const useStyles = makeStyles(theme => ({
 
 const SingleQ = (props) => {
   const classes = useStyles();
-  const [answersData, setAnswersData] = useState({ results: [], question: 1 });
+  const [answersLimit, setAnswersLimit] = useState(2);
+  const [answersData, setAnswersData] = useState({results: [], question: 1});
+
   //GET Request for "Answers List" API for specific question id's answers
   useEffect(() => {
     axios.get(`http://18.224.37.110/qa/questions/${props.question.question_id}/answers`)
@@ -42,7 +44,12 @@ const SingleQ = (props) => {
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
+  const onLoadMore = () => {
+    setAnswersLimit(answersLimit + 2);
+  };
+
   return (
+
     <div>
       <Grid container spacing={1} direction="column">
         <Grid item xs={12} container justify="space-between">
@@ -61,18 +68,28 @@ const SingleQ = (props) => {
           </Grid>
         </Grid>
 
-        {/* Map over the array of answer objects */}
-        {answersData.results.map((answer, i) => {
-          return <SingleA key={i} answer={answer} />;
-        })}
 
+        <Grid item xs={6}>
+          Q: {props.question.question_body}
 
-        <Grid item xs={12}>LOAD MORE ANSWERS</Grid>
+        </Grid>
+
+        <Grid item xs={6}>
+          Helpful? Yes ({props.question.question_helpfulness}) | <AddAnswer />
+        </Grid>
 
       </Grid>
-    </div>
+
+      {/* Map over the array of answer objects */}
+      {answersData.results.slice(0, answersLimit).map((answer, i) => {
+        return <SingleA key={i} answer={answer} />;
+      })}
+
+
+      <Grid item onClick={onLoadMore} xs={12}>LOAD MORE ANSWERS</Grid>
+
+    </Grid>
   );
 };
-
 
 export default SingleQ;

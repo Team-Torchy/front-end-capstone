@@ -25,7 +25,7 @@ class App extends Component {
 
         <ProductOverview />
         <QandA />
-        <RatingReviewApp num={10} />
+        <RatingReviewApp num={3} />
 
       </div>
     );

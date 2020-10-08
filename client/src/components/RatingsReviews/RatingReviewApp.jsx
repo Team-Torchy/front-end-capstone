@@ -20,12 +20,15 @@ class RatingReviewApp extends Component {
       bool: false,
       lengthTest: false,
       ratingData: false,
+      filters: {},
     }
     //bind any functions here
     // this.nextTwo = this.nextTwo.bind(this);
     // this.nextConditional = this.nextConditional.bind(this);
     this.putHelpful = this.putHelpful.bind(this);
     this.putReport = this.putReport.bind(this);
+    this.sortByRating = this.sortByRating.bind(this);
+    this.changeReviewOrRating = this.changeReviewOrRating.bind(this);
   }
   componentDidMount() {
     this.getReviews();
@@ -111,37 +114,80 @@ class RatingReviewApp extends Component {
 
   putHelpful(id) {
     axios.put(`http://18.224.37.110/reviews/${id}/helpful`)
-    .then((result) => {
-      axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=${this.state.reviewData.length}`)
-      .then((data) => {
-        this.setState({
-          reviewData: data.data.results
-        })
+      .then((result) => {
+        axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=${this.state.reviewData.length}`)
+          .then((data) => {
+            this.setState({
+              reviewData: data.data.results
+            })
+          })
       })
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
   putReport(id) {
     axios.put(`http://18.224.37.110/reviews/${id}/report`)
-    .then(() => {
-      axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=${this.state.reviewData.length - 1}`)
-      .then((data) => {
-        this.setState({
-          reviewData: data.data.results
-        })
+      .then(() => {
+        axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=${this.state.reviewData.length - 1}`)
+          .then((data) => {
+            this.setState({
+              reviewData: data.data.results
+            })
+          })
       })
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+      .catch((err) => {
+        console.log(err);
+      })
   };
+  //ON MOUNT MAKE GET REQUEST FOR ALL REVIEWS THEN WHEN USER CLICKS ON RATING IN CHART IT WILL TRIGGER SORTBYRATING FUNC THIS FUNC WILL USE THE DATA FROM ALL REVIEWS AND FILTER BY RATING AND ADD TO DIFFERENT IF RATING DATA HAS ALREADY BEEN FILTERED AND USER CLICKS RATING AGAIN THEN LOOP AGAIN AND GET RID OF DATA ALSO MAKE A CONDITIONAL RENDER AT BOTTOM
 
   sortByRating(num) {
+    let result = [],
+      bool = false,
+      ratingData = this.state.ratingData,
+      filter = this.state.filters;
+
     axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}`)
-  }
+      .then((data) => {
+        if (ratingData.length > 0) {
+          for (var i = 0; i < ratingData.length; i++) {
+            if (ratingData[i].rating !== num) {
+              result.push(ratingData[i]);
+              filter[`${ratingData[i].rating} stars`] = true;
+            }
+            if (ratingData[i].rating === num) {
+              delete filter[`${ratingData[i].rating} stars`]
+              bool = true;
+            }
+          }
+        }
+        if (!ratingData || !bool) {
+          data.data.results.map((x, i) => {
+            if (x.rating === num) {
+              result.push(x)
+              filter[`${x.rating} stars`] = true;
+            }
+          })
+        }
+
+        if (result.length > 0) {
+          this.setState({
+            ratingData: result,
+            filters: filter
+          })
+        } else {
+          this.setState({
+            ratingData: false,
+            filters: {}
+          })
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  };
 
   setBool() {
     const { bool } = this.state;
@@ -156,6 +202,25 @@ class RatingReviewApp extends Component {
     }
   };
 
+  changeReviewOrRating() {
+    console.log("something")
+    this.setState({
+      ratingData: false,
+      filters: {}
+    })
+  };
+
+  reviewOrRatingData() {
+    if (this.state.ratingData) {
+      return <ReviewList reviews={this.state.ratingData} putHelpful={this.putHelpful} putReport={this.putReport} />;
+    } else if (this.state.reviewData) {
+      return <ReviewList reviews={this.state.reviewData} putHelpful={this.putHelpful} putReport={this.putReport} />;
+    } else {
+      return null;
+    }
+  };
+
+
   render() {
     const { reviewData, bool, lengthTest } = this.state;
     return (
@@ -164,11 +229,12 @@ class RatingReviewApp extends Component {
           <Grid item xs={2}>
           </Grid>
           <Grid item xs={3} style={{ maxWidth: '300px' }}>
-            {this.state.metaData ? <MetaData meta={this.state.metaData} /> : null}
+            {this.state.metaData ? <MetaData meta={this.state.metaData} sortByRating={this.sortByRating} filters={this.state.filters} changeReviewOrRating={this.changeReviewOrRating}/> : null}
           </Grid>
 
           <Grid item xs={5} >
-            {reviewData.length > 0 ? <ReviewList reviews={reviewData} putHelpful={this.putHelpful} putReport={this.putReport}/> : null}
+            {/* {reviewData.length > 0 ? <ReviewList reviews={reviewData} putHelpful={this.putHelpful} putReport={this.putReport}/> : null} */}
+            {this.reviewOrRatingData()}
             {lengthTest ? <Button variant="outlined" onClick={() => this.getPaginatedReviews()}>MORE REVIEWS</Button> : null}
             <Button variant="outlined" onClick={() => this.setBool()}>MORE REVIEWS +</Button>
             {bool ? <AddAReview /> : null}

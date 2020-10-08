@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography, Divider, Grid, Button, Box } from '@material-ui/core';
 import StarMaker from './StarMaker.jsx';
 import {
@@ -12,7 +12,17 @@ import {
 import { ValueScale, Stack, HoverState, EventTracker } from '@devexpress/dx-react-chart';
 
 const MetaData = (props) => {
-  console.log("WE INSIDE OF META");
+ console.log(props.filters)
+  const [hovered, setHovered] = useState({ hovered: false });
+
+  const onMouseEnter = e => {
+    setHovered({ hovered: e });
+  };
+
+  const onMouseLeave = e => {
+    setHovered({ hovered: false });
+  };
+
   const averageCalculator = (ratings) => {
     var starTotal = 0,
       voteTotal = 0,
@@ -35,10 +45,19 @@ const MetaData = (props) => {
       return JSON.stringify(~~((data[1] / (data[0] + data[1])) * 100)) + "%";
     }
   };
+  const currentFilters = () => {
+    return (
+    Object.keys(props.filters).map((x, i) => (
+      <Grid item xs={12} key={i}>
+        <Typography variant="caption">{x}</Typography>
+      </Grid>
+    ))
+    )
+    };
 
   const chartDataCalculator = (data) => {
-    var chart = {},
-      result = [];
+    var chart = {};
+
     for (var i = 1; i <= 5; i++) {
       if (data[i]) {
         chart[i] = data[i];
@@ -49,13 +68,76 @@ const MetaData = (props) => {
 
     var total = chart[1] + chart[2] + chart[3] + chart[4] + chart[5];
 
-    for (var j = 1; j <= 5; j++) {
-      result.push({ star: `${j} stars`, rating: chart[j], empty: total - chart[j], placeHolder: 0 });
-    }
+    const style1 = hovered.hovered === 1 ? { color: "red", textDecoration: 'underline' } : {};
+    const style2 = hovered.hovered === 2 ? { color: "red", textDecoration: 'underline' } : {};
+    const style3 = hovered.hovered === 3 ? { color: "red", textDecoration: 'underline' } : {};
+    const style4 = hovered.hovered === 4 ? { color: "red", textDecoration: 'underline' } : {};
+    const style5 = hovered.hovered === 5 ? { color: "red", textDecoration: 'underline' } : {};
 
-    return result;
+    const func = (x) => {
+      if (x === 1) {
+        return style1;
+      } else if (x === 2) {
+        return style2;
+      } else if (x === 3) {
+        return style3;
+      } else if (x === 4) {
+        return style4;
+      } else {
+        return style5;
+      }
+    };
+
+    return (
+      <Grid item xs={12} space={1}>
+        {Object.keys(chart).map((x) => {
+          var result = [];
+          result.push({ star: `${x} stars`, rating: chart[x], empty: total - chart[x] });
+          return (
+            <Grid onMouseEnter={() => onMouseEnter(Number(x))} onMouseLeave={() => onMouseLeave()} item xs={12} container onClick={() => props.sortByRating(Number(x))} key={x} style={{ maxHeight: 30 }}>
+              <Grid item xs={2} style={{ position: 'relative', top: 2 }}>
+                <Typography style={func(Number(x))} variant="caption">{`${x} stars`}</Typography>
+              </Grid>
+              <Grid item xs={9}>
+                <Chart
+                  data={result}
+                  rotated
+                  height={49}
+                  style={{ position: 'relative', right: 10, bottom: 10 }}
+                >
+                  <BarSeries
+                    name="rating"
+                    valueField="rating"
+                    argumentField="star"
+                    barWidth={.5}
+                    color='green'
+                  />
+
+                  <BarSeries
+                    name="empty"
+                    valueField="empty"
+                    argumentField="star"
+                    barWidth={.5}
+                    color="grey"
+                  />
+                  <Stack
+                    stacks={[
+                      { series: ['rating', 'empty'] },
+                    ]}
+                  />
+                </Chart>
+              </Grid>
+              <Grid item xs={1} style={{ position: 'relative', top: 2 }}>
+                <Typography style={func(Number(x))} variant="caption">{chart[x]}</Typography>
+              </Grid>
+            </Grid>
+          );
+        })}
+      </Grid>
+    )
   };
-  const onArgumentAxisClick = () => { console.log("hello") };
+
+
   return (
     <div>
       <Grid container spacing={1} direction="row">
@@ -75,79 +157,13 @@ const MetaData = (props) => {
         <Grid item xs={12}>
           <Typography variant="body2">{recommendedCalculator(props.meta.recommended)} of reviews recommend this product</Typography>
         </Grid>
+
+        {Object.keys(props.filters).length > 0 ? <Grid item xs={12}> {currentFilters()} </Grid> : null}
+        {Object.keys(props.filters).length > 0 ? <Typography variant="caption" onClick={() => props.changeReviewOrRating()}>clear filters</Typography> : null}
         <Grid item xs={12}>
           <Typography variant="caption" color="textSecondary">Rating Breakdown</Typography>
         </Grid>
-
-        {/* <Grid item xs={2} style={{postion: "relative", right:"40px"}}>
-          <Typography variant="caption">something</Typography>
-        </Grid> */}
-        <Grid item xs={2} container direction="row" space={1}>
-          <Grid item xs={12} style={{ maxWidth: 70, maxHeight: 162, position: "relative", top: 3}} container direction="row" space={1}>
-            <Grid item xs={12}>
-              <Typography style={{ whiteSpace: "nowrap" }} variant="caption">5 stars</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography style={{ whiteSpace: "nowrap" }} variant="caption">4 stars</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography style={{ whiteSpace: "nowrap" }} variant="caption">3 stars</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography style={{ whiteSpace: "nowrap" }} variant="caption">2 stars</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography style={{ whiteSpace: "nowrap" }} variant="caption">1 stars</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-
-        <Grid item xs={10}>
-          <Chart
-            data={chartDataCalculator(props.meta.ratings)}
-            rotated
-            height={180}
-            style={{ position: 'relative', right: 10, bottom: 10 }}
-          >
-            {/* <ArgumentAxis/> */}
-
-            <BarSeries
-              name="rating"
-              valueField="rating"
-              argumentField="star"
-              barWidth={.5}
-              color='green'
-            />
-            <EventTracker />
-            <Tooltip />
-
-            <BarSeries
-              name="empty"
-              valueField="empty"
-              argumentField="star"
-              barWidth={.5}
-              color="grey"
-            />
-
-
-            {/* <EventTracker
-            />
-
-            <HoverState
-              onHoverChange={() => { console.log() }}
-            /> */}
-
-            <Stack
-              stacks={[
-                { series: ['rating', 'empty', 'placeHolder'] },
-              ]}
-            />
-          </Chart>
-        </Grid>
-
-        {/* <Grid item xs={1}>
-          <Typography variant="caption">something</Typography>
-        </Grid> */}
+        {chartDataCalculator(props.meta.ratings)}
       </Grid>
     </div>
   )

@@ -76,8 +76,7 @@ const QandA = (props) => {
   // Search Bar Filtering
   useEffect(() => {
     const results = questionsData.results.filter((question) =>
-      question.question_body.toLowerCase().includes(searchTerm)
-    );
+      question.question_body.toLowerCase().includes(searchTerm.toLowerCase()));
     setSearchResults(results);
   }, [searchTerm]);
 
@@ -87,12 +86,20 @@ const QandA = (props) => {
     questionView =
     <div>
       {questionsData.results.slice(0, questionsLimit).map((question, i) => {
-        return <SingleQ key={i} question={question} questionsData="questionsData"/>;
+        return <SingleQ key={i} question={question} questionsData={questionsData}/>;
       })}
     </div>;
   } else {
-    questionView = <AltQuestionSearch searchResults={searchResults}/>;
+    questionView =
+    <div>
+      {searchResults.slice(0, questionsLimit).map((question, i) => {
+        return <SingleQ key={i} question={question} questionsData={questionsData}/>;
+      })}
+    </div>;
   }
+
+  //For Reference above
+  // <AltQuestionSearch searchResults={searchResults} questionsData={questionsData}/>
 
   return (
     <div>

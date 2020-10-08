@@ -28,7 +28,7 @@ const OneReview = (props) => {
   const handleChange = () => {
     setShow((prev) => !prev);
   };
-
+  console.log("WE IN ONE REVIEW");
   return (
     <div>
       <div className={classes.root}>
@@ -49,14 +49,23 @@ const OneReview = (props) => {
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs={12}>
+
                 <Typography style={{ wordBreak: 'break-all' }} gutterBottom variant="subtitle1">
                   {props.person.summary.length > 60 ? null : props.person.summary}
                 </Typography>
-                <Typography style={{ wordBreak: 'break-all' }} variant="body2" gutterBottom>
-                  {props.person.body.length > 250 ? <ShowReviewBody show={show ? 'Show less' : 'Show more'} body={props.person.body} /> : null}
-                  {props.person.body.length > 250 ? <Button onClick={() => handleChange()}>{show ? 'Show less' : 'Show more'}</Button> : props.person.body}
-                </Typography>
-                {props.person.photos.length > 0 ? <UserPhotosModal photos={props.person.photos} summary={props.person.summary} body={props.person.body} rating={props.person.rating} name={props.person.reviewer_name} date={props.person.date} /> : null}
+
+                {props.person.body.length > 250 ?
+                  <ShowReviewBody show={show ? 'Show less' : 'Show more'} body={props.person.body} /> :
+                  <Typography style={{ wordBreak: 'break-all' }} variant="body2" gutterBottom> {props.person.body} </Typography>}
+
+                {props.person.body.length > 250 ?
+                  <Button onClick={() => handleChange()}>{show ? 'Show less' : 'Show more'}</Button> :
+                  null}
+
+                {props.person.photos.length > 0 ?
+                  <UserPhotosModal photos={props.person.photos} summary={props.person.summary} body={props.person.body} rating={props.person.rating} name={props.person.reviewer_name} date={props.person.date} /> :
+                  null}
+
                 <Typography variant="caption">
                   {props.person.recommend ? "I recommend this product" : null}
                 </Typography>
@@ -67,9 +76,14 @@ const OneReview = (props) => {
                   {props.person.response !== "" && props.person.response !== null ? props.person.response : null}
                 </Typography>
                 <Typography variant="caption" color="textSecondary">
-                  {props.person.helpfulness ? "Helpful?" : null}
-                  {props.person.helpfulness ? <Button className={classes.button} size="small" style={{ textTransform: 'none' }}>Yes</Button> : null}
-                  {props.person.helpfulness ? "(" + props.person.helpfulness + ')' : null}
+                  Was this review helpful? <Typography variant="caption" color="textSecondary" onClick={() => {props.putHelpful(props.person.review_id)}}>Yes</Typography>{`(${props.person.helpfulness})`} | <Typography variant="caption" color="textSecondary" onClick={() => {props.putReport(props.person.review_id)}}>Report</Typography>
+                  {/* {props.person.helpfulness ? "Helpful?" : null}
+
+                  {props.person.helpfulness ?
+                  <Button className={classes.button} size="small" style={{ textTransform: 'none' }}>Yes</Button> :
+                  null}
+
+                  {props.person.helpfulness ? "(" + props.person.helpfulness + ')' : null} */}
                 </Typography>
               </Grid>
             </Grid>

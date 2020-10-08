@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const AddAReview = (props) => {
+  console.log("WE IN ADD A REVIEW");
   const classes = useStyles();
   return (
     <div className={classes.root}>

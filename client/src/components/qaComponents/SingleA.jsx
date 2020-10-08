@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Button from '@material-ui/core/Button';
+import moment from 'moment';
+import AccurateDate from '../RatingsReviews/AccurateDate.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,10 +67,10 @@ const SingleA = (props) => {
             </GridListTile>
           ))}
         </GridList>
-
+        {/* {moment('props.answer.date').format('MMMM Do YYYY')} */}
         <Grid item xs={12}>
           <div className="QandA">
-            by {props.answer.answerer_name}, {props.answer.date} | Helpful?
+            by {props.answer.answerer_name}, <AccurateDate date={props.answer.date}/> | Helpful?
             <Button
               size="small"
               variant="text"

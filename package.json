@@ -10,7 +10,7 @@
   "scripts": {
     "start": "nodemon ./server/",
     "build:dev": "webpack -d --watch",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "@devexpress/dx-react-chart": "^2.7.2",

@@ -33,7 +33,7 @@ const SingleQ = (props) => {
   const [answersData, setAnswersData] = useState({ results: [], question: 1 });
   const [yesDisabled, setYesDisabled] = useState(false);
   const [answersLimit, setAnswersLimit] = useState(2);
-  const [searchResults, setSearchResults] = useState([]);
+  // const [searchResults, setSearchResults] = useState([]);
   // console.log('SingleQ props: ', props);
 
   //GET Request for 'Answers List' API
@@ -50,14 +50,14 @@ const SingleQ = (props) => {
   }, []);
 
   //Conditional Search Bar Filtering
-  useEffect(() => {
-    if (props.searchTerm.length < 3) {
-      const results = props.questionsData.results.filter((question) =>
-        question.question_body.toLowerCase().includes(props.searchTerm.toLowerCase())
-      );
-      setSearchResults(results);
-    }
-  }, [props.searchTerm]);
+  // useEffect(() => {
+  //   if (props.searchTerm.length < 3) {
+  //     const results = props.questionsData.results.filter((question) =>
+  //       question.question_body.toLowerCase().includes(props.searchTerm.toLowerCase())
+  //     );
+  //     setSearchResults(results);
+  //   }
+  // }, [props.searchTerm]);
 
   const onLoadMore = () => {
     setAnswersLimit(answersLimit + 100);

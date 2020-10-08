@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 const AltQuestionSearch = (props) => {
-
+  console.log('AltQ props: ', props);
   return (
     <div className='AltQuestionSearch'>
 

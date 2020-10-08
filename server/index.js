@@ -3,13 +3,44 @@ const app = express();
 const path = require('path');
 const axios = require('axios');
 const request = require('request');
+const uuid = require('uuid');
+var session = undefined;
 // const bodyParser = require('body-parser');
 const port = 3000;
 
+app.get('/session', (req, res) => {
+  console.log('request to /session');
+  res.send(session);
+
+});
 
 app.use(express.static(path.join(__dirname, '../client/public')), () => {
   console.log('serving files at ', path.join(__dirname, '../client/public'));
 });
+
+
+axios.get('http://18.224.37.110/cart')
+  .then(response => {
+    // console.log(response.headers);
+    var cookies = response.headers['set-cookie'];
+    console.log(cookies);
+    cookies = cookies[0].split(';');
+    console.log(cookies);
+    cookies = cookies[0].split('=');
+    console.log(cookies);
+
+    session = cookies[1];
+
+    console.log(session);
+
+    // res.header('user_session', response.headers['set-cookie']);
+    // res.send(response);
+    // res.end();
+  })
+  .catch(err => {
+    console.log(err);
+    // res.status(500).end();
+  });
 // app.use(bodyParser());
 // app.use(express.urlencoded());
 let getReposByUsername = (id, cb) => {
@@ -24,36 +55,38 @@ let getReposByUsername = (id, cb) => {
     }
   };
   request.get(options, (err, response, body) => {
-    if(err) {
+    if (err) {
       cb(err, null);
     } else {
       cb(null, body);
     }
   });
-}
+};
 
 app.get('/reviews/:product_id', (req, res) => {
 
   // console.log('this is the id', req.params.product_id);
   getReposByUsername(req.params.product_id, (err, body) => {
-    if(err) {
-      console.log(err)
+    if (err) {
+      console.log(err);
     } else {
       console.log(body);
     }
-  })
+  });
   // res.send('something');
 });
 
-// app.get('/', (req, res) => {
-//   res.send('Server running!')
-// })
-app.get('/', (req, res) => {
-  res.send('Server running!');
-});
+app.get('/session', (req, res) => {
 
-app.get('/', (req, res) => {
-  res.send('Server running!');
+  axios.get('http://18.224.37.110/?product_id=1')
+    .then(response => {
+      console.log(response);
+      res.send(response);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
 });
 
 

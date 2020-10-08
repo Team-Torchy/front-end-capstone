@@ -9,7 +9,22 @@ import StarMaker from '../RatingsReviews/StarMaker.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import NavBar from './NavBar.jsx';
 
+
 const apiURL = 'http://18.224.37.110';
+
+const api = axios.create({
+  baseURL: `${apiURL}/cart`,
+  withCredentials: true,
+  transformRequest: [(data) => JSON.stringify(data.data)],
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  }
+});
+
+var session = undefined;
+
+
 
 class ProductOverview extends React.Component {
   constructor(props) {
@@ -25,8 +40,13 @@ class ProductOverview extends React.Component {
       price: 0,
       review: 0,
       galleryImages: [],
-      cart: []
+      cart: [],
+      cartList: [],
+      session: undefined,
+      skus: [],
+      skuList: []
     };
+
     this.handleStyleSelect.bind(this);
   }
 
@@ -35,39 +55,76 @@ class ProductOverview extends React.Component {
     this.getStylesForProduct();
     this.getImagesForProduct();
     this.getReviewAverage();
+    // axios.get('http://localhost:3000/session')
+    //   .then(res => {
+    //     console.log(res.getResponseHeader('Set-Cookie'));
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+    // axios.get('/session')
+    //   .then(res => {
+    //     // console.log(res);
+    //     session = res.data;
+    //     // console.log(session);
+    //     this.setState({
+    //       session
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 
-  addToCart(sku, quant) {
-    console.log(`add ${quant} of ${sku} to cart`)
+  addToCart(sku, quant, item) {
+    console.log(`add ${quant} of ${sku} to cart`);
     var currentCart = this.state.cart;
+    var currentCartList = this.state.cartList;
     for (var i = 1; i <= quant; i++) {
-      currentCart.push(sku)
-      axios.post(`${apiURL}/cart`, { sku_id: Number(sku) })
-        .then((res) => {
-          console.log(sku, ' added to cart')
-          console.log(res);
-
-          axios.get(`${apiURL}/cart`)
-            .then(res => {
-              console.log(res)
-            })
-
-        })
-        .catch(err => console.error(err));
+      currentCart.push(Number(sku));
+      currentCartList.push(item);
+      // console.log(`user_session=${this.state.session};`);
+      // axios.get(`${apiURL}/cart`, {
+      //   Headers: {
+      //     'Cookie': `user_session=${this.state.session};`
+      //   }})
+      //   .then(res => {
+      //     console.log(res);
+      //     axios.post(`${apiURL}/cart`, {
+      //       body: { 'sku_id': Number(sku) },
+      //       Headers: {
+      //         'Cookie': `'user_session=${this.state.session};'`
+      //       }
+      //     })
+      //       .then((res) => {
+      //         console.log(sku, ' added to cart');
+      //         console.log(res.headers['set-cookie']);
+      //         axios.get(`${apiURL}/cart`, {
+      //           Headers: {
+      //             'Cookie': `user_session=${this.state.session};`
+      //           }})
+      //           .then(res => {
+      //             console.log(res);
+      //           });
+      //       })
+      //       .catch(err => console.error(err));
+      //   });
     }
     this.setState({
-      cart: currentCart
+      cart: currentCart,
+      cartList: currentCartList
     }, () => {
-      console.log('CART --> ', this.state.cart)
-    })
+      console.log('CART --> ', this.state.cart);
+    });
 
 
   }
 
   getProductData() {
+
     axios.get(`${apiURL}/products/${this.state.productId}`)
       .then((res) => {
-        // console.log(res.data)
+        console.log(res.data);
         this.setState({
           productData: res.data
         });
@@ -100,17 +157,25 @@ class ProductOverview extends React.Component {
   getStylesForProduct() {
     axios.get(`${apiURL}/products/${this.state.productId}/styles`)
       .then(res => {
-        // console.log(res.data.results);
+
+        console.log(res.data.results);
+        var skus = res.data.results.map(res => {
+          return Object.keys(res.skus);
+        });
+        skus = skus.flat();
+
 
         this.setState({
           styleList: res.data.results,
           styleSelectedId: 1,
           imgURL: res.data.results[0].photos[0].url,
-          styleName: res.data.results[0].name
+          styleName: res.data.results[0].name,
+          skuList: skus
         }, () => {
           this.setState({
-            galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos
-          })
+            galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos,
+
+          });
         });
       });
   }
@@ -122,8 +187,9 @@ class ProductOverview extends React.Component {
       styleName: this.state.styleList[id - 1].name,
     }, () => {
       this.setState({
-        galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos
-      })
+        galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos,
+        skus: this.state.styleList[this.state.styleSelectedId - 1]
+      });
     });
   }
 
@@ -145,12 +211,18 @@ class ProductOverview extends React.Component {
     // console.log(e.target.getAttribute('data-imgurl'))
     this.setState({
       imgURL: e.target.getAttribute('data-imgurl')
-    })
+    });
   }
 
   updatePrice(price) {
     this.setState({
       price
+    });
+  }
+
+  getSkus(skus) {
+    this.setState({
+      skus
     });
   }
 
@@ -163,7 +235,7 @@ class ProductOverview extends React.Component {
         spacing={3}
         id="OverviewContainer"
       >
-        <NavBar />
+        <NavBar cart={this.state.cartList} />
 
         <Grid item id='gallery' xs={6}>
           <ImageGallery data={this.state.galleryImages} img={this.state.imgURL} changeImg={this.changeImage.bind(this)} />
@@ -171,14 +243,14 @@ class ProductOverview extends React.Component {
         </Grid>
 
         <Grid item xs={5}>
-          <p className="info" id='ratings'><StarMaker rating={this.state.review}/></p>
+          <p className="info" id='ratings'><StarMaker rating={this.state.review} /></p>
           <p className="info" id='category'> {'Category >'} {this.state.productData.category}</p>
           <h1>{this.state.productData.name}</h1>
           <p className="info" id="price">${this.state.price}</p>
           <p className='info' id='style'>{'Style >'}  </p>
           <p className="info" id="styleCategory">{this.state.styleName}</p> <br />
           <StyleList styleList={this.state.styleList} handleSelect={this.handleStyleSelect.bind(this)} setStyle={this.setStyle.bind(this)} />
-          {this.state.styleList[this.state.styleSelectedId - 1] ? <Selectors data={this.state.styleList[this.state.styleSelectedId - 1]} style={this.state.styleName} updatePrice={this.updatePrice.bind(this)} addToCart={this.addToCart.bind(this)}/> : null }
+          {this.state.styleList[this.state.styleSelectedId - 1] ? <Selectors data={this.state.styleList[this.state.styleSelectedId - 1]} style={this.state.styleName} getSkus={this.getSkus.bind(this)} updatePrice={this.updatePrice.bind(this)} addToCart={this.addToCart.bind(this)} /> : null}
         </Grid>
         <Grid container padding={3}>
           <Grid m={3} item xs={8}>

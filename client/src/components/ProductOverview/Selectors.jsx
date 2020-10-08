@@ -11,7 +11,6 @@ class Selectors extends React.Component {
       data: undefined,
       sizes: undefined,
       size: '',
-      quantity: 0,
       quantities: [],
       currentSku: 1,
       howMany: 0
@@ -36,7 +35,7 @@ class Selectors extends React.Component {
   }
 
   addToCart() {
-    this.props.addToCart(this.state.currentSku, this.state.howMany)
+    this.props.addToCart(this.state.currentSku, this.state.howMany, this.props.data);
   }
 
   setSelectors() {
@@ -46,13 +45,14 @@ class Selectors extends React.Component {
     }, () => {
       var sizes = this.getSizes();
 
+
+
       this.setState({
         sizes,
         size: sizes[0].label,
-        quantity: sizes[0].value
       }, () => {
         this.setState({
-          quantities: this.getQuantities(this.state.quantity)
+          quantities: this.getQuantities(this.state.size)
         }, () => {
 
           // console.log(this.state);
@@ -67,11 +67,8 @@ class Selectors extends React.Component {
       size: e.label,
       currentSku: e.value,
     }, () => {
-      // console.log(this.getQuantities(e.value));
       this.setState({
-        quantities: this.getQuantities(e.value)
-      }, () => {
-        // console.log('current sku --> ', this.state.currentSku)
+        quantities: this.getQuantities(this.state.size)
       });
     });
   }
@@ -81,15 +78,20 @@ class Selectors extends React.Component {
       howMany: e.value
     }, () => {
 
-    })
+    });
   }
 
-  getQuantities(quant) {
+  getQuantities(size) {
     var quantities = [];
-
-    for (var i = 1; i <= quant; i++) {
-      quantities.push({ value: i, label: i });
-    }
+    Object.entries(this.state.data.skus).map(sku => {
+      console.log(sku[1].quantity);
+      if (sku[1].size === size) {
+        for (var i = 1; i <= sku[1].quantity; i++) {
+          // console.log(i);
+          quantities.push({ value: i, label: i });
+        }
+      }
+    });
 
     return quantities;
   }
@@ -97,7 +99,7 @@ class Selectors extends React.Component {
   getSizes() {
     // console.log(this.state.data.skus)
     var sizes = Object.entries(this.state.data.skus).map(sku => {
-      console.log(sku[0]);
+      console.log(sku);
       return { value: sku[0], label: sku[1].size };
     });
     return sizes;

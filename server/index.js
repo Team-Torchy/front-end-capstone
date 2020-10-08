@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 const axios = require('axios');
 const request = require('request');
-const uuid = require('uuid');
+
 var session = undefined;
 // const bodyParser = require('body-parser');
 const port = 3000;
@@ -31,7 +31,7 @@ axios.get('http://18.224.37.110/cart')
 
     session = cookies[1];
 
-    console.log(session)
+    console.log(session);
 
     // res.header('user_session', response.headers['set-cookie']);
     // res.send(response);

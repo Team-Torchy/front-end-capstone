@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 const AddQuestion = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  // const [questionModal, setQuestionModal] = useState({question: '', email: '', nickname: ''});
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -48,7 +48,6 @@ const AddQuestion = (props) => {
     },
   });
 
-
   const handleOpen = () => {
     setOpen(true);
   };
@@ -56,10 +55,6 @@ const AddQuestion = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  // const handleChange = e => {
-  //   setQuestionModal({...questionModal, [e.target.name]: e.target.value});
-  // };
 
   const body = (
     <div className={classes.paper}>

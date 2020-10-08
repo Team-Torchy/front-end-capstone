@@ -41,7 +41,10 @@ class ProductOverview extends React.Component {
       review: 0,
       galleryImages: [],
       cart: [],
-      session: undefined
+      cartList: [],
+      session: undefined,
+      skus: [],
+      skuList: []
     };
 
     this.handleStyleSelect.bind(this);
@@ -59,25 +62,27 @@ class ProductOverview extends React.Component {
     //   .catch(err => {
     //     console.log(err);
     //   });
-    axios.get('/session')
-      .then(res => {
-        // console.log(res);
-        session = res.data
-        // console.log(session);
-        this.setState({
-          session
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    // axios.get('/session')
+    //   .then(res => {
+    //     // console.log(res);
+    //     session = res.data;
+    //     // console.log(session);
+    //     this.setState({
+    //       session
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 
-  addToCart(sku, quant) {
+  addToCart(sku, quant, item) {
     console.log(`add ${quant} of ${sku} to cart`);
     var currentCart = this.state.cart;
+    var currentCartList = this.state.cartList;
     for (var i = 1; i <= quant; i++) {
       currentCart.push(Number(sku));
+      currentCartList.push(item);
       // console.log(`user_session=${this.state.session};`);
       // axios.get(`${apiURL}/cart`, {
       //   Headers: {
@@ -106,7 +111,8 @@ class ProductOverview extends React.Component {
       //   });
     }
     this.setState({
-      cart: currentCart
+      cart: currentCart,
+      cartList: currentCartList
     }, () => {
       console.log('CART --> ', this.state.cart);
     });
@@ -115,14 +121,10 @@ class ProductOverview extends React.Component {
   }
 
   getProductData() {
-    axios.get(`${apiURL}/cart`)
-      .then((res) => {
-
-      });
 
     axios.get(`${apiURL}/products/${this.state.productId}`)
       .then((res) => {
-        // console.log(res);
+        console.log(res.data);
         this.setState({
           productData: res.data
         });
@@ -156,15 +158,21 @@ class ProductOverview extends React.Component {
     axios.get(`${apiURL}/products/${this.state.productId}/styles`)
       .then(res => {
         console.log(res.data.results);
+        var skus = res.data.results.map(res => {
+          return Object.keys(res.skus);
+        });
+        skus = skus.flat();
 
         this.setState({
           styleList: res.data.results,
           styleSelectedId: 1,
           imgURL: res.data.results[0].photos[0].url,
-          styleName: res.data.results[0].name
+          styleName: res.data.results[0].name,
+          skuList: skus
         }, () => {
           this.setState({
-            galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos
+            galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos,
+
           });
         });
       });
@@ -177,7 +185,8 @@ class ProductOverview extends React.Component {
       styleName: this.state.styleList[id - 1].name,
     }, () => {
       this.setState({
-        galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos
+        galleryImages: this.state.styleList[this.state.styleSelectedId - 1].photos,
+        skus: this.state.styleList[this.state.styleSelectedId - 1]
       });
     });
   }
@@ -209,6 +218,12 @@ class ProductOverview extends React.Component {
     });
   }
 
+  getSkus(skus) {
+    this.setState({
+      skus
+    });
+  }
+
   render() {
     return (
 
@@ -218,7 +233,7 @@ class ProductOverview extends React.Component {
         spacing={3}
         id="OverviewContainer"
       >
-        <NavBar />
+        <NavBar cart={this.state.cartList} />
 
         <Grid item id='gallery' xs={6}>
           <ImageGallery data={this.state.galleryImages} img={this.state.imgURL} changeImg={this.changeImage.bind(this)} />
@@ -233,7 +248,7 @@ class ProductOverview extends React.Component {
           <p className='info' id='style'>{'Style >'}  </p>
           <p className="info" id="styleCategory">{this.state.styleName}</p> <br />
           <StyleList styleList={this.state.styleList} handleSelect={this.handleStyleSelect.bind(this)} setStyle={this.setStyle.bind(this)} />
-          {this.state.styleList[this.state.styleSelectedId - 1] ? <Selectors data={this.state.styleList[this.state.styleSelectedId - 1]} style={this.state.styleName} updatePrice={this.updatePrice.bind(this)} addToCart={this.addToCart.bind(this)} /> : null}
+          {this.state.styleList[this.state.styleSelectedId - 1] ? <Selectors data={this.state.styleList[this.state.styleSelectedId - 1]} style={this.state.styleName} getSkus={this.getSkus.bind(this)} updatePrice={this.updatePrice.bind(this)} addToCart={this.addToCart.bind(this)} /> : null}
         </Grid>
         <Grid container padding={3}>
           <Grid m={3} item xs={8}>

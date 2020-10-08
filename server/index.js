@@ -31,7 +31,7 @@ axios.get('http://18.224.37.110/cart')
 
     session = cookies[1];
 
-    console.log(session)
+    console.log(session);
 
     // res.header('user_session', response.headers['set-cookie']);
     // res.send(response);

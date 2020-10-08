@@ -1,18 +1,10 @@
 import React, { useState } from 'react';
-import { Typography, Divider, Grid, Button, Box } from '@material-ui/core';
 import StarMaker from './StarMaker.jsx';
-import {
-  Chart,
-  BarSeries,
-  Title,
-  ArgumentAxis,
-  ValueAxis,
-  Tooltip,
-} from '@devexpress/dx-react-chart-material-ui';
-import { ValueScale, Stack, HoverState, EventTracker } from '@devexpress/dx-react-chart';
+import { Typography, Divider, Grid, Button, Box } from '@material-ui/core';
+import { Chart, BarSeries } from '@devexpress/dx-react-chart-material-ui';
+import { Stack } from '@devexpress/dx-react-chart';
 
 const MetaData = (props) => {
- console.log(props.filters)
   const [hovered, setHovered] = useState({ hovered: false });
 
   const onMouseEnter = e => {
@@ -24,10 +16,10 @@ const MetaData = (props) => {
   };
 
   const averageCalculator = (ratings) => {
-    var starTotal = 0,
+    let starTotal = 0,
       voteTotal = 0,
       chart = {};
-    for (var i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 5; i++) {
       if (ratings[i]) {
         starTotal += ratings[i] * i;
         voteTotal += ratings[i];
@@ -45,20 +37,21 @@ const MetaData = (props) => {
       return JSON.stringify(~~((data[1] / (data[0] + data[1])) * 100)) + "%";
     }
   };
+
   const currentFilters = () => {
     return (
-    Object.keys(props.filters).map((x, i) => (
-      <Grid item xs={12} key={i}>
-        <Typography variant="caption">{x}</Typography>
-      </Grid>
-    ))
+      Object.keys(props.filters).map((x, i) => (
+        <Grid item xs={12} key={i}>
+          <Typography variant="caption">{x}</Typography>
+        </Grid>
+      ))
     )
-    };
+  };
 
   const chartDataCalculator = (data) => {
-    var chart = {};
+    let chart = {};
 
-    for (var i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 5; i++) {
       if (data[i]) {
         chart[i] = data[i];
       } else {
@@ -66,7 +59,7 @@ const MetaData = (props) => {
       }
     }
 
-    var total = chart[1] + chart[2] + chart[3] + chart[4] + chart[5];
+    let total = chart[1] + chart[2] + chart[3] + chart[4] + chart[5];
 
     const style1 = hovered.hovered === 1 ? { color: "red", textDecoration: 'underline' } : {};
     const style2 = hovered.hovered === 2 ? { color: "red", textDecoration: 'underline' } : {};
@@ -91,7 +84,7 @@ const MetaData = (props) => {
     return (
       <Grid item xs={12} space={1}>
         {Object.keys(chart).map((x) => {
-          var result = [];
+          let result = [];
           result.push({ star: `${x} stars`, rating: chart[x], empty: total - chart[x] });
           return (
             <Grid onMouseEnter={() => onMouseEnter(Number(x))} onMouseLeave={() => onMouseLeave()} item xs={12} container onClick={() => props.sortByRating(Number(x))} key={x} style={{ maxHeight: 30 }}>
@@ -136,7 +129,8 @@ const MetaData = (props) => {
       </Grid>
     )
   };
-
+  const { filters } = props;
+  const { ratings, recommended } = props.meta;
 
   return (
     <div>
@@ -147,23 +141,23 @@ const MetaData = (props) => {
         </Grid>
 
         <Grid item xs={5}>
-          <Typography variant="h2">{averageCalculator(props.meta.ratings)}</Typography>
+          <Typography variant="h2">{averageCalculator(ratings)}</Typography>
         </Grid>
 
         <Grid item xs={7}>
-          <StarMaker rating={Number(averageCalculator(props.meta.ratings))} />
+          <StarMaker rating={Number(averageCalculator(ratings))} />
         </Grid>
 
         <Grid item xs={12}>
-          <Typography variant="body2">{recommendedCalculator(props.meta.recommended)} of reviews recommend this product</Typography>
+          <Typography variant="body2">{recommendedCalculator(recommended)} of reviews recommend this product</Typography>
         </Grid>
 
-        {Object.keys(props.filters).length > 0 ? <Grid item xs={12}> {currentFilters()} </Grid> : null}
-        {Object.keys(props.filters).length > 0 ? <Typography variant="caption" onClick={() => props.changeReviewOrRating()}>clear filters</Typography> : null}
         <Grid item xs={12}>
           <Typography variant="caption" color="textSecondary">Rating Breakdown</Typography>
         </Grid>
-        {chartDataCalculator(props.meta.ratings)}
+        {Object.keys(filters).length > 0 ? <Grid item xs={12}> {currentFilters()} </Grid> : null}
+        {Object.keys(filters).length > 0 ? <Typography variant="caption" onClick={() => props.changeReviewOrRating()}>clear filters</Typography> : null}
+        {chartDataCalculator(ratings)}
       </Grid>
     </div>
   )

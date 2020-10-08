@@ -3,17 +3,17 @@ import Grid from '@material-ui/core/Grid';
 import {Button} from '@material-ui/core';
 import CartList from './CartList.jsx';
 
-var Cart = ({ cart }) => {
+var Cart = ({ cart, remove }) => {
   return (
     <Grid container >
       <Grid item xs={3}>
 
       </Grid>
-      <Grid item xs={6} id='cartItems'>
+      <Grid item xs={6} >
 
-        <div id='cartBox'>
+        <div id='cartBox' className='cartList'>
           Your Cart:
-          {cart !== [] ? <CartList cart={cart} /> : null}
+          {cart !== [] ? <CartList cart={cart} remove={remove}/> : <p>Cart Empty!</p>}
         </div>
       </Grid>
       <Grid item xs={3}>

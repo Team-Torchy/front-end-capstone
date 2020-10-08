@@ -5,9 +5,7 @@ import AddAReview from './AddAReview.jsx';
 import { Typography, Divider, Grid, Button, Box } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-
 import dummyData from '../../../dummyData.js';
-
 import Image from 'react-image-resizer';
 import MetaData from './MetaData.jsx';
 

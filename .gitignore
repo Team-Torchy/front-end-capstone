@@ -23,10 +23,9 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
 dist/
-<<<<<<< HEAD
-./client/public/bundle.js
-=======
 client/public/bundle.js
 package-lock.json
+<<<<<<< HEAD
 
->>>>>>> cartAPI
+=======
+>>>>>>> 8dda9ee7510b047c8e967ea53025355230f70aeb

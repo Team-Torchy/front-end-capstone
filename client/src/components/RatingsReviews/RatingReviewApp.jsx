@@ -114,7 +114,8 @@ class RatingReviewApp extends Component {
       .catch((err) => {
         console.log(err);
       })
-  };
+  }
+
 
 
   getMetaData() {
@@ -124,6 +125,7 @@ class RatingReviewApp extends Component {
           metaData: data.data
         })
         // console.log(this.state.metaData);
+      }
 
   getPaginatedReviews() {
     let nextReview = this.state.page + 1;

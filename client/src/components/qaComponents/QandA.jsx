@@ -100,7 +100,7 @@ const QandA = (props) => {
   if (searchTerm.length < 3) {
     questionView =
     <div>
-      {questionsData.results.slice(0, questionsLimit).map((question, i) => {
+      {questionsData.results.slice(0, questionsLimit).sort((a, b) => b.question_helpfulness - a.question_helpfulness).map((question, i) => {
         return <SingleQ key={i} question={question} questionsData={questionsData} />;
       })}
     </div>;

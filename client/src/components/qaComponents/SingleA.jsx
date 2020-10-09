@@ -49,7 +49,7 @@ const SingleA = (props) => {
   //Conditional render of answerer name
   let answererName;
   if (props.answer.answerer_name.toLowerCase() === 'seller') {
-    answererName = <b>props.answer.answerer_name  <em>SELLER</em></b>;
+    answererName = <b>{props.answer.answerer_name}  <em>SELLER</em></b>;
   } else {
     answererName = props.answer.answerer_name;
   }

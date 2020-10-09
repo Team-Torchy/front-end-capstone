@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   paper: {
+    maxHeight: 100,
     margin: theme.spacing(1),
   },
   input: {
@@ -59,17 +60,17 @@ const SingleQ = (props) => {
   };
 
   //Conditional Render of 'LOAD MORE ANSWERS'
-  let answersView;
+  let loadAnswersView;
   if (answersLimit < answersData.results.length) {
-    answersView = (
+    loadAnswersView = (
       <Grid item xs={12}>
         <Button size="small" variant="text" onClick={onLoadMore}>
-          Load More Answers
+          See More Answers
         </Button>
       </Grid>
     );
   } else {
-    answersView = null;
+    loadAnswersView = null;
   }
 
   return (
@@ -101,20 +102,15 @@ const SingleQ = (props) => {
             </Grid>
           </Grid>
         </Grid>
+        <div className={classes.maxHeight}>
+          {answersData.results.slice(0, answersLimit).map((answer, i) => {
+            return <SingleA key={i} answer={answer} />;
+          })}
+        </div>
 
-        {answersData.results.slice(0, answersLimit).map((answer, i) => {
-          return <SingleA key={i} answer={answer} />;
-        })}
-        {answersView}
-        {/* <Grid item xs={12}>
-          <Button
-            size='small'
-            variant='text'
-            onClick={onLoadMore}
-          >
-            Load More Answers
-          </Button>
-        </Grid> */}
+
+        {loadAnswersView}
+
       </Grid>
     </div>
   );

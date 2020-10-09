@@ -20,7 +20,7 @@ class RatingReviewApp extends Component {
       bool: false,
       lengthTest: false,
       filters: {},
-    }
+    };
     this.putHelpful = this.putHelpful.bind(this);
     this.putReport = this.putReport.bind(this);
     this.sortByRating = this.sortByRating.bind(this);
@@ -38,18 +38,18 @@ class RatingReviewApp extends Component {
     const next = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${nextReview}`);
     const all = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=${3000000}`);
     axios.all([reviews, meta, next, all]).then(axios.spread((...responses) => {
-      console.log(responses[3].data.results)
+      console.log(responses[3].data.results);
       this.setState({
         reviewData: responses[0].data.results,
         metaData: responses[1].data,
         lengthTest: responses[2].data.results.length,
         page: nextReview,
         allReviewsCount: responses[3].data.results.length
-      })
+      });
     }))
       .catch((err) => {
         console.log(err);
-      })
+      });
   };
 
   getPaginatedReviews() {
@@ -61,12 +61,12 @@ class RatingReviewApp extends Component {
         reviewData: [...this.state.reviewData, ...responses[0].data.results],
         lengthTest: responses[1].data.results.length,
         page: nextReview
-      })
+      });
       console.log(this.state.reviewData);
     }))
       .catch((err) => {
         console.log(err);
-      })
+      });
   };
 
   putHelpful(id) {
@@ -76,12 +76,12 @@ class RatingReviewApp extends Component {
           .then((data) => {
             this.setState({
               reviewData: data.data.results
-            })
-          })
+            });
+          });
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   };
 
   putReport(id) {
@@ -91,12 +91,12 @@ class RatingReviewApp extends Component {
           .then((data) => {
             this.setState({
               reviewData: data.data.results
-            })
-          })
+            });
+          });
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   };
 
   sortByRating(num) {
@@ -114,7 +114,7 @@ class RatingReviewApp extends Component {
               filter[`${ratingData[i].rating} stars`] = true;
             }
             if (ratingData[i].rating === num) {
-              delete filter[`${ratingData[i].rating} stars`]
+              delete filter[`${ratingData[i].rating} stars`];
               bool = true;
             }
           }
@@ -122,27 +122,27 @@ class RatingReviewApp extends Component {
         if (!ratingData || !bool) {
           data.data.results.map((x, i) => {
             if (x.rating === num) {
-              result.push(x)
+              result.push(x);
               filter[`${x.rating} stars`] = true;
             }
-          })
+          });
         }
 
         if (result.length > 0) {
           this.setState({
             ratingData: result,
             filters: filter
-          })
+          });
         } else {
           this.setState({
             ratingData: false,
             filters: {}
-          })
+          });
         }
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   };
 
   setBool() {
@@ -150,11 +150,11 @@ class RatingReviewApp extends Component {
     if (bool) {
       this.setState({
         bool: false
-      })
+      });
     } else {
       this.setState({
         bool: true
-      })
+      });
     }
   };
 
@@ -162,7 +162,7 @@ class RatingReviewApp extends Component {
     this.setState({
       ratingData: false,
       filters: {}
-    })
+    });
   };
 
   reviewOrRatingData() {
@@ -191,9 +191,9 @@ class RatingReviewApp extends Component {
       <div>
         <Grid container spacing={2}>
           <Grid item xs={12} container direction="row">
-            <Grid item xs={2}>
+            <Grid item xs={1}>
             </Grid>
-            <Grid item xs={3} style={{ maxWidth: 300 }}>
+            <Grid item xs={4} style={{ maxWidth: 300 }}>
             </Grid>
             <Grid item xs={3} style={{ maxWidth: 148, position: 'relative', top: 3 }}>
               <Typography>{this.state.allReviewsCount} reviews, sorted by</Typography>
@@ -217,12 +217,10 @@ class RatingReviewApp extends Component {
             <Grid item xs={2}>
             </Grid>
           </Grid>
-          <Grid item xs={2}>
-          </Grid>
           <Grid item xs={3} style={{ maxWidth: 300 }}>
             {metaData ? <MetaData meta={metaData} sortByRating={this.sortByRating} filters={filters} changeReviewOrRating={this.changeReviewOrRating} /> : null}
           </Grid>
-          <Grid item xs={5} >
+          <Grid item xs={7} >
             {this.reviewOrRatingData()}
             {lengthTest ? <Button variant="outlined" onClick={() => this.getPaginatedReviews()}>MORE REVIEWS</Button> : null}
             <Button variant="outlined" onClick={() => this.setBool()}>MORE REVIEWS +</Button>
@@ -232,7 +230,7 @@ class RatingReviewApp extends Component {
           </Grid>
         </Grid>
       </div>
-    )
+    );
   }
 };
 

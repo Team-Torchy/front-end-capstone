@@ -96,8 +96,6 @@ class Selectors extends React.Component {
     return quantities;
   }
 
-  {1: {quantity: 16, size: S}} --> [[1, {quantity: 16, size: S}]]
-
   getSizes() {
     // console.log(this.state.data.skus)
     var sizes = Object.entries(this.state.data.skus).map(sku => {

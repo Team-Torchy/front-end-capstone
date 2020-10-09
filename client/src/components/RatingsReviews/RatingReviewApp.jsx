@@ -226,8 +226,6 @@ class RatingReviewApp extends Component {
             <Button variant="outlined" onClick={() => this.setBool()}>MORE REVIEWS +</Button>
             {bool ? <AddAReview /> : null}
           </Grid>
-          <Grid item xs={2}>
-          </Grid>
         </Grid>
       </div>
     );

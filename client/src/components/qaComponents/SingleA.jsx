@@ -45,6 +45,14 @@ const SingleA = (props) => {
     setYesDisabled(true);
   };
 
+  //Conditional render of answerer name
+  let answererName;
+  if (props.answer.answerer_name.toLowerCase() === 'seller') {
+    answererName = <b>props.answer.answerer_name  <em>SELLER</em></b>;
+  } else {
+    answererName = props.answer.answerer_name;
+  }
+
   return (
     <div>
       <Grid
@@ -70,7 +78,7 @@ const SingleA = (props) => {
         {/* {moment('props.answer.date').format('MMMM Do YYYY')} */}
         <Grid item xs={12}>
           <div className="QandA">
-            by {props.answer.answerer_name}, <AccurateDate date={props.answer.date}/> | Helpful?
+          by {answererName}, <AccurateDate date={props.answer.date}/> | Helpful?
             <Button
               size="small"
               variant="text"

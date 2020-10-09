@@ -5,6 +5,7 @@ import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import moment from 'moment';
 import AccurateDate from '../RatingsReviews/AccurateDate.jsx';
@@ -53,6 +54,23 @@ const SingleA = (props) => {
     answererName = props.answer.answerer_name;
   }
 
+  //Conditional render of report button
+  let report;
+  if (reportDisabled === false) {
+    report = (
+      <Button
+        size="small"
+        variant="text"
+        disabled={reportDisabled}
+        onClick={handleReportClick}
+      >
+        Report
+      </Button>
+    );
+  } else {
+    report = <b>Reported</b>;
+  }
+
   return (
     <div>
       <Grid
@@ -88,14 +106,15 @@ const SingleA = (props) => {
               Yes
             </Button>
             ({props.answer.helpfulness}) |
-            <Button
+            {report}
+            {/* <Button
               size="small"
               variant="text"
               disabled={reportDisabled}
               onClick={handleReportClick}
             >
               Report
-            </Button>
+            </Button> */}
           </div>
         </Grid>
       </Grid>

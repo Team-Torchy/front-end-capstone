@@ -55,7 +55,6 @@ const SingleQ = (props) => {
   };
 
   const handleYesClick = () => {
-    yesCount++;
     setYesDisabled(true);
   };
 

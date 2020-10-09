@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SingleQ = (props) => {
+  // let yesCount = props.question.question_helpfulness;
+  // console.log(yesCount);
+
   const classes = useStyles();
   const [helpfulCount, setHelpfulCount] = useState(props.question.question_helpfulness);
   const [answersData, setAnswersData] = useState({ results: [], question: 1 });
@@ -52,9 +55,23 @@ const SingleQ = (props) => {
   };
 
   const handleYesClick = () => {
+    yesCount++;
     setYesDisabled(true);
-    // setHelpfulCount(helpfulCount => helpfulCount + 1);
   };
+
+  //Conditional Render of 'LOAD MORE ANSWERS'
+  let answersView;
+  if (answersLimit < answersData.results.length) {
+    answersView = (
+      <Grid item xs={12}>
+        <Button size="small" variant="text" onClick={onLoadMore}>
+          Load More Answers
+        </Button>
+      </Grid>
+    );
+  } else {
+    answersView = null;
+  }
 
   return (
     <div>
@@ -86,12 +103,11 @@ const SingleQ = (props) => {
           </Grid>
         </Grid>
 
-        {/* Map over the array of answer objects */}
         {answersData.results.slice(0, answersLimit).map((answer, i) => {
           return <SingleA key={i} answer={answer} />;
         })}
-
-        <Grid item xs={12}>
+        {answersView}
+        {/* <Grid item xs={12}>
           <Button
             size='small'
             variant='text'
@@ -99,7 +115,7 @@ const SingleQ = (props) => {
           >
             Load More Answers
           </Button>
-        </Grid>
+        </Grid> */}
       </Grid>
     </div>
   );

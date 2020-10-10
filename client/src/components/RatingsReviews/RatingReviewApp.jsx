@@ -83,7 +83,7 @@ class RatingReviewApp extends Component {
       .catch((err) => {
         console.log(err);
       });
-  };
+  }
 
   putReport(id) {
     axios.put(`http://3.137.191.193/reviews/${id}/report`)

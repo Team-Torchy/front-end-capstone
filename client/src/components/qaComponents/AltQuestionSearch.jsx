@@ -53,6 +53,19 @@ const AltQuestionSearch = (props) => {
     setYesDisabled(true);
   };
 
+  let loadAnswersView;
+  if (answersLimit < answersData.results.length) {
+    loadAnswersView = (
+      <Grid item xs={12}>
+        <Button size="small" variant="text" onClick={onLoadMore}>
+          See More Answers
+        </Button>
+      </Grid>
+    );
+  } else {
+    loadAnswersView = null;
+  }
+
   return (
     <div>
       <Grid>
@@ -84,19 +97,12 @@ const AltQuestionSearch = (props) => {
         </Grid>
 
         {/* Map over the array of answer objects */}
-        {answersData.results.slice(0, answersLimit).map((answer, i) => {
+        {answersData.results.slice(0, answersLimit).sort((a, b) => b.helpfulness - a.helpfulness).map((answer, i) => {
           return <SingleA key={i} answer={answer} />;
         })}
 
-        <Grid item xs={12}>
-          <Button
-            size='small'
-            variant='text'
-            onClick={onLoadMore}
-          >
-            Load More Answers
-          </Button>
-        </Grid>
+        {loadAnswersView}
+
       </Grid>
     </div>
   );

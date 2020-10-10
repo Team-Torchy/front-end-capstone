@@ -104,14 +104,14 @@ const QandA = (props) => {
     questionView =
     <div>
       {questionsData.results.slice(0, questionsLimit).sort((a, b) => b.question_helpfulness - a.question_helpfulness).map((question, i) => {
-        return <SingleQ key={i} question={question} questionsData={questionsData} />;
+        return <SingleQ key={i} question={question} />;
       })}
     </div>;
   } else {
     questionView =
     <div>
-      {searchResults.slice(0, questionsLimit).map((question, i) => {
-        return <SingleQ key={i} question={question} questionsData={questionsData} searchResults={searchResults}/>;
+      {searchResults.slice(0, questionsLimit).sort((a, b) => b.question_helpfulness - a.question_helpfulness).map((question, i) => {
+        return <AltQuestionSearch key={i} question={question}/>;
       })}
     </div>;
   }

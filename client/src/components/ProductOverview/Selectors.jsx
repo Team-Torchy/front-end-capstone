@@ -11,9 +11,9 @@ class Selectors extends React.Component {
       data: undefined,
       sizes: undefined,
       size: '',
-      quantity: 0,
       quantities: [],
-      currentSku: 1
+      currentSku: 1,
+      howMany: 0
     };
   }
 
@@ -35,7 +35,7 @@ class Selectors extends React.Component {
   }
 
   addToCart() {
-    this.props.addToCart();
+    this.props.addToCart(this.state.currentSku, this.state.howMany, this.props.data);
   }
 
   setSelectors() {
@@ -45,14 +45,16 @@ class Selectors extends React.Component {
     }, () => {
       var sizes = this.getSizes();
 
+
+
       this.setState({
         sizes,
         size: sizes[0].label,
-        quantity: sizes[0].value
       }, () => {
         this.setState({
-          quantities: this.getQuantities(this.state.quantity)
+          quantities: this.getQuantities(this.state.size)
         }, () => {
+
           // console.log(this.state);
         });
       });
@@ -61,50 +63,51 @@ class Selectors extends React.Component {
 
   handleChange(e) {
     console.log(e);
-
-    for (var sku in this.state.data.skus) {
-      console.log(sku);
-      console.log(this.state.data.skus[sku])
-      if ( e === sku.value ) {
-        this.setSku(sku);
-      }
-    }
-
     this.setState({
       size: e.label,
-      quantity: e.value
+      currentSku: e.value,
     }, () => {
-      // console.log(this.getQuantities(e.value));
       this.setState({
-        quantities: this.getQuantities(e.value)
+        quantities: this.getQuantities(this.state.size)
       });
     });
   }
 
-  getQuantities(quant) {
-    var quantities = [];
+  handleQuantity(e) {
+    this.setState({
+      howMany: e.value
+    }, () => {
 
-    for (var i = 1; i <= quant; i++) {
-      quantities.push({ value: i, label: i });
-    }
+    });
+  }
+
+  getQuantities(size) {
+    var quantities = [];
+    Object.entries(this.state.data.skus).map(sku => {
+      console.log(sku[1].quantity);
+      if (sku[1].size === size) {
+        for (var i = 1; i <= sku[1].quantity; i++) {
+          // console.log(i);
+          quantities.push({ value: i, label: i });
+        }
+      }
+    });
 
     return quantities;
   }
 
-  setSku(selectedSku) {
-    this.setState({
-      currentSku: selectedSku
-    }, console.log(this.state.currentSku))
-  }
-
   getSizes() {
-    console.log(this.state.data.skus)
-    var sizes = Object.values(this.state.data.skus).map(sku => {
+    // console.log(this.state.data.skus)
+    var sizes = Object.entries(this.state.data.skus).map(sku => {
       console.log(sku);
-      console.log(this.state.data.skus)
-      return { value: sku.quantity, label: sku.size };
+      return { value: sku[0], label: sku[1].size };
     });
     return sizes;
+
+  }
+
+  getSku() {
+
   }
 
   getSku() {
@@ -127,7 +130,8 @@ class Selectors extends React.Component {
             <Grid item xs={5}>
               <Select
                 defaultValue={{ label: 'Quantity...', value: 0 }}
-                options={this.state.quantities}></Select>
+                options={this.state.quantities}
+                onChange={this.handleQuantity.bind(this)}></Select>
             </Grid>
           </Grid>
           <Grid item xs={12} >

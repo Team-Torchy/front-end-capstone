@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   paper: {
-    maxHeight: 100,
     margin: theme.spacing(1),
   },
   input: {
@@ -29,17 +28,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SingleQ = (props) => {
-  // let yesCount = props.question.question_helpfulness;
-  // console.log(yesCount);
-
+const AltQuestionSearch = (props) => {
   const classes = useStyles();
-  const [helpfulCount, setHelpfulCount] = useState(props.question.question_helpfulness);
   const [answersData, setAnswersData] = useState({ results: [], question: 1 });
   const [yesDisabled, setYesDisabled] = useState(false);
   const [answersLimit, setAnswersLimit] = useState(2);
 
-  //GET Request for 'Answers List' API
   useEffect(() => {
     axios
       .get(
@@ -59,32 +53,18 @@ const SingleQ = (props) => {
     setYesDisabled(true);
   };
 
-  //Conditional Render of 'LOAD MORE ANSWERS'
-  let loadAnswersView;
-  if (answersLimit < answersData.results.length) {
-    loadAnswersView = (
-      <Grid item xs={12}>
-        <Button size="small" variant="text" onClick={onLoadMore}>
-          See More Answers
-        </Button>
-      </Grid>
-    );
-  } else {
-    loadAnswersView = null;
-  }
-
   return (
     <div>
       <Grid>
         <Grid container spacing={1} direction='column'>
           <Grid item xs={12} container justify='space-between'>
-            <Grid item xs={5}>
+            <Grid item xs={7}>
               <div className='QandA'>Q: {props.question.question_body}</div>
             </Grid>
             <Grid item xs={5}>
               <div className='QandA'>
                 <Typography
-                  style={{left: '250px' }}
+                  style={{ position: 'relative', left: '250px' }}
                   variant='caption'
                 >
                   Helpful?
@@ -102,18 +82,24 @@ const SingleQ = (props) => {
             </Grid>
           </Grid>
         </Grid>
-        <div className={classes.maxHeight}>
-          {answersData.results.slice(0, answersLimit).sort((a, b) => a.answerer_name === 'Seller' - b.answerer_name !== 'Seller' || b.helpfulness - a.helpfulness).map((answer, i) => {
-            return <SingleA key={i} answer={answer} />;
-          })}
-        </div>
 
+        {/* Map over the array of answer objects */}
+        {answersData.results.slice(0, answersLimit).map((answer, i) => {
+          return <SingleA key={i} answer={answer} />;
+        })}
 
-        {loadAnswersView}
-
+        <Grid item xs={12}>
+          <Button
+            size='small'
+            variant='text'
+            onClick={onLoadMore}
+          >
+            Load More Answers
+          </Button>
+        </Grid>
       </Grid>
     </div>
   );
 };
 
-export default SingleQ;
+export default AltQuestionSearch;

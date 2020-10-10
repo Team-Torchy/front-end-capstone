@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import Upload from './Upload.jsx';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -21,22 +22,19 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const AddQuestion = (props) => {
-  // console.log('Product ID: ', props);
+const AddAnswer = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [questionText, setQuestionText] = useState('');
-  const [nicknameText, setNicknameText] = useState('');
-  const [emailText, setEmailText] = useState('');
 
   const formik = useFormik({
     initialValues: {
       email: '',
       nickname: '',
-      question: ''
+      answer: '',
+      images: []
     },
     validationSchema: Yup.object({
-      question: Yup.string()
+      answer: Yup.string()
         .max(1000, 'Must be 1000 characters or less')
         .required('required'),
       nickname: Yup.string()
@@ -60,34 +58,25 @@ const AddQuestion = (props) => {
     setOpen(false);
   };
 
-  // const handleSubmit = () => {
-  //   axios.post('/qa/questions', {
-  //     body: bodyText,
-  //     name: nicknameText,
-  //     email: emailText,
-  //     product_id: 1
-  //   });
-  // };
-
   const body = (
     <div className={classes.paper}>
-      <h2 id="add-question-title">Ask Your Question</h2>
-      <h3 id="add-question-subtitle">About the [PRODUCT NAME]</h3>
+      <h2 id="add-answer-title">Submit Your Answer</h2>
+      <h3 id="add-answer-subtitle">[PRODUCT NAME]:[QUESTION BODY]</h3>
 
-      <h4 id="add-question-description">Your Question *</h4>
+      <h4 id="add-answer-description">Your Answer *</h4>
       <TextField
         required
         fullWidth
-        id="question"
-        name="question"
+        id="answer"
+        name="answer"
         variant="outlined"
         multiline
         rows={6}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        value={formik.values.question}
+        value={formik.values.answer}
       />
-      {formik.touched.question && formik.errors.question ? <div>{formik.errors.question}</div> : null}
+      {formik.touched.answer && formik.errors.answer ? <div>{formik.errors.answer}</div> : null}
 
       <h4 id="add-nickname-description">What is your Nickname? *</h4>
       <TextField
@@ -115,6 +104,8 @@ const AddQuestion = (props) => {
       {formik.touched.email && formik.errors.email ? <div>{formik.errors.email}</div> : null}
       <h5 id="nickname-description-warning"><em>For authentication reasons, you will not be emailed.</em></h5>
 
+      <Upload />
+
       <Button disabled={!(formik.isValid && formik.dirty)} variant="outlined" type="submit" className={classes.button}>Submit</Button>
     </div>
   );
@@ -123,19 +114,20 @@ const AddQuestion = (props) => {
   return (
     <div>
       <Button
-        variant="contained"
+        size="small"
+        variant="text"
         onClick={handleOpen}
         className={classes.button}
       >
-        ADD A QUESTION +
+        Add Answer
       </Button>
 
       <Modal
         onSubmit={formik.handleSubmit}
         open={open}
         onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
+        aria-labelledby="add-answer-modal"
+        aria-describedby="add-answer-modal"
       >
         {body}
       </Modal>
@@ -143,4 +135,4 @@ const AddQuestion = (props) => {
   );
 };
 
-export default AddQuestion;
+export default AddAnswer;

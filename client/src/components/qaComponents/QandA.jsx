@@ -5,10 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import dummyQuestionsData from '../../dummyQuestionsData.js';
 import SingleQ from './SingleQ.jsx';
 import AddQuestion from './AddQuestion.jsx';
-
+import AltQuestionSearch from './AltQuestionSearch.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,10 +36,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const QandA = (props) => {
-  // console.log('This is the questions data: ', questionsData);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [questionsLimit, setQuestionsLimit] = useState(4);
   const [questionsData, setQuestionsData] = useState({results: [], id: 1});
-  // console.log('This is the questions data.id: ', questionsData.id);
+
+
+  // console.log('Here is the ID: ', questionsData.product_id);
   const classes = useStyles();
 
   const handleQuestionModalOpen = () => {
@@ -51,40 +54,89 @@ const QandA = (props) => {
     setIsOpen(false);
   };
 
-  //GET Request for "List Questions" API
+  const onLoadMore = () => {
+    setQuestionsLimit(questionsLimit + 2);
+  };
+
+  //Conditional render of 'More Answered Questions'
+  let addQuestionsView;
+  if (questionsLimit < questionsData.results.length) {
+    addQuestionsView =
+    <Grid item xs={8} container spacing={2}>
+      <Button
+        variant="contained"
+        onClick={onLoadMore}
+        className={classes.button}
+      >
+        MORE ANSWERED QUESTIONS
+      </Button>
+      <AddQuestion />
+    </Grid>;
+  } else {
+    addQuestionsView = <AddQuestion productId={questionsData.product_id}/>;
+  }
+
+  // For search bar input change
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // GET Request for "List Questions" API
   useEffect(() => {
     axios.get(`http://18.224.37.110/qa/questions/?product_id=${questionsData.id}&count=20&page=1`)
       .then((response) => {
-        console.log('This is the axios.get response.data: ', response.data);
         setQuestionsData(response.data);
       })
       .catch(error => console.error(error));
-
-  // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
-  console.log('This is the NEW questionsData state', questionsData);
+  // Search Bar Filtering
+  useEffect(() => {
+    const results = questionsData.results.filter((question) =>
+      question.question_body.toLowerCase().includes(searchTerm.toLowerCase()));
+    setSearchResults(results);
+  }, [searchTerm]);
+
+  // Conditional render of questions based off search filter
+  let questionView;
+  if (searchTerm.length < 3) {
+    questionView =
+    <div>
+      {questionsData.results.slice(0, questionsLimit).sort((a, b) => b.question_helpfulness - a.question_helpfulness).map((question, i) => {
+        return <SingleQ key={i} question={question} questionsData={questionsData} />;
+      })}
+    </div>;
+  } else {
+    questionView =
+    <div>
+      {searchResults.slice(0, questionsLimit).map((question, i) => {
+        return <SingleQ key={i} question={question} questionsData={questionsData} />;
+      })}
+    </div>;
+  }
 
   return (
     <div>
-      <Grid container spacing={2} direction="column" >
+      <Grid container spacing={2} direction="column">
         <Grid item xs={12} container spacing={3} my={2}>
-          <Grid item xs={4}>QUESTIONS {'&'} ANSWERS</Grid>
+          <Grid item xs={4}>
+            QUESTIONS {'&'} ANSWERS
+          </Grid>
           <TextField
-            variant="outlined"
-            placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
             fullWidth
+            variant="outlined"
+            type="text"
+            placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
+            value={searchTerm}
+            onChange={handleChange}
           />
         </Grid>
-        {/* Map over the array of question objects */}
-        {questionsData.results.map((question, i) => {
-          return <SingleQ key={i} question={question} />;
-        })}
 
-        <Grid item xs={8} container spacing={2}>
-          <Button variant="contained" className={classes.button}>MORE ANSWERED QUESTIONS</Button>
-          <AddQuestion />
-        </Grid>
+        {/* Conditional Render of Questions List */}
+        {questionView}
+
+        {addQuestionsView}
+
       </Grid>
     </div>
   );
@@ -92,8 +144,3 @@ const QandA = (props) => {
 
 
 export default QandA;
-
-{/* AddQuestion modal
-        <AddQuestion isOpen={isOpen} handleClose={handleQuestionModalClose} title='Add a New Question'>
-          <h1>Would you like to Add a Question?</h1>
-        </AddQuestion> */}

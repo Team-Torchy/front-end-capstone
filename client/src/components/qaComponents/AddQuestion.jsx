@@ -60,14 +60,14 @@ const AddQuestion = (props) => {
     setOpen(false);
   };
 
-  // const handleSubmit = () => {
-  //   axios.post('/qa/questions', {
-  //     body: bodyText,
-  //     name: nicknameText,
-  //     email: emailText,
-  //     product_id: 1
-  //   });
-  // };
+  const handleSubmit = () => {
+    axios.post('/qa/questions', {
+      body: questionText,
+      name: nicknameText,
+      email: emailText,
+      productId: 1
+    });
+  };
 
   const body = (
     <div className={classes.paper}>

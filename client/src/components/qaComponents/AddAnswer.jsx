@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
 const AddAnswer = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [answerText, setQuestionText] = useState('');
+  const [nicknameText, setNicknameText] = useState('');
+  const [emailText, setEmailText] = useState('');
+  const [photos, setPhotos] = useState([]);
 
   const formik = useFormik({
     initialValues: {
@@ -56,6 +60,15 @@ const AddAnswer = (props) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleSubmit = () => {
+    axios.post('/qa/questions/:question_id/answers', {
+      body: answerText,
+      name: nicknameText,
+      email: emailText,
+      photos: []
+    });
   };
 
   const body = (

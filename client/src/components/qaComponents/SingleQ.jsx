@@ -103,7 +103,7 @@ const SingleQ = (props) => {
           </Grid>
         </Grid>
         <div className={classes.maxHeight}>
-          {answersData.results.slice(0, answersLimit).sort((a, b) => a.answerer_name === 'Seller' - b.answerer_name !== 'Seller' || b.helpfulness - a.helpfulness).map((answer, i) => {
+          {answersData.results.slice(0, answersLimit).sort((a, b) => b.helpfulness - a.helpfulness).map((answer, i) => {
             return <SingleA key={i} answer={answer} />;
           })}
         </div>

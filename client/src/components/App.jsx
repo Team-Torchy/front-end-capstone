@@ -21,8 +21,7 @@ class App extends Component {
     return (
       <div>
         <Grid container>
-          <Grid item xs={1}></Grid>
-          <Grid item xs={11}>
+          <Grid item xs={12}>
             <ProductOverview />
             <QandA />
             <RatingReviewApp num={1} />

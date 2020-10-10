@@ -10,7 +10,7 @@ import ImageGallery from './ImageGallery.jsx';
 import NavBar from './NavBar.jsx';
 
 
-const apiURL = 'http://18.224.37.110';
+const apiURL = 'http://3.137.191.193';
 
 const api = axios.create({
   baseURL: `${apiURL}/cart`,

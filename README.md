@@ -6,7 +6,8 @@
 
 ## Related Projects
 
-  - 
+  - https://github.com/Team-Tatsu-ya/i-do-my-turn-on-project-catwalk
+  - https://github.com/teamtitos/front-end-capstone
 
 ## Table of Contents
 

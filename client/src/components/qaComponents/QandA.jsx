@@ -42,6 +42,8 @@ const QandA = (props) => {
   const [questionsLimit, setQuestionsLimit] = useState(4);
   const [questionsData, setQuestionsData] = useState({results: [], id: 1});
 
+
+  // console.log('Here is the ID: ', questionsData.product_id);
   const classes = useStyles();
 
   const handleQuestionModalOpen = () => {
@@ -71,7 +73,7 @@ const QandA = (props) => {
       <AddQuestion />
     </Grid>;
   } else {
-    addQuestionsView = <AddQuestion />;
+    addQuestionsView = <AddQuestion productId={questionsData.product_id}/>;
   }
 
   // For search bar input change

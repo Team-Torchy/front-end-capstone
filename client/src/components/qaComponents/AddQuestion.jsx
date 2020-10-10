@@ -22,8 +22,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddQuestion = (props) => {
+  // console.log('Product ID: ', props);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [questionText, setQuestionText] = useState('');
+  const [nicknameText, setNicknameText] = useState('');
+  const [emailText, setEmailText] = useState('');
 
   const formik = useFormik({
     initialValues: {
@@ -55,6 +59,15 @@ const AddQuestion = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  // const handleSubmit = () => {
+  //   axios.post('/qa/questions', {
+  //     body: bodyText,
+  //     name: nicknameText,
+  //     email: emailText,
+  //     product_id: 1
+  //   });
+  // };
 
   const body = (
     <div className={classes.paper}>

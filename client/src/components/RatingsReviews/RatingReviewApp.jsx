@@ -33,10 +33,10 @@ class RatingReviewApp extends Component {
 
   getReviews() {
     let nextReview = this.state.page + 1;
-    const reviews = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`);
-    const meta = axios.get(`http://18.224.37.110/reviews/meta/?product_id=${this.state.product_id}`);
-    const next = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${nextReview}`);
-    const all = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=${3000000}`);
+    const reviews = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`);
+    const meta = axios.get(`http://3.137.191.193/reviews/meta/?product_id=${this.state.product_id}`);
+    const next = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.product_id}&count=2&page=${nextReview}`);
+    const all = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.product_id}&count=${3000000}`);
     axios.all([reviews, meta, next, all]).then(axios.spread((...responses) => {
       console.log(responses[3].data.results);
       this.setState({
@@ -55,8 +55,8 @@ class RatingReviewApp extends Component {
 
   getPaginatedReviews() {
     let nextReview = this.state.page + 1;
-    const reviews = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`);
-    const next = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${nextReview}`);
+    const reviews = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`);
+    const next = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.product_id}&count=2&page=${nextReview}`);
     axios.all([reviews, next]).then(axios.spread((...responses) => {
       this.setState({
         reviewData: [...this.state.reviewData, ...responses[0].data.results],
@@ -71,9 +71,9 @@ class RatingReviewApp extends Component {
   };
 
   putHelpful(id) {
-    axios.put(`http://18.224.37.110/reviews/${id}/helpful`)
+    axios.put(`http://3.137.191.193/reviews/${id}/helpful`)
       .then((result) => {
-        axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=${this.state.reviewData.length}`)
+        axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.product_id}&count=${this.state.reviewData.length}`)
           .then((data) => {
             this.setState({
               reviewData: data.data.results
@@ -86,9 +86,9 @@ class RatingReviewApp extends Component {
   };
 
   putReport(id) {
-    axios.put(`http://18.224.37.110/reviews/${id}/report`)
+    axios.put(`http://3.137.191.193/reviews/${id}/report`)
       .then(() => {
-        axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=${this.state.reviewData.length - 1}`)
+        axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.product_id}&count=${this.state.reviewData.length - 1}`)
           .then((data) => {
             this.setState({
               reviewData: data.data.results
@@ -106,7 +106,7 @@ class RatingReviewApp extends Component {
       ratingData = this.state.ratingData,
       filter = this.state.filters;
 
-    axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}`)
+    axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.product_id}`)
       .then((data) => {
         if (ratingData.length > 0) {
           for (var i = 0; i < ratingData.length; i++) {

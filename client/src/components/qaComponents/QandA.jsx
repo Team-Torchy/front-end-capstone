@@ -84,7 +84,7 @@ const QandA = (props) => {
 
   // GET Request for "List Questions" API
   useEffect(() => {
-    axios.get(`http://18.224.37.110/qa/questions/?product_id=${questionsData.id}&count=20&page=1`)
+    axios.get(`http://3.137.191.193/qa/questions/?product_id=${questionsData.id}&count=20&page=1`)
       .then((response) => {
         setQuestionsData(response.data);
       })

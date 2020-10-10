@@ -43,7 +43,7 @@ const SingleQ = (props) => {
   useEffect(() => {
     axios
       .get(
-        `http://18.224.37.110/qa/questions/${props.question.question_id}/answers`
+        `http://3.137.191.193/qa/questions/${props.question.question_id}/answers`
       )
       .then((response) => {
         setAnswersData(response.data);

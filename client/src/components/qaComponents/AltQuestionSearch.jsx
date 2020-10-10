@@ -28,13 +28,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SingleQ = (props) => {
+const AltQuestionSearch = (props) => {
   const classes = useStyles();
   const [answersData, setAnswersData] = useState({ results: [], question: 1 });
   const [yesDisabled, setYesDisabled] = useState(false);
   const [answersLimit, setAnswersLimit] = useState(2);
 
-  //GET Request for 'Answers List' API
   useEffect(() => {
     axios
       .get(
@@ -52,7 +51,6 @@ const SingleQ = (props) => {
 
   const handleYesClick = () => {
     setYesDisabled(true);
-    setHelpfulCount(helpfulCount => helpfulCount + 1);
   };
 
   return (
@@ -104,4 +102,4 @@ const SingleQ = (props) => {
   );
 };
 
-export default SingleQ;
+export default AltQuestionSearch;

@@ -159,11 +159,13 @@ class ProductOverview extends React.Component {
   getStylesForProduct() {
     axios.get(`${apiURL}/products/${this.state.productId}/styles`)
       .then(res => {
+
         console.log(res.data.results);
         var skus = res.data.results.map(res => {
           return Object.keys(res.skus);
         });
         skus = skus.flat();
+
 
         this.setState({
           styleList: res.data.results,

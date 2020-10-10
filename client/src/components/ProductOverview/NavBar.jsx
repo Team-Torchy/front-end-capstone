@@ -24,7 +24,16 @@ class NavBar extends React.Component {
     return (
       <Grid container id="NavBar" style={{ 'background': '#0D1B2A', 'height': '50px' }}>
         <Grid item xs={12}>
-          <span className="nav">Torchy's Haberdashery<Button id='cart' onClick={this.handleShow.bind(this)}><ShoppingCart style={{'fill': 'white'}}></ShoppingCart></Button></span>
+          <span className="nav">
+            <Grid item xs={10}>
+            Torchy's Haberdashery
+            </Grid>
+            <Grid item xs={2} >
+              <Button id='cart' onClick={this.handleShow.bind(this)}>
+                  <ShoppingCart id="cartButton" style={{'fill': 'white'}}></ShoppingCart>
+              </Button>
+            </Grid>
+          </span>
           <div id='cartContainer' style={
             this.state.showCart ? {'display': 'block'} : {'display': 'none'}
           }

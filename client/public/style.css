@@ -22,7 +22,7 @@ body {
 }
 
 #cart {
-  align-items: right;
+  right: 15px;
 }
 
 #price {
@@ -94,7 +94,7 @@ body {
 
 #cart {
   display: block;
-  float: right;
+  right: 15px;
 }
 
 #spacer {
@@ -154,6 +154,8 @@ body {
   height: 50px;
   padding-left: 50px;
   color: #E0E1DD;
+  align-items: center;
+  display: flex;
 }
 
 .fullscreenImage {

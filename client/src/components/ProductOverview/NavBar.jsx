@@ -24,7 +24,7 @@ class NavBar extends React.Component {
     return (
       <Grid container id="NavBar" style={{ 'background': 'darkgray', 'height': '50px' }}>
         <Grid item xs={12}>
-          <span className="nav"><Button id='cart' onClick={this.handleShow.bind(this)}><ShoppingCart></ShoppingCart></Button></span>
+          <span className="nav">Torchy's Haberdashery<Button id='cart' onClick={this.handleShow.bind(this)}><ShoppingCart></ShoppingCart></Button></span>
           <div id='cartContainer' style={
             this.state.showCart ? {'display': 'block'} : {'display': 'none'}
           }

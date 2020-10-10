@@ -25,7 +25,3 @@ build/
 dist/
 client/public/bundle.js
 package-lock.json
-<<<<<<< HEAD
-
-=======
->>>>>>> 8dda9ee7510b047c8e967ea53025355230f70aeb

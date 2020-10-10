@@ -6,10 +6,7 @@ import StarMaker from './RatingsReviews/StarMaker.jsx';
 import dummyData from '../../dummyData.js';
 import ProductOverview from './ProductOverview/ProductOverview.jsx';
 import QandA from './qaComponents/QandA.jsx';
-import {useCookies, Cookies, withCookies, setCookie} from 'react-cookie';
-
-
-
+import { Grid } from '@material-ui/core';
 
 class App extends Component {
   constructor(props) {
@@ -23,10 +20,14 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Grid container>
+          <Grid item xs={12}>
+            <ProductOverview />
+            <QandA />
+            <RatingReviewApp num={1} />
+          </Grid>
+        </Grid>
 
-        <ProductOverview />
-        <QandA />
-        <RatingReviewApp num={1} />
 
       </div>
     );

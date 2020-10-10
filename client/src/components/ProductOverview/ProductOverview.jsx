@@ -237,7 +237,7 @@ class ProductOverview extends React.Component {
         spacing={3}
         id="OverviewContainer"
       >
-        <NavBar cart={this.state.cartList} remove={this.removeFromCart.bind(this)}/>
+        <NavBar cart={this.state.cartList} remove={this.removeFromCart.bind(this)} sku={this.state.skuId}/>
 
         <Grid item id='gallery' xs={6}>
           <ImageGallery data={this.state.galleryImages} img={this.state.imgURL} changeImg={this.changeImage.bind(this)} />

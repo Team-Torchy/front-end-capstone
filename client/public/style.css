@@ -2,9 +2,6 @@ body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   margin-left: 15px;
 }
-#nav {
-  margin-left: 0;
-}
 
 #fullscreenContainer {
   position: fixed;

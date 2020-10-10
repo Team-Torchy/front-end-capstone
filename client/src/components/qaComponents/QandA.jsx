@@ -12,11 +12,12 @@ import AltQuestionSearch from './AltQuestionSearch.jsx';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '70%',
-    display: 'flex',
+    display: 'block',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
+    margin: '8px'
   },
   gridList: {
     flexWrap: 'nowrap',
@@ -97,20 +98,21 @@ const QandA = (props) => {
 
   return (
     <div>
-      <Grid container spacing={2} direction="column">
-        <Grid item xs={12} container spacing={3} my={2}>
+      <Grid container direction="column">
+
+
           <Grid item xs={4}>
             QUESTIONS {'&'} ANSWERS
           </Grid>
           <TextField
-            fullWidth
             variant="outlined"
             type="text"
             placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
             value={searchTerm}
             onChange={handleChange}
+            style={{"margin": "8px"}}
           />
-        </Grid>
+
 
         {/* Conditional Render of Questions List */}
         {questionView}

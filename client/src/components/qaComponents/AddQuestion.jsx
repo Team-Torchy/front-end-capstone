@@ -65,7 +65,7 @@ const AddQuestion = (props) => {
       body: questionText,
       name: nicknameText,
       email: emailText,
-      product_id: 1
+      productId: 1
     });
   };
 

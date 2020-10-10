@@ -55,7 +55,7 @@ class RatingReviewApp extends Component {
 
   getPaginatedReviews() {
     let nextReview = this.state.page + 1;
-    const reviews = axios.get(`http://18.224.37.110/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`);
+    const reviews = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.product_id}&count=2&page=${this.state.page}`);
     const next = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.product_id}&count=2&page=${nextReview}`);
     axios.all([reviews, next]).then(axios.spread((...responses) => {
       this.setState({

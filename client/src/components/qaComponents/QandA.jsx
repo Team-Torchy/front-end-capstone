@@ -84,7 +84,7 @@ const QandA = (props) => {
 
   // GET Request for "List Questions" API
   useEffect(() => {
-    axios.get(`http://18.224.37.110/qa/questions/?product_id=${questionsData.id}&count=20&page=1`)
+    axios.get(`http://3.137.191.193/qa/questions/?product_id=${questionsData.id}&count=20&page=1`)
       .then((response) => {
         setQuestionsData(response.data);
       })
@@ -111,7 +111,7 @@ const QandA = (props) => {
     questionView =
     <div>
       {searchResults.slice(0, questionsLimit).map((question, i) => {
-        return <SingleQ key={i} question={question} questionsData={questionsData} />;
+        return <SingleQ key={i} question={question} questionsData={questionsData} searchResults={searchResults}/>;
       })}
     </div>;
   }
@@ -119,26 +119,22 @@ const QandA = (props) => {
   return (
     <div>
       <Grid container direction="column">
-
-
-          <Grid item xs={4}>
-            QUESTIONS {'&'} ANSWERS
-          </Grid>
-          <TextField
-            variant="outlined"
-            type="text"
-            placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
-            value={searchTerm}
-            onChange={handleChange}
-            style={{"margin": "8px"}}
-          />
-
+        <Grid item xs={4}>
+          QUESTIONS {"&"} ANSWERS
+        </Grid>
+        <TextField
+          variant="outlined"
+          type="text"
+          placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
+          value={searchTerm}
+          onChange={handleChange}
+          style={{ margin: "8px" }}
+        />
 
         {/* Conditional Render of Questions List */}
         {questionView}
 
         {addQuestionsView}
-
       </Grid>
     </div>
   );

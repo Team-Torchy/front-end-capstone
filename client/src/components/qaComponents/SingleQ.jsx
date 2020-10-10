@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   paper: {
+    maxHeight: 100,
     margin: theme.spacing(1),
   },
   input: {
@@ -29,7 +30,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SingleQ = (props) => {
+  // let yesCount = props.question.question_helpfulness;
+  // console.log(yesCount);
+
   const classes = useStyles();
+  const [helpfulCount, setHelpfulCount] = useState(props.question.question_helpfulness);
   const [answersData, setAnswersData] = useState({ results: [], question: 1 });
   const [yesDisabled, setYesDisabled] = useState(false);
   const [answersLimit, setAnswersLimit] = useState(2);
@@ -52,8 +57,21 @@ const SingleQ = (props) => {
 
   const handleYesClick = () => {
     setYesDisabled(true);
-    setHelpfulCount(helpfulCount => helpfulCount + 1);
   };
+
+  //Conditional Render of 'LOAD MORE ANSWERS'
+  let loadAnswersView;
+  if (answersLimit < answersData.results.length) {
+    loadAnswersView = (
+      <Grid item xs={12}>
+        <Button size="small" variant="text" onClick={onLoadMore}>
+          See More Answers
+        </Button>
+      </Grid>
+    );
+  } else {
+    loadAnswersView = null;
+  }
 
   return (
     <div>
@@ -84,21 +102,15 @@ const SingleQ = (props) => {
             </Grid>
           </Grid>
         </Grid>
+        <div className={classes.maxHeight}>
+          {answersData.results.slice(0, answersLimit).sort((a, b) => a.answerer_name === 'Seller' - b.answerer_name !== 'Seller' || b.helpfulness - a.helpfulness).map((answer, i) => {
+            return <SingleA key={i} answer={answer} />;
+          })}
+        </div>
 
-        {/* Map over the array of answer objects */}
-        {answersData.results.slice(0, answersLimit).map((answer, i) => {
-          return <SingleA key={i} answer={answer} />;
-        })}
 
-        <Grid item xs={12}>
-          <Button
-            size='small'
-            variant='text'
-            onClick={onLoadMore}
-          >
-            Load More Answers
-          </Button>
-        </Grid>
+        {loadAnswersView}
+
       </Grid>
     </div>
   );

@@ -49,6 +49,7 @@ class RatingReviewApp extends Component {
     }))
       .catch((err) => {
         console.log(err);
+
       });
   };
 

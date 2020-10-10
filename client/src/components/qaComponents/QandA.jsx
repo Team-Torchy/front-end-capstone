@@ -42,6 +42,8 @@ const QandA = (props) => {
   const [questionsLimit, setQuestionsLimit] = useState(4);
   const [questionsData, setQuestionsData] = useState({results: [], id: 1});
 
+
+  // console.log('Here is the ID: ', questionsData.product_id);
   const classes = useStyles();
 
   const handleQuestionModalOpen = () => {
@@ -56,12 +58,30 @@ const QandA = (props) => {
     setQuestionsLimit(questionsLimit + 2);
   };
 
-  //for search bar input change
+  //Conditional render of 'More Answered Questions'
+  let addQuestionsView;
+  if (questionsLimit < questionsData.results.length) {
+    addQuestionsView =
+    <Grid item xs={8} container spacing={2}>
+      <Button
+        variant="contained"
+        onClick={onLoadMore}
+        className={classes.button}
+      >
+        MORE ANSWERED QUESTIONS
+      </Button>
+      <AddQuestion />
+    </Grid>;
+  } else {
+    addQuestionsView = <AddQuestion productId={questionsData.product_id}/>;
+  }
+
+  // For search bar input change
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  //GET Request for "List Questions" API
+  // GET Request for "List Questions" API
   useEffect(() => {
     axios.get(`http://18.224.37.110/qa/questions/?product_id=${questionsData.id}&count=20&page=1`)
       .then((response) => {
@@ -77,12 +97,12 @@ const QandA = (props) => {
     setSearchResults(results);
   }, [searchTerm]);
 
-  // conditional render of questions based off search filter
+  // Conditional render of questions based off search filter
   let questionView;
   if (searchTerm.length < 3) {
     questionView =
     <div>
-      {questionsData.results.slice(0, questionsLimit).map((question, i) => {
+      {questionsData.results.slice(0, questionsLimit).sort((a, b) => b.question_helpfulness - a.question_helpfulness).map((question, i) => {
         return <SingleQ key={i} question={question} questionsData={questionsData} />;
       })}
     </div>;
@@ -115,16 +135,8 @@ const QandA = (props) => {
         {/* Conditional Render of Questions List */}
         {questionView}
 
-        <Grid item xs={8} container spacing={2}>
-          <Button
-            variant="contained"
-            onClick={onLoadMore}
-            className={classes.button}
-          >
-            MORE ANSWERED QUESTIONS
-          </Button>
-          <AddQuestion />
-        </Grid>
+        {addQuestionsView}
+
       </Grid>
     </div>
   );

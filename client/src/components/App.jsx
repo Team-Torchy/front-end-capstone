@@ -23,7 +23,7 @@ class App extends Component {
         <Grid container>
           <Grid item xs={12}>
             <ProductOverview />
-            <QandA />
+            <QandA style={{"margin-left": "15px"}}/>
             <RatingReviewApp num={1} />
           </Grid>
         </Grid>

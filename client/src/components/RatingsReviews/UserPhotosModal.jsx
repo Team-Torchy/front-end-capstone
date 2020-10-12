@@ -38,9 +38,9 @@ const UserPhotosModal = (props) => {
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
-        Open Modal
-    </button>
+      <Button onClick={handleOpen}>
+        Photos
+    </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

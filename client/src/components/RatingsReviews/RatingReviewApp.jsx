@@ -23,7 +23,7 @@ class RatingReviewApp extends Component {
       currentSortString: '',
       page: 1,
       filters: {},
-    }
+    };
     this.putHelpful = this.putHelpful.bind(this);
     this.putReport = this.putReport.bind(this);
     this.sortByRating = this.sortByRating.bind(this);
@@ -57,7 +57,8 @@ class RatingReviewApp extends Component {
       })
       .catch((err) => {
         console.log(err);
-      })
+
+      });
   };
 
 
@@ -110,8 +111,8 @@ class RatingReviewApp extends Component {
       // })
       .catch((err) => {
         console.log(err);
-      })
-  };
+      });
+  }
 
   putReport(id) {
     axios.put(`http://3.137.191.193/reviews/${id}/report`)
@@ -132,7 +133,7 @@ class RatingReviewApp extends Component {
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   };
 
   postAReview(obj) {
@@ -217,9 +218,9 @@ class RatingReviewApp extends Component {
       <div>
         <Grid container spacing={2}>
           <Grid item xs={12} container direction="row">
-            <Grid item xs={2}>
+            <Grid item xs={1}>
             </Grid>
-            <Grid item xs={3} style={{ maxWidth: 300 }}>
+            <Grid item xs={4} style={{ maxWidth: 300 }}>
             </Grid>
             <Grid item xs={3} style={{ maxWidth: 148, position: 'relative', top: 3 }}>
               <Typography>{this.state.allReviewsCount} reviews, sorted by</Typography>
@@ -263,7 +264,7 @@ class RatingReviewApp extends Component {
           </Grid>
         </Grid>
       </div>
-    )
+    );
   }
 };
 

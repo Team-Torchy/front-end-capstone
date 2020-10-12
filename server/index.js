@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, '../client/public')), () => {
 });
 
 
-axios.get('http://18.224.37.110/cart')
+axios.get('http://3.137.191.193/cart')
   .then(response => {
     // console.log(response.headers);
     var cookies = response.headers['set-cookie'];
@@ -49,7 +49,7 @@ let getReposByUsername = (id, cb) => {
   // The options object has been provided to help you out,
   // but you'll have to fill in the URL
   let options = {
-    url: 'http://18.224.37.110/reviews/:' + `${id}`,
+    url: 'http://3.137.191.193/reviews/:' + `${id}`,
     headers: {
       'User-Agent': 'request',
     }
@@ -78,7 +78,7 @@ app.get('/reviews/:product_id', (req, res) => {
 
 app.get('/session', (req, res) => {
 
-  axios.get('http://18.224.37.110/?product_id=1')
+  axios.get('http://3.137.191.193/?product_id=1')
     .then(response => {
       console.log(response);
       res.send(response);

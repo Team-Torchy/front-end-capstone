@@ -10,7 +10,7 @@ import ImageGallery from './ImageGallery.jsx';
 import NavBar from './NavBar.jsx';
 
 
-const apiURL = 'http://18.224.37.110';
+const apiURL = 'http://3.137.191.193';
 
 const api = axios.create({
   baseURL: `${apiURL}/cart`,
@@ -237,7 +237,7 @@ class ProductOverview extends React.Component {
         spacing={3}
         id="OverviewContainer"
       >
-        <NavBar cart={this.state.cartList} remove={this.removeFromCart.bind(this)}/>
+        <NavBar cart={this.state.cartList} remove={this.removeFromCart.bind(this)} sku={this.state.skuId}/>
 
         <Grid item id='gallery' xs={6}>
           <ImageGallery data={this.state.galleryImages} img={this.state.imgURL} changeImg={this.changeImage.bind(this)} />

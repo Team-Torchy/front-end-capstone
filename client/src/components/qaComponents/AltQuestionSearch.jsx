@@ -37,7 +37,7 @@ const AltQuestionSearch = (props) => {
   useEffect(() => {
     axios
       .get(
-        `http://18.224.37.110/qa/questions/${props.question.question_id}/answers`
+        `http://3.137.191.193/qa/questions/${props.question.question_id}/answers`
       )
       .then((response) => {
         setAnswersData(response.data);
@@ -52,6 +52,19 @@ const AltQuestionSearch = (props) => {
   const handleYesClick = () => {
     setYesDisabled(true);
   };
+
+  let loadAnswersView;
+  if (answersLimit < answersData.results.length) {
+    loadAnswersView = (
+      <Grid item xs={12}>
+        <Button size="small" variant="text" onClick={onLoadMore}>
+          See More Answers
+        </Button>
+      </Grid>
+    );
+  } else {
+    loadAnswersView = null;
+  }
 
   return (
     <div>
@@ -84,19 +97,12 @@ const AltQuestionSearch = (props) => {
         </Grid>
 
         {/* Map over the array of answer objects */}
-        {answersData.results.slice(0, answersLimit).map((answer, i) => {
+        {answersData.results.slice(0, answersLimit).sort((a, b) => b.helpfulness - a.helpfulness).map((answer, i) => {
           return <SingleA key={i} answer={answer} />;
         })}
 
-        <Grid item xs={12}>
-          <Button
-            size='small'
-            variant='text'
-            onClick={onLoadMore}
-          >
-            Load More Answers
-          </Button>
-        </Grid>
+        {loadAnswersView}
+
       </Grid>
     </div>
   );

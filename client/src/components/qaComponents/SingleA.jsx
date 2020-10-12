@@ -5,7 +5,10 @@ import { spacing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import moment from 'moment';
+import AccurateDate from '../RatingsReviews/AccurateDate.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +46,31 @@ const SingleA = (props) => {
     setYesDisabled(true);
   };
 
+  //Conditional render of answerer name
+  let answererName;
+  if (props.answer.answerer_name.toLowerCase() === 'seller') {
+    answererName = <b>{props.answer.answerer_name}  <em>SELLER</em></b>;
+  } else {
+    answererName = props.answer.answerer_name;
+  }
+
+  //Conditional render of report button
+  let report;
+  if (reportDisabled === false) {
+    report = (
+      <Button
+        size="small"
+        variant="text"
+        disabled={reportDisabled}
+        onClick={handleReportClick}
+      >
+        Report
+      </Button>
+    );
+  } else {
+    report = <b>Reported</b>;
+  }
+
   return (
     <div>
       <Grid
@@ -65,10 +93,10 @@ const SingleA = (props) => {
             </GridListTile>
           ))}
         </GridList>
-
+        {/* {moment('props.answer.date').format('MMMM Do YYYY')} */}
         <Grid item xs={12}>
           <div className="QandA">
-            by {props.answer.answerer_name}, {props.answer.date} | Helpful?
+          by {answererName}, <AccurateDate date={props.answer.date}/> | Helpful?
             <Button
               size="small"
               variant="text"
@@ -78,14 +106,15 @@ const SingleA = (props) => {
               Yes
             </Button>
             ({props.answer.helpfulness}) |
-            <Button
+            {report}
+            {/* <Button
               size="small"
               variant="text"
               disabled={reportDisabled}
               onClick={handleReportClick}
             >
               Report
-            </Button>
+            </Button> */}
           </div>
         </Grid>
       </Grid>

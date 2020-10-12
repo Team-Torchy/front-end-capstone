@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 const AddAReview = (props) => {
 
   const validate = values => {
-    console.log(values, 'this is value')
+
     const errors = {};
     if (!values.rating) {
       errors.rating = 'Required';
@@ -105,8 +105,8 @@ const AddAReview = (props) => {
         .required('required'),
     }),
     onSubmit: values => {
-      props.postAReview(values);
-      alert(JSON.stringify(values, null, 2));
+      props.postAReview({product_id: props.id, rating: Number(values.rating), summary: values.summary, body: values.body, recommend: values.recommended, name: values.nickname, email: values.email, characteristics: values.characteristics});
+      // alert(JSON.stringify(values, null, 2));
     },
   });
 
@@ -128,11 +128,11 @@ const AddAReview = (props) => {
             <Grid item xs={12} key={i}>
               <Typography caption="body1">{x[0]}*</Typography>
               <RadioGroup required id="characteristics" name="characteristics" row aria-label="position" name="position" defaultValue="top" onChange={formik.handleChange} >
-                <FormControlLabel value="1" control={<Radio color="primary" />} label="1" onClick={(e) => { formik.values.characteristics[x[1].id] = e.target.value; validate(formik.values) }} />
-                <FormControlLabel value="2" control={<Radio color="primary" />} label="2" onClick={(e) => { formik.values.characteristics[x[1].id] = e.target.value; validate(formik.values) }} />
-                <FormControlLabel value="3" control={<Radio color="primary" />} label="3" onClick={(e) => { formik.values.characteristics[x[1].id] = e.target.value; validate(formik.values) }} />
-                <FormControlLabel value="4" control={<Radio color="primary" />} label="4" onClick={(e) => { formik.values.characteristics[x[1].id] = e.target.value; validate(formik.values) }} />
-                <FormControlLabel value="5" control={<Radio color="primary" />} label="5" onClick={(e) => { formik.values.characteristics[x[1].id] = e.target.value; validate(formik.values) }} />
+                <FormControlLabel value="1" control={<Radio color="primary" />} label="1" onClick={(e) => { formik.values.characteristics[x[1].id] = Number(e.target.value); validate(formik.values) }} />
+                <FormControlLabel value="2" control={<Radio color="primary" />} label="2" onClick={(e) => { formik.values.characteristics[x[1].id] = Number(e.target.value); validate(formik.values) }} />
+                <FormControlLabel value="3" control={<Radio color="primary" />} label="3" onClick={(e) => { formik.values.characteristics[x[1].id] = Number(e.target.value); validate(formik.values) }} />
+                <FormControlLabel value="4" control={<Radio color="primary" />} label="4" onClick={(e) => { formik.values.characteristics[x[1].id] = Number(e.target.value); validate(formik.values) }} />
+                <FormControlLabel value="5" control={<Radio color="primary" />} label="5" onClick={(e) => { formik.values.characteristics[x[1].id] = Number(e.target.value); validate(formik.values) }} />
               </RadioGroup>
               {formBool(x[1].id)}
             </Grid>
@@ -150,6 +150,7 @@ const AddAReview = (props) => {
         aria-describedby="transition-modal-description"
         className={classes.modal}
         open={open}
+        overflow= "scroll"
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -185,7 +186,7 @@ const AddAReview = (props) => {
                   <Typography caption="body1">Do you recommend this product?*</Typography>
                   <RadioGroup row aria-label="position" name="position" defaultValue="top" onChange={formik.handleChange}>
                     <FormControlLabel value="true" control={<Radio color="primary" />} label="Yes" onClick={(e) => { formik.values.recommended = Boolean(e.target.value); validate(formik.values) }} />
-                    <FormControlLabel value="false" control={<Radio color="primary" />} label="No" onClick={(e) => { formik.values.recommended = Boolean(e.target.value); validate(formik.values) }} />
+                    <FormControlLabel value="false" control={<Radio color="primary" />} label="No" onClick={(e) => { formik.values.recommended = !Boolean(e.target.value); validate(formik.values) }} />
                   </RadioGroup>
                   {formik.errors.recommended ? <Typography variant="caption">{formik.errors.recommended}</Typography> : null}
                 </Grid>

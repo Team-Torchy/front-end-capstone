@@ -29,6 +29,7 @@ class RatingReviewApp extends Component {
     this.sortByRating = this.sortByRating.bind(this);
     this.changeReviewOrRating = this.changeReviewOrRating.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.postAReview = this.postAReview.bind(this);
   }
   componentDidMount() {
     this.getReviews();
@@ -137,7 +138,29 @@ class RatingReviewApp extends Component {
   };
 
   postAReview(obj) {
-    console.log(obj);
+    // console.log(obj);
+    axios.post(`http://3.137.191.193/reviews`, obj)
+    .then((data) => {
+      const all = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.product_id}&count=${3000000}`);
+      const newest = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.product_id}&count=${3000000}&sort=newest`);
+      const relevance = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.product_id}&count=${3000000}%sort=relevant`);
+      const helpful = axios.get(`http://3.137.191.193/reviews/?product_id=${this.state.product_id}&count=${3000000}&sort=helpful`);
+      const meta = axios.get(`http://3.137.191.193/reviews/meta/?product_id=${this.state.product_id}`);
+      axios.all([all, newest, relevance, helpful, meta]).then(axios.spread((...responses) => {
+        this.setState({
+          reviewData: responses[0].data.results,
+          newestData: responses[1].data.results,
+          relevanceData: responses[2].data.results,
+          helpfulData: responses[3].data.results,
+          allReviewsCount: responses[0].data.results.length,
+          metaData: responses[4].data
+        })
+        this.reviewOrRatingData(this.state.currentSortString, this.state.filters);
+      }))
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   };
 
   changeReviewOrRating() {
@@ -218,9 +241,9 @@ class RatingReviewApp extends Component {
       <div>
         <Grid container spacing={2}>
           <Grid item xs={12} container direction="row">
-            <Grid item xs={1}>
+            <Grid item xs={2}>
             </Grid>
-            <Grid item xs={4} style={{ maxWidth: 300 }}>
+            <Grid item xs={3} style={{ maxWidth: 300 }}>
             </Grid>
             <Grid item xs={3} style={{ maxWidth: 148, position: 'relative', top: 3 }}>
               <Typography>{this.state.allReviewsCount} reviews, sorted by</Typography>
@@ -259,7 +282,7 @@ class RatingReviewApp extends Component {
               {lengthTest ? <Button style={{ float: 'right' }} variant="outlined" onClick={() => this.getPaginatedReviews()}>MORE REVIEWS</Button> : null}
             </Grid>
             <Grid item xs={6}>
-              {metaData ? <AddAReview style={{ float: 'left' }} postAReview={this.postAReview} meta={metaData} /> : null}
+              {metaData ? <AddAReview style={{ float: 'left' }} postAReview={this.postAReview} meta={metaData} id={this.state.product_id}/> : null}
             </Grid>
           </Grid>
         </Grid>

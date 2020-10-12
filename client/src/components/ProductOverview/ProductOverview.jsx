@@ -30,7 +30,7 @@ class ProductOverview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: 1,
+      productId: 4,
       skuId: 1,
       productData: {},
       styleList: [],

@@ -30,7 +30,7 @@ class NavBar extends React.Component {
             </Grid>
             <Grid item xs={2} >
               <Button id='cart' onClick={this.handleShow.bind(this)}>
-                  <ShoppingCart id="cartButton" style={{'fill': 'white'}}></ShoppingCart>
+                <ShoppingCart id="cartButton" style={{'fill': 'white'}}></ShoppingCart>
               </Button>
             </Grid>
           </span>

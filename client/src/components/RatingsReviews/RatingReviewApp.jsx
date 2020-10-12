@@ -49,7 +49,7 @@ class RatingReviewApp extends Component {
         newestData: responses[2].data.results,
         relevanceData: responses[3].data.results,
         helpfulData: responses[4].data.results
-      })
+      });
     }))
       .then(() => {
         console.log(this.state.reviewData);
@@ -72,7 +72,7 @@ class RatingReviewApp extends Component {
       } else {
         this.setState({
           lengthTest: false
-        })
+        });
         return;
       }
     }
@@ -80,12 +80,12 @@ class RatingReviewApp extends Component {
       this.setState({
         lengthTest: false,
         page: page
-      })
+      });
     } else {
       this.setState({
         lengthTest: true,
         page: page
-      })
+      });
     }
   };
 
@@ -102,9 +102,9 @@ class RatingReviewApp extends Component {
             newestData: responses[1].data.results,
             relevanceData: responses[2].data.results,
             helpfulData: responses[3].data.results
-          })
+          });
           this.reviewOrRatingData(this.state.currentSortString, this.state.filters);
-        }))
+        }));
       })
       // .then(() => {
       //   this.reviewOrRatingData(this.state.currentSortString, this.state.filters);
@@ -127,9 +127,9 @@ class RatingReviewApp extends Component {
             newestData: responses[1].data.results,
             relevanceData: responses[2].data.results,
             helpfulData: responses[3].data.results
-          })
+          });
           this.reviewOrRatingData(this.state.currentSortString, this.state.filters);
-        }))
+        }));
       })
       .catch((err) => {
         console.log(err);
@@ -143,7 +143,7 @@ class RatingReviewApp extends Component {
   changeReviewOrRating() {
     this.setState({
       filters: {}
-    })
+    });
     this.reviewOrRatingData(this.state.currentSortString, {});
   };
 
@@ -152,7 +152,7 @@ class RatingReviewApp extends Component {
       currentSortString: e.target.value,
       page: 1,
       lengthTest: true
-    })
+    });
     this.reviewOrRatingData(e.target.value, this.state.filters);
   };
 
@@ -167,7 +167,7 @@ class RatingReviewApp extends Component {
           delete filters[x];
           bool = true;
         }
-      })
+      });
     }
     if (!bool) {
       filters[num] = true;
@@ -176,19 +176,19 @@ class RatingReviewApp extends Component {
       filters: filters,
       page: 1,
       lengthTest: true
-    })
+    });
     this.reviewOrRatingData(this.state.currentSortString, filters);
-  };
+  }
 
   reviewOrRatingData(val, filters) {
     var data = false;
     var filter = Object.keys(filters);
     var rating = [];
     var count = 0;
-    if (val === "") { data = this.state.reviewData }
-    if (val === "relevant") { data = this.state.relevanceData }
-    if (val === "helpful") { data = this.state.helpfulData }
-    if (val === "newest") { data = this.state.newestData }
+    if (val === "") { data = this.state.reviewData; }
+    if (val === "relevant") { data = this.state.relevanceData; }
+    if (val === "helpful") { data = this.state.helpfulData; }
+    if (val === "newest") { data = this.state.newestData; }
 
     if (filter.length) {
       for (var i = 0; i < data.length; i++) {
@@ -204,13 +204,13 @@ class RatingReviewApp extends Component {
     if (rating.length) {
       this.setState({
         mainData: rating
-      })
+      });
     } else {
       this.setState({
         mainData: data
-      })
+      });
     }
-  };
+  }
 
   render() {
     const { reviewData, bool, lengthTest, metaData, filters } = this.state;
@@ -266,7 +266,7 @@ class RatingReviewApp extends Component {
       </div>
     );
   }
-};
+}
 
 export default RatingReviewApp;
 

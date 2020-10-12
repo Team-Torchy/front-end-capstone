@@ -12,7 +12,7 @@ var CartList = ({ cart, remove, sku }) => {
         for (var key in item.skus) {
           // console.log(Number(key), '<-----', sku)
           if (Number(key) === sku) {
-            var size = item.skus[key].size
+            var size = item.skus[key].size;
             // console.log(item.skus[key].size)
           }
         }

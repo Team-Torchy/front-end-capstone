@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
   },
   gridList: {
-    flexWrap: 'nowrap',
+    flexWrap: 'wrap',
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
   },
@@ -86,14 +86,13 @@ const SingleA = (props) => {
         </Grid>
 
         {/* map over images in answer */}
-        <GridList className={classes.gridList} cols={2.5}>
+        <GridList className={classes.gridList} cols={3}>
           {props.answer.photos.map((image, i) => (
             <GridListTile key={i}>
               <img className="QandA" src={image.url} />
             </GridListTile>
           ))}
         </GridList>
-        {/* {moment('props.answer.date').format('MMMM Do YYYY')} */}
         <Grid item xs={12}>
           <div className="QandA">
           by {answererName}, <AccurateDate date={props.answer.date}/> | Helpful?

@@ -101,7 +101,7 @@ const QandA = (props) => {
   let questionView;
   if (searchTerm.length < 3) {
     questionView =
-    <div>
+    <div justify='space-between'>
       {questionsData.results.slice(0, questionsLimit).sort((a, b) => b.question_helpfulness - a.question_helpfulness).map((question, i) => {
         return <SingleQ key={i} question={question} />;
       })}
@@ -117,7 +117,8 @@ const QandA = (props) => {
 
   return (
     <div>
-      <Grid container direction="column">
+      <Grid item xs={2}></Grid>
+      <Grid container xs={12}direction="column">
         <Grid item xs={4}>
           QUESTIONS {"&"} ANSWERS
         </Grid>
@@ -135,6 +136,7 @@ const QandA = (props) => {
 
         {addQuestionsView}
       </Grid>
+      <Grid item xs={2}></Grid>
     </div>
   );
 };

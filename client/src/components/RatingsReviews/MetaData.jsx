@@ -5,6 +5,7 @@ import { Chart, BarSeries } from '@devexpress/dx-react-chart-material-ui';
 import { Stack } from '@devexpress/dx-react-chart';
 
 const MetaData = (props) => {
+  console.log(props.meta);
   const [hovered, setHovered] = useState({ hovered: false });
 
   const onMouseEnter = e => {
@@ -25,6 +26,7 @@ const MetaData = (props) => {
         voteTotal += ratings[i];
       }
     }
+    // http://18.224.37.110
     return JSON.stringify(starTotal / voteTotal).slice(0, 3);
   };
 
@@ -42,7 +44,7 @@ const MetaData = (props) => {
     return (
       Object.keys(props.filters).map((x, i) => (
         <Grid item xs={12} key={i}>
-          <Typography variant="caption">{x}</Typography>
+          <Typography variant="caption">{`${x} stars`}</Typography>
         </Grid>
       ))
     )

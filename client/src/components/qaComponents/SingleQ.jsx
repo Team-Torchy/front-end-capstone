@@ -36,7 +36,7 @@ const SingleQ = (props) => {
 
   const classes = useStyles();
   const [helpfulCount, setHelpfulCount] = useState(props.question.question_helpfulness);
-  const [answersData, setAnswersData] = useState({ results: [], question: 1 });
+  const [answersData, setAnswersData] = useState({ results: [], question: 3 });
   const [yesDisabled, setYesDisabled] = useState(false);
   const [answersLimit, setAnswersLimit] = useState(2);
 
@@ -80,7 +80,7 @@ const SingleQ = (props) => {
         <Grid container spacing={1} direction='column' justify='space-between'>
           <Grid item xs={12} container>
             <Grid item xs={5}>
-              <div className='QandA'>Q: {props.question.question_body}</div>
+              <div className='QandA'><b>Q: {props.question.question_body}</b></div>
             </Grid>
             <Grid item xs={5}></Grid>
             <Grid item xs={2}>

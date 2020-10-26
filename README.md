@@ -8,23 +8,7 @@
 
   - https://github.com/Team-Tatsu-ya/i-do-my-turn-on-project-catwalk
   - https://github.com/teamtitos/front-end-capstone
-
-## Table of Contents
-
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
-
-## Usage
-
-> To use this app, please run `npm run start` from the root directory. This will launch a server on [localhost](localhost:3000).
-
-> To build JSX files, please run `npm run build:dev` from the client folder. Webpack will now be listening for changes.
-
-> To see changes rendering, please update state OR refresh the page upon change.
-
-> Deployment achieved by `npm run build`. This is the production mode build of webpack, and will take some more time to deploy.
-
+  
 ## Technologies Used
 
 - Node 6.13.0
@@ -35,6 +19,16 @@
 - React, ReactDOM
 - Nodemon
 - Axios
+  
+## Usage
+
+> To use this app, please run `npm run start` from the root directory. This will launch a server on [localhost](localhost:3000).
+
+> To build JSX files, please run `npm run build:dev` from the client folder. Webpack will now be listening for changes.
+
+> To see changes rendering, please update state OR refresh the page upon change.
+
+> Deployment achieved by `npm run build`. This is the production mode build of webpack, and will take some more time to deploy.
 
 ## Images and Examples
 

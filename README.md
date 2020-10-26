@@ -1,4 +1,4 @@
-# Project Name
+# Torchy's Haberdashery
 
 > Welcome to Torchy's Haberdashery, a 3-week project created by Alec Brock (Reviews), Brandon Bates (Product Overview), and Grant Harris (Questions and Answers). It was a project completed as Seniors at Hack Reactor during the HRATX51 cohort. It uses an external API provided by Hack Reactor to provide product information, reviews, questions, and the cart data. It utilizes React, with both class components and utilizing React Hooks. It also utilizes an express server in order to server the static client files to the user.
 
@@ -25,9 +25,7 @@
 
 > Deployment achieved by `npm run build`. This is the production mode build of webpack, and will take some more time to deploy.
 
-## Requirements
-
-An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
+## Technologies Used
 
 - Node 6.13.0
 - Webpack
@@ -38,7 +36,13 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 - Nodemon
 - Axios
 
-## Development
+## Images and Examples
+
+Images below taken during production
+
+![Product Overview](https://github.com/Banjo1224/Pics/blob/master/fec/productOver.png)
+![Product Overview Cart](https://github.com/Banjo1224/Pics/blob/master/fec/cart.png)
+![Product Overview Code Snippet](https://github.com/Banjo1224/Pics/blob/master/fec/code_snip.png)
 
 ### Installing Dependencies
 
